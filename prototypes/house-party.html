@@ -1,0 +1,855 @@
+<!doctype html><html lang="en"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>House Party Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a phone frame on a cool paper stage, flanked by a prototype control desk (left) and a live API/event log (right). Riso blue ink with a fluorescent pink pop. */
+:root{
+  --paper:#F2F3F8; --surface:#FFFFFF; --sunk:#E9EBF3; --ink:#15172A; --muted:#5C6178; --line:#DDE0EB;
+  --accent:#2F47D0; --accent-ink:#FFFFFF; --tint:#E6E9FC; --pop:#E93D92; --pop-tint:#FDE4F0;
+  --ok:#17804F; --ok-tint:#DDF3E8; --warn:#9A6200; --warn-tint:#FCEFD6; --bad:#C53030; --bad-tint:#FBE3E3;
+  --frame:#15172A; --scrim:rgba(14,15,26,.45); --shadow:0 18px 50px rgba(21,23,42,.14);
+  --f-display:"Bricolage Grotesque", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0D0E18; --surface:#171929; --sunk:#10111D; --ink:#ECEDF7; --muted:#9CA1BA; --line:#2A2D45;
+  --accent:#8594FF; --accent-ink:#0D0E18; --tint:#20254F; --pop:#FF6DB6; --pop-tint:#3A1A30;
+  --ok:#4DC98E; --ok-tint:#123326; --warn:#E6AE4B; --warn-tint:#3A2C10; --bad:#FF7272; --bad-tint:#3D1717;
+  --frame:#2E3150; --scrim:rgba(0,0,0,.6); --shadow:0 18px 50px rgba(0,0,0,.5); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0D0E18; --surface:#171929; --sunk:#10111D; --ink:#ECEDF7; --muted:#9CA1BA; --line:#2A2D45;
+  --accent:#8594FF; --accent-ink:#0D0E18; --tint:#20254F; --pop:#FF6DB6; --pop-tint:#3A1A30;
+  --ok:#4DC98E; --ok-tint:#123326; --warn:#E6AE4B; --warn-tint:#3A2C10; --bad:#FF7272; --bad-tint:#3D1717;
+  --frame:#2E3150; --scrim:rgba(0,0,0,.6); --shadow:0 18px 50px rgba(0,0,0,.5); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45}
+button{font:inherit;color:inherit;cursor:pointer}
+button:disabled{cursor:not-allowed}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stage{display:grid;grid-template-columns:minmax(230px,290px) auto minmax(250px,330px);gap:28px;justify-content:center;align-items:start;padding-block:28px 40px;padding-inline:20px}
+@media (max-width:1180px){.stage{grid-template-columns:minmax(230px,300px) auto}.log{grid-column:1/-1;max-width:760px;justify-self:center;width:100%}}
+@media (max-width:820px){.stage{grid-template-columns:minmax(0,1fr);padding-inline:12px;gap:18px}.devicewrap{order:-1}.panel,.log{max-width:520px;width:100%;justify-self:center;grid-column:auto}}
+
+/* control desk */
+.panel,.log{display:flex;flex-direction:column;gap:18px;min-width:0}
+.brand{display:flex;flex-direction:column;gap:4px}
+.brand h1{font-family:var(--f-display);font-weight:800;font-size:26px;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.brand h1 span{color:var(--pop)}
+.brand p{margin:0;color:var(--muted);font-size:13px}
+.desk{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.desk h2{margin:0;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.seg{display:flex;background:var(--sunk);border-radius:10px;padding:3px;gap:3px}
+.seg button{flex:1;border:0;background:transparent;border-radius:8px;padding:7px 6px;font-size:13px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.seg button small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
+.toggle{display:flex;align-items:flex-start;gap:10px;font-size:13px}
+.toggle input{margin-top:3px;accent-color:var(--accent)}
+.toggle b{font-weight:600}
+.toggle span{color:var(--muted)}
+.lbl{font-size:12px;font-weight:600;color:var(--muted)}
+.chipbtns{display:flex;flex-wrap:wrap;gap:6px}
+.chipbtns button,.ghost{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 11px;font-size:12.5px;font-weight:600}
+.chipbtns button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chipbtns button:hover,.ghost:hover{border-color:var(--accent)}
+.scen{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;font-size:13px;color:var(--ink)}
+.scen li::marker{color:var(--pop);font-weight:700}
+.scen em{font-style:normal;color:var(--muted)}
+
+/* log */
+.logbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;font-family:var(--f-mono);font-size:11.5px;line-height:1.5;max-height:720px;overflow:auto;display:flex;flex-direction:column;gap:8px}
+.logrow{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px;padding-bottom:8px;border-bottom:1px dashed var(--line)}
+.logrow:last-child{border-bottom:0}
+.logrow time{color:var(--muted)}
+.logrow .m{word-break:break-word}
+.lt-api .m{color:var(--accent)} .lt-ok .m{color:var(--ok)} .lt-err .m{color:var(--bad)} .lt-evt .m{color:var(--pop)} .lt-info .m{color:var(--muted)}
+.loghead{display:flex;justify-content:space-between;align-items:center}
+.loghead h2{margin:0;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+
+/* device */
+.devicewrap{display:flex;justify-content:center;min-width:0}
+.device{width:390px;height:800px;border:10px solid var(--frame);border-radius:46px;background:var(--paper);position:relative;overflow:hidden;box-shadow:var(--shadow);max-width:100%}
+@media (max-width:820px){.device{width:100%;max-width:430px;height:min(820px,86svh);border-width:1px;border-radius:26px}}
+#app{position:absolute;inset:0;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;background:var(--paper);position:relative;z-index:2}
+.top h2{margin:0;flex:1;font-family:var(--f-display);font-weight:800;font-size:17px;letter-spacing:-.01em;text-align:center;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top.home h2{text-align:left;font-size:30px}
+.iconbtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:none;position:relative}
+.iconbtn svg{width:18px;height:18px}
+.iconbtn.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.iconbtn .dot{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;border-radius:9px;background:var(--pop);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center;padding:0 4px;border:2px solid var(--paper)}
+.spacer{width:38px;flex:none}
+.content{flex:1;overflow-y:auto;overflow-x:hidden;padding:4px 16px 24px;display:flex;flex-direction:column;gap:16px}
+.content.flush{padding-top:0}
+.bottombar{padding:12px 16px 16px;border-top:1px solid var(--line);background:var(--surface);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* buttons */
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:1}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.dark{background:var(--ink);color:var(--paper)}
+.btn.soft{background:var(--sunk);color:var(--ink)}
+.btn.danger{background:var(--bad);color:#fff}
+.btn.textbtn{background:transparent;color:var(--muted)}
+.btn:disabled{opacity:.55}
+.btn svg{width:17px;height:17px}
+
+/* home */
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);padding-bottom:0}
+.tabs button{border:0;background:none;padding:8px 4px 10px;margin-right:12px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;font-size:14px;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs .n{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-left:3px}
+.cards{display:flex;flex-direction:column;gap:14px}
+.card{border:1px solid var(--line);background:var(--surface);border-radius:18px;overflow:hidden;text-align:left;padding:0;display:flex;flex-direction:column;width:100%}
+.card .cv{height:92px;position:relative;padding:10px}
+.card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px}
+.card h3{margin:0;font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.01em}
+.card .meta{color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 10px}
+.card .row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.card.cancelled h3{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--bad)}
+.empty{border:1.5px dashed var(--line);border-radius:18px;padding:28px 18px;text-align:center;color:var(--muted);display:flex;flex-direction:column;gap:12px;align-items:center}
+.empty b{color:var(--ink);font-size:16px}
+
+/* covers */
+.cover-c1{background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.28) 0 2.5px,transparent 3.5px) 0 0/26px 26px,linear-gradient(135deg,#F0428F,#FF9A3D)}
+.cover-c2{background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.25) 0 2.5px,transparent 3.5px) 0 0/26px 26px,linear-gradient(135deg,#2F47D0,#9A5CF5)}
+.cover-c3{background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.25) 0 2.5px,transparent 3.5px) 0 0/26px 26px,linear-gradient(160deg,#0FA3A3,#1B3B8A)}
+.cover-c4{background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.3) 0 2.5px,transparent 3.5px) 0 0/26px 26px,linear-gradient(135deg,#F7B733,#F0443A)}
+.cover-c5{background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.2) 0 2.5px,transparent 3.5px) 0 0/26px 26px,linear-gradient(135deg,#24253B,#7A2E8E)}
+.cover-c6{background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.25) 0 2.5px,transparent 3.5px) 0 0/26px 26px,linear-gradient(135deg,#2FBF88,#0E5E62)}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 9px;font-size:11.5px;font-weight:700;letter-spacing:.02em;background:var(--sunk);color:var(--ink);white-space:nowrap}
+.chip.onimg{background:rgba(15,16,30,.55);color:#fff;backdrop-filter:blur(6px)}
+.chip.s-DRAFT{background:var(--warn-tint);color:var(--warn)}
+.chip.s-PUBLISHED{background:var(--tint);color:var(--accent)}
+.chip.s-ACTIVE{background:var(--pop-tint);color:var(--pop)}
+.chip.s-COMPLETED{background:var(--sunk);color:var(--muted)}
+.chip.s-CANCELLED{background:var(--bad-tint);color:var(--bad)}
+.chip.r-GOING{background:var(--ok-tint);color:var(--ok)}
+.chip.r-MAYBE{background:var(--warn-tint);color:var(--warn)}
+.chip.r-NOT_GOING{background:var(--sunk);color:var(--muted)}
+.chip.r-PENDING{background:var(--pop-tint);color:var(--pop)}
+.chip .pip{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* details */
+.hero{height:230px;margin:0 -16px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:16px 18px 18px;color:#fff}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(10,10,20,.55))}
+.hero>*{position:relative;z-index:1}
+.hero h1{margin:6px 0 2px;font-family:var(--f-display);font-weight:800;font-size:31px;line-height:1.02;letter-spacing:-.02em;text-wrap:balance}
+.hero .host{font-size:13.5px;opacity:.92}
+.hero .chips{display:flex;gap:6px;flex-wrap:wrap}
+.floattop{position:absolute;top:14px;left:16px;right:16px;display:flex;justify-content:space-between;z-index:3}
+.floattop .iconbtn{background:rgba(15,16,30,.45);color:#fff;border-color:transparent;backdrop-filter:blur(6px)}
+.facts{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.fact{display:flex;gap:12px;align-items:center;padding:12px 14px;border-top:1px solid var(--line);min-width:0}
+.fact:first-child{border-top:0}
+.fact .ic{width:36px;height:36px;border-radius:10px;background:var(--sunk);display:grid;place-items:center;flex:none;color:var(--muted)}
+.fact .ic svg{width:18px;height:18px}
+.fact b{display:block;font-weight:600}
+.fact span{color:var(--muted);font-size:13px}
+.fact>div{min-width:0}
+.caltile{width:40px;border-radius:9px;overflow:hidden;border:1px solid var(--line);text-align:center;flex:none;background:var(--surface)}
+.caltile i{display:block;font-style:normal;background:var(--pop);color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.08em;padding:2px 0}
+.caltile b{display:block;font-family:var(--f-display);font-size:18px;line-height:1.3}
+.sec{display:flex;flex-direction:column;gap:8px}
+.sec h3{margin:0;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.sec p{margin:0;white-space:pre-wrap}
+.rsvp{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.rsvp .q{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600}
+.rsvpbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.rsvpbtns button{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:600;font-size:13.5px}
+.rsvpbtns button svg{width:20px;height:20px}
+.rsvpbtns button[aria-pressed="true"].g{border-color:var(--ok);background:var(--ok-tint);color:var(--ok)}
+.rsvpbtns button[aria-pressed="true"].m{border-color:var(--warn);background:var(--warn-tint);color:var(--warn)}
+.rsvpbtns button[aria-pressed="true"].n{border-color:var(--muted);background:var(--sunk)}
+.rsvpbtns button.busy{opacity:.6}
+.rsvp small{color:var(--muted);font-size:12.5px}
+.faces{display:flex;align-items:center;gap:10px}
+.pile{display:flex}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;border:2px solid var(--surface);flex:none}
+.pile .av+.av{margin-left:-9px}
+.banner{border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;font-size:13.5px}
+.banner svg{width:18px;height:18px;flex:none;margin-top:1px}
+.banner b{display:block}
+.banner .ch{font-family:var(--f-mono);font-size:12px;margin-top:4px;display:block}
+.banner.info{background:var(--tint);color:var(--accent)} .banner.info div{color:var(--ink)}
+.banner.warn{background:var(--warn-tint)} .banner.warn svg{color:var(--warn)}
+.banner.bad{background:var(--bad-tint)} .banner.bad svg{color:var(--bad)}
+.banner.pop{background:var(--pop-tint)} .banner.pop svg{color:var(--pop)}
+.banner .act{margin-top:8px}
+.stat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.stat div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column}
+.stat b{font-family:var(--f-display);font-size:22px;font-variant-numeric:tabular-nums}
+.stat span{font-size:11.5px;color:var(--muted);font-weight:600}
+.capbar{height:6px;border-radius:3px;background:var(--sunk);overflow:hidden}
+.capbar i{display:block;height:100%;background:var(--ok)}
+
+/* forms */
+.form{display:flex;flex-direction:column;gap:20px}
+.group{display:flex;flex-direction:column;gap:12px}
+.group>h3{margin:0;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label{font-weight:600;font-size:13.5px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.field .req{color:var(--pop)}
+.tag{font-size:10.5px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--pop-tint);color:var(--pop);letter-spacing:.02em}
+.edited{font-size:10.5px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--tint);color:var(--accent);display:none}
+.field.is-dirty .edited{display:inline-block}
+.was{font-size:12px;color:var(--muted);display:none;font-family:var(--f-mono)}
+.field.is-dirty .was{display:block}
+.inp{width:100%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:11px;padding:11px 12px;font:inherit;font-size:15px;min-width:0}
+.inp:focus{outline:none;border-color:var(--accent)}
+textarea.inp{min-height:84px;resize:vertical}
+.field.has-err .inp{border-color:var(--bad)}
+.err{color:var(--bad);font-size:12.5px;font-weight:600;display:flex;gap:5px;align-items:flex-start}
+.row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.swatches button{width:44px;height:44px;border-radius:12px;border:3px solid transparent;padding:0}
+.swatches button[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--surface) inset}
+.radios{display:flex;flex-direction:column;gap:8px}
+.radios label{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:11px;padding:10px 12px;font-weight:600;background:var(--surface)}
+.radios label span{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+.radios input{accent-color:var(--accent);margin-top:3px}
+.radios label:has(input:checked){border-color:var(--accent)}
+.changebar{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.changebar b{color:var(--ink)}
+.notifylow{display:flex;gap:8px;align-items:center;font-size:13px;width:100%}
+.notifylow input{accent-color:var(--accent)}
+
+/* lists */
+.list{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.li{display:flex;gap:12px;align-items:center;padding:11px 14px;border-top:1px solid var(--line);text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;width:100%}
+.li:first-child{border-top:0}
+.li .t{flex:1;min-width:0}
+.li .t b{display:block;font-weight:600}
+.li .t span{font-size:12.5px;color:var(--muted)}
+.li.unread{background:var(--tint)}
+.li.unread:first-child{border-radius:16px 16px 0 0}
+.nicon{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex:none}
+.nicon svg{width:17px;height:17px}
+.nicon.upd{background:var(--tint);color:var(--accent)} .nicon.can{background:var(--bad-tint);color:var(--bad)} .nicon.inv{background:var(--pop-tint);color:var(--pop)}
+.hist{display:flex;flex-direction:column;gap:12px}
+.hitem{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.hitem header{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.hitem header b{color:var(--ink);font-family:var(--f-mono);font-size:12px}
+.hdiff{display:grid;grid-template-columns:minmax(80px,auto) minmax(0,1fr);gap:4px 10px;font-size:13px}
+.hdiff dt{color:var(--muted);font-weight:600}
+.hdiff dd{margin:0;min-width:0;word-break:break-word}
+.hdiff s{color:var(--muted)}
+.hdiff .arr{color:var(--pop);font-weight:700;margin:0 4px}
+
+/* overlays */
+.scrim{position:absolute;inset:0;background:var(--scrim);z-index:20;display:flex;align-items:flex-end;animation:fade .15s ease}
+.scrim.center{align-items:center;justify-content:center;padding:20px}
+.sheet{background:var(--surface);width:100%;border-radius:24px 24px 0 0;padding:10px 16px 20px;display:flex;flex-direction:column;gap:12px;animation:up .22s ease}
+.sheet .grab{width:40px;height:5px;border-radius:3px;background:var(--line);align-self:center}
+.sheet h3,.modal h3{margin:0;font-family:var(--f-display);font-weight:800;font-size:21px;letter-spacing:-.01em}
+.modal{background:var(--surface);border-radius:22px;padding:20px;width:100%;display:flex;flex-direction:column;gap:12px;animation:pop .18s ease;max-height:100%;overflow:auto}
+.modal p,.sheet p{margin:0;color:var(--muted);font-size:14px}
+.modal .btns,.sheet .btns{display:flex;gap:10px;margin-top:4px}
+.mic{width:44px;height:44px;border-radius:50%;display:grid;place-items:center}
+.mic svg{width:22px;height:22px}
+.mic.warn{background:var(--pop-tint);color:var(--pop)} .mic.bad{background:var(--bad-tint);color:var(--bad)} .mic.info{background:var(--tint);color:var(--accent)}
+.diffbox{border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column}
+.diffbox div{padding:10px 12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.diffbox div:first-child{border-top:0}
+.diffbox dt{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.diffbox dd{margin:0;font-weight:600}
+.diffbox s{color:var(--muted);font-weight:400}
+.diffbox .arr{color:var(--pop);margin:0 6px}
+.menu{display:flex;flex-direction:column}
+.menu button{display:flex;align-items:center;gap:12px;padding:13px 4px;border:0;border-top:1px solid var(--line);background:none;text-align:left;font-weight:600}
+.menu button:first-child{border-top:0}
+.menu button svg{width:19px;height:19px;color:var(--muted)}
+.menu button.danger,.menu button.danger svg{color:var(--bad)}
+.menu button span{display:block;font-weight:400;font-size:12.5px;color:var(--muted)}
+.menu button:disabled{opacity:.45}
+.linkbox{display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:6px 6px 6px 12px;font-family:var(--f-mono);font-size:12.5px}
+.linkbox span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:all}
+.linkbox button{border:0;background:var(--ink);color:var(--paper);border-radius:8px;padding:8px 12px;font-weight:700;font-family:var(--f-body)}
+.toast{position:absolute;left:16px;right:16px;top:16px;z-index:40;background:var(--ink);color:var(--paper);border-radius:14px;padding:12px 14px;font-weight:600;font-size:14px;display:flex;gap:10px;align-items:center;box-shadow:var(--shadow);animation:drop .2s ease}
+.toast svg{width:18px;height:18px;flex:none}
+.toast.bad{background:var(--bad);color:#fff}
+.lock{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:60px 20px;color:var(--muted)}
+.lock b{color:var(--ink);font-family:var(--f-display);font-size:22px}
+.lock .code{font-family:var(--f-mono);font-size:12px;background:var(--sunk);padding:3px 8px;border-radius:6px}
+.spin{width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:rot .7s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+@keyframes fade{from{opacity:0}}
+@keyframes up{from{transform:translateY(40px);opacity:.6}}
+@keyframes pop{from{transform:scale(.96);opacity:.6}}
+@keyframes drop{from{transform:translateY(-10px);opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+
+<div class="stage">
+  <aside class="panel" aria-label="Prototype controls">
+    <div class="brand">
+      <h1>House Party<span>.</span></h1>
+      <p>Front-end prototype of the PRD v1.0 MVP. Everything runs in the page with simulated API calls.</p>
+    </div>
+    <div class="desk">
+      <h2>Viewing as</h2>
+      <div class="seg" id="viewerSeg"></div>
+    </div>
+    <div class="desk">
+      <h2>Simulate on next save</h2>
+      <label class="toggle"><input type="checkbox" id="simConflict"><div><b>Version conflict</b><br><span>Another session saved first → 409</span></div></label>
+      <label class="toggle"><input type="checkbox" id="simTimeout"><div><b>Network timeout</b><br><span>Saved on the server, but no response</span></div></label>
+      <div class="lbl">Notification delivery</div>
+      <div class="chipbtns" id="notifSim"></div>
+    </div>
+    <div class="desk">
+      <h2>Rooftop Jollof Night lifecycle</h2>
+      <div class="chipbtns" id="lifeSim"></div>
+      <div class="lbl">Access checks</div>
+      <div class="chipbtns">
+        <button id="openByLink">Open party by link</button>
+        <button id="forceEdit">Force-open Edit</button>
+      </div>
+    </div>
+    <div class="desk">
+      <h2>Try these</h2>
+      <ol class="scen">
+        <li>As <b>Kemi</b>, RSVP Going to Rooftop Jollof Night.</li>
+        <li>As <b>Ada</b>, edit it: date to Oct 17, start 9:00 PM. <em>See the confirmation.</em></li>
+        <li>As <b>Kemi</b>, open the bell and tap the update.</li>
+        <li>As <b>Ada</b>, set capacity below the going count.</li>
+        <li>Save with no changes, or leave the edit screen mid-edit.</li>
+        <li>Turn on a simulation, then save again.</li>
+        <li>Cancel the party, then view it as Kemi.</li>
+      </ol>
+      <button class="ghost" id="reset">Reset prototype</button>
+    </div>
+  </aside>
+
+  <div class="devicewrap"><div class="device"><div id="app"></div></div></div>
+
+  <aside class="log" aria-label="API and event log">
+    <div class="desk">
+      <div class="loghead"><h2>API &amp; events</h2><button class="ghost" id="clearLog">Clear</button></div>
+      <div class="logbox" id="log" aria-live="polite"></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+"use strict";
+const TODAY = "2026-09-30";
+const I = {
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 22s7-6.3 7-12a7 7 0 10-14 0c0 5.7 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>',
+  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0114 0"/><path d="M16 4.5a3.5 3.5 0 010 7M18 14a6 6 0 014 6"/></svg>',
+  edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>',
+  hist:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 103-6.7L3 8"/><path d="M3 3v5h5M12 8v4l3 2"/></svg>',
+  share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 002 2h10a2 2 0 002-2v-6"/></svg>',
+  ban:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>',
+  alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l10 18H2L12 3z" stroke-linejoin="round"/><path d="M12 10v4M12 17.5v.5"/></svg>',
+  info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>',
+  q:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1.1-1.5 2.2M12 17v.5"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>',
+  send:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>',
+  refresh:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 11a8 8 0 10-2.3 5.7M20 4v7h-7"/></svg>'
+};
+
+/* ---------- data ---------- */
+const FIRST=["Tunde","Chioma","Ifeoma","Seyi","Bola","Ngozi","Emeka","Zainab","Musa","Halima","Uche","Temi","Dami","Kunle","Funmi","Obinna","Amaka","Yusuf","Aisha","Tobi","Ebuka","Nneka","Segun","Lola","Chidi","Bisi","Ireti","Gbenga","Kelechi","Sade","Jide","Nkem","Rotimi","Farida","Kayode","Onyeka","Ronke","Babajide","Eniola","Dayo","Morayo","Chinedu","Ifunanya","Wale","Toyin","Ibrahim","Hauwa","Deji","Ezinne"];
+const LAST=["Okafor","Bello","Eze","Okonkwo","Lawal","Nwosu","Ogunleye","Ibekwe","Danjuma","Ajayi","Chukwu","Oyelaran","Mohammed","Uzor","Akande","Olawale","Nnadi"];
+const HUES=["#2F47D0","#E93D92","#17804F","#B35C00","#7A2E8E","#0E7C86","#C53030","#4B5563"];
+const VIEWERS={ada:{id:"ada",name:"Ada Obi",sub:"Host"},kemi:{id:"kemi",name:"Kemi Adeyemi",sub:"Guest"},femi:{id:"femi",name:"Femi Balogun",sub:"Not invited"}};
+const FIELDS=["title","description","cover","date","start","end","location","capacity","visibility"];
+const HIGH=["date","start","end","location","capacity"];
+const LABEL={title:"Party name",description:"Description",cover:"Cover image",date:"Date",start:"Start time",end:"End time",location:"Location",capacity:"Capacity",visibility:"Visibility",status:"Status"};
+const VIS={invite:["Invite only","Only guests you invite can open it"],private:["Private","Hidden from everyone except you and added guests"],public:["Public","Anyone with the link can view and RSVP"]};
+
+let S, seq=0;
+const uid=p=>p+"_"+(++seq).toString(36)+Math.random().toString(36).slice(2,5);
+
+function initState(){
+  const people={ada:"Ada Obi",kemi:"Kemi Adeyemi",femi:"Femi Balogun"};
+  const g=[];
+  FIRST.forEach((f,i)=>{const id="g"+i;people[id]=f+" "+LAST[(i*7)%LAST.length];g.push(id)});
+  const p1r={}; // 24 going, 8 maybe, 5 not, 13 pending (incl. Kemi)
+  g.slice(0,24).forEach(u=>p1r[u]="GOING");
+  g.slice(24,32).forEach(u=>p1r[u]="MAYBE");
+  g.slice(32,37).forEach(u=>p1r[u]="NOT_GOING");
+  g.slice(37,49).forEach(u=>p1r[u]=null);
+  p1r.kemi=null;
+  const p2r={ada:"GOING",femi:null}; g.slice(10,28).forEach(u=>p2r[u]="GOING");
+  const p4r={kemi:"GOING"}; g.slice(0,30).forEach(u=>p4r[u]="GOING");
+  const p5r={kemi:"GOING"}; g.slice(5,17).forEach(u=>p5r[u]="GOING"); g.slice(20,24).forEach(u=>p5r[u]="MAYBE");
+  const t=(d,h)=>d+"T"+h+":00";
+  const parties=[
+    {id:"party_123",hostId:"ada",title:"Rooftop Jollof Night",description:"Jollof cook-off on the roof. Bring your best pot and your loudest opinions. Music from 9, judging at 10.",cover:"c1",date:"2026-10-10",start:"20:00",end:"23:30",location:"123 Old Street, Yaba, Lagos",capacity:50,visibility:"invite",status:"PUBLISHED",version:12,rsvps:p1r,
+      changes:[{id:"u0",at:t("2026-09-21","18:04"),actor:"ada",version:12,entries:[{field:"description",old:"Jollof cook-off on the roof.",new:"Jollof cook-off on the roof. Bring your best pot and your loudest opinions. Music from 9, judging at 10."}],delivery:null},
+               {id:"u00",at:t("2026-09-20","11:30"),actor:"ada",version:11,entries:[{field:"status",old:"DRAFT",new:"PUBLISHED"}],delivery:null}],lastUpdate:null},
+    {id:"party_204",hostId:"kemi",title:"Kemi's 30th",description:"Dinner, cake and dancing. Dress code: gold.",cover:"c4",date:"2026-10-24",start:"19:00",end:"23:00",location:"7 Ozumba Mbadiwe Avenue, Victoria Island",capacity:20,visibility:"invite",status:"PUBLISHED",version:4,rsvps:p2r,changes:[],lastUpdate:null},
+    {id:"party_311",hostId:"ada",title:"Sunday Board Games",description:"Catan, Monopoly Deal and snacks. Small group.",cover:"c3",date:"2026-11-08",start:"15:00",end:"19:00",location:"Flat 4, 22 Herbert Macaulay Way, Yaba",capacity:12,visibility:"private",status:"DRAFT",version:1,rsvps:{},changes:[],lastUpdate:null},
+    {id:"party_098",hostId:"ada",title:"Beach Day Pre-drinks",description:"Meet at mine before we head to the beach.",cover:"c6",date:"2026-10-03",start:"11:00",end:"13:00",location:"15 Bourdillon Road, Ikoyi",capacity:null,visibility:"invite",status:"CANCELLED",version:6,rsvps:p5r,
+      changes:[{id:"u1",at:t("2026-09-27","09:12"),actor:"ada",version:6,entries:[{field:"status",old:"PUBLISHED",new:"CANCELLED"}],delivery:{status:"SENT",count:17,attempt:1,max:3}}],lastUpdate:null},
+    {id:"party_052",hostId:"ada",title:"Owambe Warm-up",description:"Aso-ebi fitting and small chops before the wedding.",cover:"c5",date:"2026-08-22",start:"16:00",end:"20:00",location:"9 Adeola Odeku Street, Victoria Island",capacity:40,visibility:"invite",status:"COMPLETED",version:3,rsvps:p4r,changes:[],lastUpdate:null}
+  ];
+  const n=(userId,partyId,kind,title,body,at,v)=>({id:uid("n"),userId,partyId,kind,title,body,at,version:v,read:false});
+  return {
+    viewer:"ada", people, parties,
+    notifs:[
+      n("kemi","party_123","inv","Ada invited you to Rooftop Jollof Night","Sat, Oct 10 · 8:00 PM · 123 Old Street, Yaba",t("2026-09-21","18:10"),12),
+      n("kemi","party_098","can","Beach Day Pre-drinks is cancelled","Ada cancelled the party planned for Sat, Oct 3.",t("2026-09-27","09:12"),6),
+      n("ada","party_204","inv","Kemi invited you to Kemi's 30th","Sat, Oct 24 · 7:00 PM · Victoria Island",t("2026-09-18","14:00"),4),
+      n("femi","party_204","inv","Kemi invited you to Kemi's 30th","Sat, Oct 24 · 7:00 PM · Victoria Island",t("2026-09-18","14:00"),4)
+    ],
+    route:{name:"home"}, stack:[], tab:"upcoming", overlay:null, toast:null,
+    draft:null, snap:null, errors:{}, saving:false, conflict:false, notifyLow:false, busyRsvp:null,
+    sim:{conflict:false,timeout:false,notif:"ok"}, log:[]
+  };
+}
+
+/* ---------- helpers ---------- */
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const P=id=>S.parties.find(p=>p.id===id);
+const me=()=>S.viewer;
+const dObj=d=>new Date(d+"T12:00:00");
+const fmtDate=d=>d?dObj(d).toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"}):"—";
+const fmtLong=d=>d?dObj(d).toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"}):"—";
+function fmtTime(t){if(!t)return"—";let[h,m]=t.split(":").map(Number);const ap=h>=12?"PM":"AM";h=h%12||12;return h+":"+String(m).padStart(2,"0")+" "+ap}
+const fmtStamp=iso=>{const d=new Date(iso);return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})+", "+d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})};
+const nowISO=()=>new Date().toISOString();
+function fmtVal(f,v){
+  if(f==="date")return fmtDate(v); if(f==="start"||f==="end")return v?fmtTime(v):"Not set";
+  if(f==="capacity")return v==null||v===""?"No limit":v+" guests"; if(f==="visibility")return VIS[v]?VIS[v][0]:v;
+  if(f==="cover")return"Cover "+String(v).slice(1); if(f==="description"){const s=String(v||"");return s.length>60?s.slice(0,57)+"…":(s||"Empty")}
+  if(f==="status")return String(v).charAt(0)+String(v).slice(1).toLowerCase();
+  return v;
+}
+function counts(p){const c={going:0,maybe:0,not:0,pending:0,total:0};Object.values(p.rsvps).forEach(s=>{c.total++;if(s==="GOING")c.going++;else if(s==="MAYBE")c.maybe++;else if(s==="NOT_GOING")c.not++;else c.pending++});return c}
+const initials=n=>n.split(" ").map(x=>x[0]).join("").slice(0,2);
+const hue=id=>HUES[[...id].reduce((a,c)=>a+c.charCodeAt(0),0)%HUES.length];
+const av=id=>`<span class="av" style="background:${hue(id)}" aria-hidden="true">${esc(initials(S.people[id]||"?"))}</span>`;
+const isHost=p=>p.hostId===me();
+const isPast=p=>p.status==="COMPLETED"||p.date<TODAY;
+function canView(p){if(isHost(p))return true;if(p.status==="DRAFT")return false;return(me() in p.rsvps)||p.visibility==="public"}
+const statusChip=(s,cls="")=>`<span class="chip s-${s} ${cls}"><span class="pip"></span>${({DRAFT:"Draft",PUBLISHED:"Upcoming",ACTIVE:"Happening now",COMPLETED:"Ended",CANCELLED:"Cancelled"})[s]}</span>`;
+const rsvpChip=s=>`<span class="chip r-${s||"PENDING"}">${({GOING:"You're going",MAYBE:"Maybe",NOT_GOING:"Can't go"})[s]||"Awaiting your reply"}</span>`;
+const snapshot=p=>{const o={};FIELDS.forEach(f=>o[f]=p[f]);o.version=p.version;return o};
+function norm(f,v){if(f==="capacity")return v===""||v==null?null:Number(v);if(typeof v==="string")return v.trim();return v??""}
+const diff=(a,b)=>FIELDS.filter(f=>norm(f,a[f])!==norm(f,b[f]));
+
+/* ---------- log ---------- */
+function log(type,msg){S.log.unshift({type,msg,at:new Date()});if(S.log.length>120)S.log.pop();drawLog()}
+function drawLog(){
+  const el=document.getElementById("log");
+  el.innerHTML=S.log.length?S.log.map(r=>`<div class="logrow lt-${r.type}"><time>${r.at.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",second:"2-digit"}).slice(3)}</time><div class="m">${esc(r.msg)}</div></div>`).join(""):'<div class="logrow lt-info"><time>--</time><div class="m">Requests, responses and analytics events appear here as you use the app.</div></div>';
+}
+
+/* ---------- navigation ---------- */
+function go(name,extra={}){S.stack.push(S.route);S.route={name,...extra};S.overlay=null;if(name==="edit"||name==="create")startForm(name,extra.id);render(true)}
+function goRoot(){S.stack=[];S.route={name:"home"};S.overlay=null;render(true)}
+function back(force){
+  if(!force&&(S.route.name==="edit"||S.route.name==="create")&&formDirty()){S.overlay={type:"unsaved"};return render()}
+  S.route=S.stack.pop()||{name:"home"};S.overlay=null;S.draft=null;S.errors={};S.conflict=false;render(true)
+}
+let toastTimer;
+function toast(msg,kind=""){S.toast={msg,kind};clearTimeout(toastTimer);toastTimer=setTimeout(()=>{S.toast=null;const t=document.querySelector(".toast");if(t)t.remove()},2800);drawToast()}
+function drawToast(){const old=document.querySelector(".toast");if(old)old.remove();if(!S.toast)return;const d=document.createElement("div");d.className="toast "+S.toast.kind;d.setAttribute("role","status");d.innerHTML=(S.toast.kind==="bad"?I.alert:I.check)+"<span>"+esc(S.toast.msg)+"</span>";document.getElementById("app").appendChild(d)}
+
+/* ---------- render ---------- */
+const app=document.getElementById("app");
+function render(resetScroll){
+  const c=app.querySelector(".content");const st=c&&!resetScroll?c.scrollTop:0;
+  const r=S.route;let html="";
+  if(r.name==="home")html=vHome();else if(r.name==="party")html=vParty();else if(r.name==="edit"||r.name==="create")html=vForm();
+  else if(r.name==="guests")html=vGuests();else if(r.name==="history")html=vHistory();else if(r.name==="notifs")html=vNotifs();
+  app.innerHTML=html+vOverlay();
+  const nc=app.querySelector(".content");if(nc)nc.scrollTop=st;
+  drawToast();drawPanel();
+  if(r.name==="edit"||r.name==="create")updateFormBar();
+}
+function softRender(){const a=document.activeElement;if(a&&app.contains(a)&&/INPUT|TEXTAREA|SELECT/.test(a.tagName))return updateBell();render()}
+function updateBell(){const b=app.querySelector("[data-act=notifs]");if(b){const n=unread();const d=b.querySelector(".dot");if(d)d.remove();if(n)b.insertAdjacentHTML("beforeend",`<span class="dot">${n}</span>`)}}
+const unread=()=>S.notifs.filter(n=>n.userId===me()&&!n.read).length;
+
+function topBar(title,{left="back",right=""}={}){
+  const l=left==="back"?`<button class="iconbtn" data-act="back" aria-label="Back">${I.back}</button>`:left==="close"?`<button class="iconbtn" data-act="back" aria-label="Close">${I.x}</button>`:`<span class="spacer"></span>`;
+  return `<div class="top">${l}<h2>${esc(title)}</h2>${right||'<span class="spacer"></span>'}</div>`;
+}
+
+function vHome(){
+  const mine=S.parties.filter(canView);
+  const up=mine.filter(p=>!isPast(p)).sort((a,b)=>a.date.localeCompare(b.date));
+  const lists={upcoming:up.filter(p=>p.status!=="DRAFT"||isHost(p)),hosting:up.filter(isHost),past:mine.filter(isPast).sort((a,b)=>b.date.localeCompare(a.date))};
+  const list=lists[S.tab];const n=unread();
+  const tabs=[["upcoming","Upcoming"],["hosting","Hosting"],["past","Past"]].map(([k,l])=>`<button role="tab" aria-selected="${S.tab===k}" data-act="tab" data-v="${k}">${l}<span class="n">${lists[k].length}</span></button>`).join("");
+  const empty={upcoming:["Nothing coming up","Parties you host or are invited to will show here."],hosting:["You're not hosting anything yet","Create a party and share the link with your guests."],past:["No past parties","Parties move here once they end."]}[S.tab];
+  return topBar("Parties",{left:"none",right:`<button class="iconbtn" data-act="notifs" aria-label="Notifications">${I.bell}${n?`<span class="dot">${n}</span>`:""}</button><button class="iconbtn solid" data-act="create" aria-label="Create party">${I.plus}</button>`}).replace('class="top"','class="top home"')+
+  `<div class="content"><div class="tabs" role="tablist">${tabs}</div>
+  ${list.length?`<div class="cards">${list.map(card).join("")}</div>`:`<div class="empty"><b>${empty[0]}</b><span>${empty[1]}</span>${S.tab!=="past"?`<button class="btn dark" style="flex:none" data-act="create">${I.plus} Create party</button>`:""}</div>`}
+  </div>`;
+}
+function card(p){
+  const c=counts(p);const host=isHost(p);
+  return `<button class="card ${p.status==="CANCELLED"?"cancelled":""}" data-act="open" data-id="${p.id}">
+    <div class="cv cover-${p.cover}">${host?`<span class="chip onimg">Hosting</span>`:""}</div>
+    <div class="body"><h3>${esc(p.title)}</h3>
+      <div class="meta"><span>${fmtDate(p.date)} · ${fmtTime(p.start)}</span><span>${esc(p.location.split(",")[0])}</span></div>
+      <div class="row">${statusChip(p.status)}${host?(p.status!=="DRAFT"?`<span class="chip">${c.going} going</span>`:""):rsvpChip(p.rsvps[me()])}</div>
+    </div></button>`;
+}
+
+function vDenied(title,body,code){
+  return topBar("")+`<div class="content"><div class="lock"><div class="mic bad">${I.lock}</div><b>${esc(title)}</b><span>${esc(body)}</span>${code?`<span class="code">${esc(code)}</span>`:""}<button class="btn soft" style="flex:none" data-act="home">Back to parties</button></div></div>`;
+}
+
+function vParty(){
+  const p=P(S.route.id);
+  if(!p)return vDenied("This party isn't available","It may have been deleted, or the link is wrong.","404 PARTY_NOT_FOUND");
+  if(!canView(p))return vDenied("You don't have access to this party","Ask the host to invite you, then open the link again.","403 FORBIDDEN");
+  const c=counts(p),host=isHost(p),my=p.rsvps[me()];
+  const banners=[];
+  if(p.status==="DRAFT")banners.push(`<div class="banner warn">${I.lock}<div><b>Only you can see this draft</b>Publish it to share the link and start collecting RSVPs.</div></div>`);
+  if(p.status==="CANCELLED"){const u=p.changes.find(x=>x.entries.some(e=>e.new==="CANCELLED"));banners.push(`<div class="banner bad">${I.ban}<div><b>This party is cancelled</b>${host?"Guests were notified. The page stays read-only.":"The host cancelled it"+(u?" on "+fmtStamp(u.at).split(",")[0]:"")+". RSVPs are closed."}${my?`<span class="ch">Your reply was: ${({GOING:"Going",MAYBE:"Maybe",NOT_GOING:"Can't go"})[my]}</span>`:""}</div></div>`)}
+  if(p.status==="ACTIVE")banners.push(`<div class="banner pop">${I.info}<div><b>Happening now</b>${host?"You can still edit details. Guests get changes straight away.":"Head over. Details below are the latest from the host."}</div></div>`);
+  if(p.status==="COMPLETED")banners.push(`<div class="banner info">${I.info}<div><b>This party has ended</b>Details are kept for reference and can't be edited.</div></div>`);
+  if(S.route.fromNotif&&S.route.fromNotif<p.version)banners.push(`<div class="banner info">${I.refresh}<div><b>This party has changed since that notification</b>You're seeing the latest details.</div></div>`);
+  if(p.lastUpdate&&p.status!=="CANCELLED"){const u=p.lastUpdate;const hi=u.entries.filter(e=>HIGH.includes(e.field));
+    banners.push(`<div class="banner info">${I.info}<div><b>Updated ${fmtStamp(u.at)}</b>${hi.map(e=>`<span class="ch">${LABEL[e.field]}: ${esc(fmtVal(e.field,e.old))} → ${esc(fmtVal(e.field,e.new))}</span>`).join("")}</div></div>`)}
+  const d=dObj(p.date);
+  const full=p.capacity!=null&&c.going>=p.capacity;
+  const open=p.status==="PUBLISHED"||p.status==="ACTIVE";
+  const rb=(k,cls,lab,ic)=>{const busy=S.busyRsvp===k;const dis=!open||(k==="GOING"&&full&&my!=="GOING")||!!S.busyRsvp;return `<button class="${cls} ${busy?"busy":""}" aria-pressed="${my===k}" data-act="rsvp" data-v="${k}" ${dis?"disabled":""}>${busy?'<span class="spin"></span>':ic}${lab}</button>`};
+  const rsvpBlock=!host&&p.status!=="DRAFT"?`<div class="rsvp"><div class="q"><span>${open?"Are you going?":"RSVPs are closed"}</span>${my!==undefined?rsvpChip(my):""}</div>
+    <div class="rsvpbtns" role="group" aria-label="RSVP">${rb("GOING","g","Going",I.check)}${rb("MAYBE","m","Maybe",I.q)}${rb("NOT_GOING","n","Can't go",I.x)}</div>
+    ${full&&my!=="GOING"&&open?`<small>This party is full (${p.capacity} going). You can still reply Maybe.</small>`:open?`<small>${my?"You can change your reply any time before the party.":"The host sees your reply straight away."}</small>`:""}</div>`:"";
+  const facePeople=Object.entries(p.rsvps).filter(([,s])=>s==="GOING").slice(0,5).map(([u])=>av(u)).join("");
+  const guestSec=p.status==="DRAFT"?"":`<div class="sec"><h3>Guests</h3><div class="faces"><div class="pile">${facePeople}</div><div><b>${c.going} going</b> <span style="color:var(--muted)">· ${c.maybe} maybe${p.capacity!=null?" · "+p.capacity+" spots":""}</span></div></div>
+    ${p.capacity!=null?`<div class="capbar" aria-label="${c.going} of ${p.capacity} spots taken"><i style="width:${Math.min(100,c.going/p.capacity*100)}%"></i></div>`:""}
+    ${host?`<button class="btn soft" data-act="guests">${I.users} Manage guests</button>`:""}</div>`;
+  let bottom="";
+  if(host){
+    if(p.status==="DRAFT")bottom=`<div class="bottombar"><button class="btn soft" style="flex:0 0 auto" data-act="edit">${I.edit} Edit</button><button class="btn primary" data-act="publish" ${S.saving?"disabled":""}>${S.saving?'<span class="spin"></span> Publishing…':I.send+" Publish party"}</button></div>`;
+    else if(p.status==="PUBLISHED"||p.status==="ACTIVE")bottom=`<div class="bottombar"><button class="btn dark" data-act="manage">Manage party</button><button class="btn soft" style="flex:0 0 auto" data-act="share" aria-label="Share invite link">${I.share}</button></div>`;
+    else bottom=`<div class="bottombar"><button class="btn soft" data-act="history">${I.hist} View change history</button></div>`;
+  }
+  return `<div class="content flush">
+    <div class="floattop"><button class="iconbtn" data-act="back" aria-label="Back">${I.back}</button>${p.status==="PUBLISHED"||p.status==="ACTIVE"?`<button class="iconbtn" data-act="share" aria-label="Share">${I.share}</button>`:""}</div>
+    <div class="hero cover-${p.cover}"><div class="chips">${statusChip(p.status,"onimg")}${host?`<span class="chip onimg">You're hosting</span>`:""}</div>
+      <h1>${esc(p.title)}</h1><div class="host">Hosted by ${esc(host?"you":S.people[p.hostId])}</div></div>
+    ${banners.join("")}
+    <div class="facts">
+      <div class="fact"><div class="caltile"><i>${d.toLocaleDateString("en-US",{month:"short"}).toUpperCase()}</i><b>${d.getDate()}</b></div><div><b>${fmtLong(p.date)}</b><span>${fmtTime(p.start)}${p.end?" – "+fmtTime(p.end):""} · WAT</span></div></div>
+      <div class="fact"><div class="ic">${I.pin}</div><div><b>${esc(p.location)}</b><span>${host||my==="GOING"||my==="MAYBE"?"Full address shared with guests":"Address shared with invited guests"}</span></div></div>
+      <div class="fact"><div class="ic">${I.lock}</div><div><b>${VIS[p.visibility][0]}</b><span>${VIS[p.visibility][1]}</span></div></div>
+    </div>
+    ${rsvpBlock}
+    ${p.description?`<div class="sec"><h3>About</h3><p>${esc(p.description)}</p></div>`:""}
+    ${guestSec}
+  </div>${bottom}`;
+}
+
+function startForm(mode,id){
+  S.errors={};S.conflict=false;S.saving=false;S.notifyLow=false;
+  if(mode==="create"){S.snap={title:"",description:"",cover:"c2",date:"",start:"20:00",end:"",location:"",capacity:"",visibility:"invite"};S.draft={...S.snap};return}
+  const p=P(id);if(!p)return;S.snap=snapshot(p);S.draft=snapshot(p);if(S.draft.capacity==null)S.draft.capacity="";
+  if(isHost(p))log("evt","party_edit_started {party_id: "+p.id+", version: "+p.version+"}");
+}
+const formDirty=()=>S.draft&&S.snap&&diff(S.snap,S.draft).length>0;
+
+function vForm(){
+  const create=S.route.name==="create";const p=create?null:P(S.route.id);
+  if(!create){
+    if(!p)return vDenied("This party isn't available","It may have been deleted.","404");
+    if(!isHost(p)){log("api","PATCH /api/parties/"+p.id+" → 403 FORBIDDEN");return vDenied("Only the host can edit this party","You can view it and change your RSVP, but changes to details come from the host.","403 FORBIDDEN")}
+    if(p.status==="COMPLETED"||p.status==="CANCELLED")return vDenied(p.status==="COMPLETED"?"This party has ended":"This party is cancelled","It's kept read-only so guests see an accurate record.","422 PARTY_NOT_EDITABLE");
+  }
+  const d=S.draft,e=S.errors,s=S.snap;
+  const fld=(f,label,input,{req,hi}={})=>`<div class="field ${e[f]?"has-err":""}" data-f="${f}"><label for="f-${f}">${label}${req?'<span class="req" aria-hidden="true">*</span>':""}${hi&&!create?'<span class="tag">Guests notified</span>':""}<span class="edited">Edited</span></label>${input}${!create?`<span class="was">Was: ${esc(fmtVal(f,s[f]))}</span>`:""}${e[f]?`<span class="err" role="alert">${esc(e[f])}</span>`:""}</div>`;
+  const inp=(f,type,extra="")=>`<input class="inp" id="f-${f}" name="${f}" type="${type}" value="${esc(d[f]??"")}" ${extra}>`;
+  const conflict=S.conflict?`<div class="banner bad">${I.alert}<div><b>This party was updated somewhere else</b>Refresh to see the latest information. Your edits here haven't been saved.<div class="act"><button class="btn soft" style="flex:none;padding:8px 12px" data-act="refreshConflict">${I.refresh} Refresh</button></div></div></div>`:"";
+  const activeNote=p&&p.status==="ACTIVE"?`<div class="banner pop">${I.info}<div><b>The party has started</b>Guests will see changes immediately.</div></div>`:"";
+  return topBar(create?"New party":"Edit party",{left:"close"})+
+  `<div class="content"><form class="form" id="pform" novalidate>${conflict}${activeNote}
+    <div class="group"><h3>Basics</h3>
+      ${fld("title","Party name",inp("title","text",'maxlength="80" autocomplete="off" placeholder="e.g. Rooftop Jollof Night"'),{req:1})}
+      ${fld("description","Description",`<textarea class="inp" id="f-description" name="description" placeholder="What should guests know?">${esc(d.description)}</textarea>`)}
+      <div class="field" data-f="cover"><label>Cover image<span class="edited">Edited</span></label><div class="swatches" role="group" aria-label="Cover image">${["c1","c2","c3","c4","c5","c6"].map(c=>`<button type="button" class="cover-${c}" aria-label="Cover ${c.slice(1)}" aria-pressed="${d.cover===c}" data-act="cover" data-v="${c}"></button>`).join("")}</div></div>
+    </div>
+    <div class="group"><h3>When</h3>
+      ${fld("date","Date",inp("date","date",`min="${TODAY}"`),{req:1,hi:1})}
+      <div class="row2">${fld("start","Start time",inp("start","time"),{req:1,hi:1})}${fld("end","End time",inp("end","time"),{hi:1})}</div>
+    </div>
+    <div class="group"><h3>Where</h3>${fld("location","Location",inp("location","text",'autocomplete="off" placeholder="House number, street, area"'),{req:1,hi:1})}</div>
+    <div class="group"><h3>Guests</h3>
+      ${fld("capacity","Capacity",inp("capacity","number",'min="1" step="1" inputmode="numeric" placeholder="No limit"'),{hi:1})}
+      <div class="field" data-f="visibility"><label>Visibility<span class="req" aria-hidden="true">*</span><span class="edited">Edited</span></label><div class="radios">${Object.entries(VIS).map(([k,[l,h]])=>`<label><input type="radio" name="visibility" value="${k}" ${d.visibility===k?"checked":""}><div>${l}<span>${h}</span></div></label>`).join("")}</div></div>
+    </div>
+  </form></div>
+  <div class="bottombar" id="fbar"><div class="changebar" id="cbar"></div><div class="notifylow" id="nlow" hidden><input type="checkbox" id="notifyLow" ${S.notifyLow?"checked":""}><label for="notifyLow">Let guests know about this change</label></div>
+    <button class="btn primary" data-act="${create?"doCreate":"save"}" ${S.saving?"disabled":""}>${S.saving?'<span class="spin"></span> Saving…':create?"Create draft":"Save changes"}</button></div>`;
+}
+function updateFormBar(){
+  const bar=document.getElementById("cbar");if(!bar||!S.draft)return;
+  const ch=diff(S.snap,S.draft);const create=S.route.name==="create";
+  app.querySelectorAll(".field[data-f]").forEach(el=>el.classList.toggle("is-dirty",!create&&ch.includes(el.dataset.f)));
+  if(create){bar.innerHTML=`<span>Saved as a draft. Only you see it until you publish.</span>`;return}
+  const hi=ch.filter(f=>HIGH.includes(f));
+  bar.innerHTML=ch.length?`<span><b>${ch.length} change${ch.length>1?"s":""}</b> · ${ch.map(f=>LABEL[f].toLowerCase()).join(", ")}</span>${hi.length?'<span class="tag">Needs confirmation</span>':""}`:`<span>No changes yet</span>`;
+  const low=document.getElementById("nlow");if(low)low.hidden=!(ch.some(f=>f==="title"||f==="description")&&!hi.length);
+}
+
+function validate(d,p){
+  const e={};const title=String(d.title||"").trim(),loc=String(d.location||"").trim();
+  if(!title)e.title="Give your party a name."; else if(title.length>60)e.title="Keep the name to 60 characters or fewer.";
+  if(!d.date)e.date="Pick a date."; else if(d.date<TODAY&&!(p&&p.status==="ACTIVE"))e.date="Pick today or a later date.";
+  if(!d.start)e.start="Add a start time.";
+  if(d.end&&d.start&&d.end<=d.start)e.end="End time must be after the start time.";
+  if(!loc)e.location="Add a location."; else if(loc.length<6)e.location="Add a full address so guests can find it.";
+  if(d.capacity!==""&&d.capacity!=null){const c=Number(d.capacity);
+    if(!Number.isInteger(c)||c<1)e.capacity="Capacity must be a whole number above 0.";
+    else if(p){const g=counts(p).going;if(c<g)e.capacity=`${g} guests are already going, so capacity can't be lower than ${g}. Guests are never removed automatically.`}}
+  if(!VIS[d.visibility])e.visibility="Choose who can see the party.";
+  return e;
+}
+
+function vGuests(){
+  const p=P(S.route.id);if(!p||!isHost(p))return vDenied("Only the host can see the full guest list","Guests can see how many people are going.","403 FORBIDDEN");
+  const c=counts(p);const f=S.route.filter||"GOING";
+  const map={GOING:"going",MAYBE:"maybe",NOT_GOING:"not",PENDING:"pending"};
+  const rows=Object.entries(p.rsvps).filter(([,s])=>f==="ALL"||(s||"PENDING")===f).sort((a,b)=>S.people[a[0]].localeCompare(S.people[b[0]]));
+  const tabs=[["GOING","Going"],["MAYBE","Maybe"],["NOT_GOING","Can't go"],["PENDING","Pending"],["ALL","All"]].map(([k,l])=>`<button role="tab" aria-selected="${f===k}" data-act="gfilter" data-v="${k}">${l}<span class="n">${k==="ALL"?c.total:c[map[k]]}</span></button>`).join("");
+  return topBar("Guests")+`<div class="content">
+    <div class="stat"><div><b>${c.going}</b><span>Going</span></div><div><b>${c.maybe}</b><span>Maybe</span></div><div><b>${c.not}</b><span>Can't go</span></div><div><b>${c.pending}</b><span>Pending</span></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted)"><span>${c.total} invited</span><span>${p.capacity!=null?`${c.going} of ${p.capacity} spots taken`:"No capacity limit"}</span></div>
+    <div class="tabs" role="tablist" style="overflow-x:auto">${tabs}</div>
+    ${rows.length?`<div class="list">${rows.map(([u,s])=>`<div class="li">${av(u)}<div class="t"><b>${esc(S.people[u])}${u===me()?" (you)":""}</b><span>${s?"Replied":"Invited, no reply yet"}</span></div><span class="chip r-${s||"PENDING"}">${({GOING:"Going",MAYBE:"Maybe",NOT_GOING:"Can't go"})[s]||"Pending"}</span></div>`).join("")}</div>`:`<div class="empty"><b>No one here yet</b><span>Guests who reply this way will show up here.</span></div>`}
+  </div>`;
+}
+
+function vHistory(){
+  const p=P(S.route.id);if(!p||!isHost(p))return vDenied("Change history is for hosts","Guests always see the latest details on the party page.","403 FORBIDDEN");
+  const dl=d=>{if(!d)return"";const m={QUEUED:["r-PENDING","Notifying guests…"],RETRYING:["r-MAYBE",`Delivery failed, retrying (attempt ${d.attempt+1} of ${d.max})`],SENT:["r-GOING",`Notified ${d.count} guest${d.count===1?"":"s"}`],DEAD:["s-CANCELLED",`Couldn't deliver after ${d.max} attempts. Logged for support.`],NONE:["r-NOT_GOING","No guests to notify"]}[d.status];return `<span class="chip ${m[0]}">${esc(m[1])}</span>`};
+  return topBar("Change history")+`<div class="content"><p style="margin:0;color:var(--muted);font-size:13px">Every saved change is recorded with who made it. Current version: <b style="font-family:var(--f-mono);color:var(--ink)">v${p.version}</b></p>
+  <div class="hist">${p.changes.length?p.changes.map(u=>`<div class="hitem"><header><span>${esc(u.actor===me()?"You":S.people[u.actor])} · ${fmtStamp(u.at)}</span><b>v${u.version}</b></header>
+    <dl class="hdiff">${u.entries.map(e=>`<dt>${LABEL[e.field]}</dt><dd><s>${esc(fmtVal(e.field,e.old))}</s><span class="arr">→</span>${esc(fmtVal(e.field,e.new))}</dd>`).join("")}</dl>${dl(u.delivery)}</div>`).join(""):`<div class="empty"><b>No changes yet</b><span>Edits you save will be listed here.</span></div>`}</div></div>`;
+}
+
+function vNotifs(){
+  const list=S.notifs.filter(n=>n.userId===me()).sort((a,b)=>b.at.localeCompare(a.at));
+  return topBar("Notifications",{right:list.some(n=>!n.read)?`<button class="ghost" data-act="readAll">Mark read</button>`:""})+`<div class="content">
+  ${list.length?`<div class="list">${list.map(n=>`<button class="li ${n.read?"":"unread"}" data-act="openNotif" data-id="${n.id}"><span class="nicon ${n.kind}">${n.kind==="can"?I.ban:n.kind==="inv"?I.send:I.refresh}</span><div class="t"><b>${esc(n.title)}</b><span>${esc(n.body)}</span><br><span>${fmtStamp(n.at)}</span></div></button>`).join("")}</div>`:`<div class="empty"><b>You're all caught up</b><span>Invitations and changes to parties you've replied to show up here.</span></div>`}</div>`;
+}
+
+function vOverlay(){
+  const o=S.overlay;if(!o)return"";const p=o.id?P(o.id):null;
+  if(o.type==="manage"){const c=counts(p);return `<div class="scrim" data-act="closeOv"><div class="sheet" role="dialog" aria-label="Manage party" data-stop><div class="grab"></div><h3>Manage party</h3><div class="menu">
+    <button data-act="edit">${I.edit}<div>Edit details<span>Name, date, time, location, capacity</span></div></button>
+    <button data-act="guests">${I.users}<div>Guests<span>${c.going} going · ${c.maybe} maybe · ${c.pending} pending</span></div></button>
+    <button data-act="share">${I.share}<div>Share invite link<span>Anyone you send it to can RSVP</span></div></button>
+    <button data-act="history">${I.hist}<div>Change history<span>${p.changes.length} recorded change${p.changes.length===1?"":"s"}</span></div></button>
+    <button class="danger" data-act="askCancel">${I.ban}<div>Cancel party<span>Guests will be notified</span></div></button></div></div></div>`}
+  if(o.type==="share")return `<div class="scrim" data-act="closeOv"><div class="sheet" role="dialog" aria-label="Share" data-stop><div class="grab"></div><h3>Invite guests</h3><p>Send this link on WhatsApp or anywhere else. Guests always see the latest details here, so there's nothing to re-send when plans change.</p><div class="linkbox"><span>houseparty.app/p/${p.id}</span><button data-act="copy" data-v="https://houseparty.app/p/${p.id}">Copy</button></div><div class="btns"><button class="btn soft" data-act="closeOv">Done</button></div></div></div>`;
+  if(o.type==="confirm"){const ch=o.changes;const hi=ch.filter(f=>HIGH.includes(f));const lo=ch.filter(f=>!HIGH.includes(f));const c=counts(p);const n=c.going+c.maybe;
+    return `<div class="scrim center"><div class="modal" role="alertdialog" aria-labelledby="cfT"><div class="mic warn">${I.alert}</div><h3 id="cfT">You're making an important change</h3>
+    <dl class="diffbox">${hi.map(f=>`<div><dt>${LABEL[f]}</dt><dd><s>${esc(fmtVal(f,S.snap[f]))}</s><span class="arr">→</span>${esc(fmtVal(f,S.draft[f]))}</dd></div>`).join("")}</dl>
+    ${lo.length?`<p>Also saving: ${lo.map(f=>LABEL[f].toLowerCase()).join(", ")}.</p>`:""}
+    <p>${n?`<b style="color:var(--ink)">${n} guest${n===1?"":"s"}</b> who replied Going or Maybe will be notified. Their RSVPs stay as they are.`:"No one has replied Going or Maybe yet, so no one will be notified."}</p>
+    <div class="btns"><button class="btn soft" data-act="closeOv">Cancel</button><button class="btn primary" data-act="confirmSave">Confirm changes</button></div></div></div>`}
+  if(o.type==="unsaved")return `<div class="scrim center"><div class="modal" role="alertdialog" aria-labelledby="usT"><h3 id="usT">You have unsaved changes</h3><p>If you leave now, your edits to this party will be lost.</p><div class="btns"><button class="btn soft" data-act="leave">Leave without saving</button><button class="btn dark" data-act="closeOv">Continue editing</button></div></div></div>`;
+  if(o.type==="cancel"){const c=counts(p);return `<div class="scrim center"><div class="modal" role="alertdialog" aria-labelledby="cnT"><div class="mic bad">${I.ban}</div><h3 id="cnT">Cancel this party?</h3><p>This will notify ${c.going+c.maybe+c.pending} guests that ${esc(p.title)} is cancelled. The party page stays up as read-only and you can't undo this.</p><div class="btns"><button class="btn soft" data-act="closeOv" ${S.saving?"disabled":""}>Keep party</button><button class="btn danger" data-act="doCancel" ${S.saving?"disabled":""}>${S.saving?'<span class="spin"></span> Cancelling…':"Cancel party"}</button></div></div></div>`}
+  if(o.type==="timeout")return `<div class="scrim center"><div class="modal" role="alertdialog" aria-labelledby="toT"><div class="mic info">${I.refresh}</div><h3 id="toT">We couldn't confirm whether your changes were saved</h3><p>The connection dropped before the server replied. Refresh the party to check before trying again, so nothing gets saved twice.</p><div class="btns"><button class="btn primary" data-act="refreshParty">Refresh party</button></div></div></div>`;
+  return "";
+}
+
+/* ---------- panel ---------- */
+function drawPanel(){
+  document.getElementById("viewerSeg").innerHTML=Object.values(VIEWERS).map(v=>`<button aria-pressed="${S.viewer===v.id}" data-viewer="${v.id}">${v.name.split(" ")[0]}<small>${v.sub}</small></button>`).join("");
+  document.getElementById("notifSim").innerHTML=[["ok","Delivers"],["retry","Fails twice, then sends"],["dead","Always fails"]].map(([k,l])=>`<button aria-pressed="${S.sim.notif===k}" data-notif="${k}">${l}</button>`).join("");
+  const p=P("party_123");
+  document.getElementById("lifeSim").innerHTML=["PUBLISHED","ACTIVE","COMPLETED"].map(s=>`<button aria-pressed="${p.status===s}" data-life="${s}" ${p.status==="CANCELLED"?"disabled":""}>${({PUBLISHED:"Upcoming",ACTIVE:"Happening now",COMPLETED:"Ended"})[s]}</button>`).join("");
+  document.getElementById("simConflict").checked=S.sim.conflict;document.getElementById("simTimeout").checked=S.sim.timeout;
+}
+
+/* ---------- actions ---------- */
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+async function setRsvp(status){
+  const p=P(S.route.id);const prev=p.rsvps[me()];if(prev===status||S.busyRsvp)return;
+  S.busyRsvp=status;render();
+  log("api",`POST /api/parties/${p.id}/rsvp {"status":"${status}"}`);
+  await wait(550);
+  const c=counts(p);
+  if(!(p.status==="PUBLISHED"||p.status==="ACTIVE")){S.busyRsvp=null;log("err","→ 409 PARTY_NOT_ACCEPTING_RSVPS");toast("This party isn't taking RSVPs any more.","bad");return render()}
+  if(status==="GOING"&&prev!=="GOING"&&p.capacity!=null&&c.going>=p.capacity){S.busyRsvp=null;log("err","→ 409 PARTY_FULL");toast("This party just filled up. Try Maybe instead.","bad");return render()}
+  p.rsvps[me()]=status;S.busyRsvp=null;
+  log("ok",`→ 200 upsert RSVP (party_id, user_id) = ${status}`);
+  log("evt",`${prev?"rsvp_changed":"rsvp_created"} {party_id: ${p.id}, status: ${status}}`);
+  toast(({GOING:"You're going. See you there!",MAYBE:"Marked as maybe.",NOT_GOING:"Got it. The host knows you can't make it."})[status]);
+  render();
+}
+
+function notifCopy(p,fields,old){
+  const dt=fields.some(f=>f==="date"||f==="start"||f==="end");const loc=fields.includes("location");
+  if(loc&&!dt)return{title:`Location updated: ${p.title}`,body:`Now at ${p.location} (was ${old.location})`};
+  if(dt&&!loc)return{title:`New date and time: ${p.title}`,body:`Now ${fmtDate(p.date)} · ${fmtTime(p.start)} (was ${fmtDate(old.date)} · ${fmtTime(old.start)})`};
+  if(dt&&loc)return{title:`${p.title} has changed`,body:`Now ${fmtDate(p.date)} · ${fmtTime(p.start)} at ${p.location}`};
+  return{title:`${p.title} was updated`,body:"Changed: "+fields.map(f=>LABEL[f].toLowerCase()).join(", ")};
+}
+function deliver(p,upd,recips,copy,kind){
+  const d={status:"QUEUED",count:recips.length,attempt:0,max:3};upd.delivery=d;
+  if(!recips.length){d.status="NONE";log("info","no RSVP'd guests → nothing to notify");return}
+  log("evt",`${kind==="can"?"PartyCancelled":"PartyUpdated"} v${p.version} → notification queue (${recips.length} recipients)`);
+  const mode=S.sim.notif;
+  const step=()=>{d.attempt++;
+    const fail=mode==="dead"||(mode==="retry"&&d.attempt<=2);
+    if(fail){log("err",`worker attempt ${d.attempt}/${d.max} failed (provider 503)`);
+      if(d.attempt>=d.max){d.status="DEAD";log("err","max attempts reached → dead-letter queue. Party data unaffected.");return softRender()}
+      d.status="RETRYING";log("info",`retry scheduled in ${d.attempt*2}s (backoff)`);softRender();return setTimeout(step,1300*d.attempt)}
+    d.status="SENT";const at=nowISO();
+    recips.forEach(u=>S.notifs.push({id:uid("n"),userId:u,partyId:p.id,kind,title:copy.title,body:copy.body,at,version:p.version,read:false}));
+    log("ok",`notification_sent ×${recips.length} (attempt ${d.attempt})`);softRender();
+  };
+  setTimeout(step,900);
+}
+
+function applyUpdate(p,fields,notifyLow){
+  const old=snapshot(p);
+  fields.forEach(f=>{p[f]=f==="capacity"?norm(f,S.draft[f]):typeof S.draft[f]==="string"?S.draft[f].trim():S.draft[f]});
+  p.version++;
+  const upd={id:uid("u"),at:nowISO(),actor:me(),version:p.version,entries:fields.map(f=>({field:f,old:old[f],new:p[f]})),delivery:null};
+  p.changes.unshift(upd);
+  if(fields.some(f=>HIGH.includes(f)))p.lastUpdate=upd;
+  log("info",`server diff (authoritative): [${fields.join(", ")}] · version ${old.version} → ${p.version}`);
+  fields.forEach(f=>log("info",`audit: ${f} ${JSON.stringify(old[f])} → ${JSON.stringify(p[f])}`));
+  log("evt",`party_updated {changed_fields: [${fields.join(", ")}], guest_count: ${counts(p).going}}`);
+  const nf=fields.filter(f=>["date","start","end","location"].includes(f)||(f==="capacity"&&p.capacity!=null&&(old.capacity==null||p.capacity<old.capacity))||(notifyLow&&(f==="title"||f==="description")));
+  if(nf.length){const recips=Object.entries(p.rsvps).filter(([,s])=>s==="GOING"||s==="MAYBE").map(([u])=>u);deliver(p,upd,recips,notifCopy(p,nf,old),"upd")}
+  else log("info","no notification rule matched (low-impact change)");
+}
+
+async function save(confirmed){
+  const p=P(S.route.id);const ch=diff(S.snap,S.draft);
+  if(!ch.length){log("info","Save pressed with no changes → no request, no audit, no notifications, version stays v"+p.version);return toast("No changes detected.")}
+  S.errors=validate(S.draft,p);
+  if(Object.keys(S.errors).length){log("info","client validation failed: "+Object.keys(S.errors).join(", "));render();const f=app.querySelector(".field.has-err .inp");if(f)f.focus();return}
+  if(!confirmed&&ch.some(f=>HIGH.includes(f))){S.overlay={type:"confirm",id:p.id,changes:ch};return render()}
+  S.overlay=null;S.saving=true;render();
+  const body={};ch.forEach(f=>body[f==="start"?"startTime":f==="end"?"endTime":f]=norm(f,S.draft[f]));
+  log("api",`PATCH /api/parties/${p.id} If-Match: v${S.snap.version} ${JSON.stringify(body)}`);
+  await wait(800);
+  if(S.sim.conflict){
+    S.sim.conflict=false;p.version++;p.description=(p.description||"")+" Bring a chair if you can.";
+    p.changes.unshift({id:uid("u"),at:nowISO(),actor:p.hostId,version:p.version,entries:[{field:"description",old:"(earlier text)",new:p.description}],delivery:null});
+    S.saving=false;S.conflict=true;
+    log("err",`→ 409 PARTY_VERSION_CONFLICT (client v${S.snap.version}, server v${p.version})`);log("evt","party_update_failed {reason: version_conflict}");
+    render(true);return
+  }
+  if(S.sim.timeout){
+    S.sim.timeout=false;applyUpdate(p,ch,S.notifyLow);S.saving=false;S.overlay={type:"timeout",id:p.id};
+    log("err","→ no response after 10s (timeout). Not retried: PATCH isn't idempotent here.");render();return
+  }
+  applyUpdate(p,ch,S.notifyLow);
+  log("ok",`→ 200 {"id":"${p.id}","version":${p.version},"changedFields":${JSON.stringify(ch)}}`);
+  S.saving=false;S.draft=null;S.route=S.stack.pop()||{name:"party",id:p.id};render(true);toast("Changes saved successfully.");
+}
+
+async function create(){
+  S.errors=validate(S.draft,null);
+  if(Object.keys(S.errors).length){log("info","client validation failed: "+Object.keys(S.errors).join(", "));render();const f=app.querySelector(".field.has-err .inp");if(f)f.focus();return}
+  S.saving=true;render();log("api","POST /api/parties "+JSON.stringify({title:S.draft.title.trim(),date:S.draft.date,startTime:S.draft.start,visibility:S.draft.visibility}));
+  await wait(750);
+  const id="party_"+(400+Math.floor(Math.random()*500));
+  const p={id,hostId:me(),title:S.draft.title.trim(),description:S.draft.description.trim(),cover:S.draft.cover,date:S.draft.date,start:S.draft.start,end:S.draft.end,location:S.draft.location.trim(),capacity:norm("capacity",S.draft.capacity),visibility:S.draft.visibility,status:"DRAFT",version:1,rsvps:{},changes:[],lastUpdate:null};
+  S.parties.push(p);log("ok",`→ 201 {"id":"${id}","status":"DRAFT","version":1}`);log("evt","party_created {party_id: "+id+"}");
+  S.saving=false;S.draft=null;S.stack=[{name:"home"}];S.route={name:"party",id};S.tab="hosting";render(true);toast("Draft created. Publish it when you're ready.");
+}
+
+async function publish(){
+  const p=P(S.route.id);S.saving=true;render();log("api",`POST /api/parties/${p.id}/publish`);await wait(650);
+  p.status="PUBLISHED";p.version++;p.changes.unshift({id:uid("u"),at:nowISO(),actor:me(),version:p.version,entries:[{field:"status",old:"DRAFT",new:"PUBLISHED"}],delivery:null});
+  S.saving=false;log("ok","→ 200 status DRAFT → PUBLISHED");log("evt","party_published {party_id: "+p.id+"}");
+  S.overlay={type:"share",id:p.id};render();toast("Published. Share the link to invite guests.");
+}
+
+async function cancelParty(){
+  const p=P(S.overlay.id);S.saving=true;render();log("api",`POST /api/parties/${p.id}/cancel`);await wait(700);
+  const old=p.status;p.status="CANCELLED";p.version++;
+  const upd={id:uid("u"),at:nowISO(),actor:me(),version:p.version,entries:[{field:"status",old,new:"CANCELLED"}],delivery:null};p.changes.unshift(upd);
+  log("ok",`→ 200 status ${old} → CANCELLED · RSVPs kept for history`);log("evt","party_cancelled {party_id: "+p.id+"}");
+  const recips=Object.entries(p.rsvps).filter(([,s])=>s!=="NOT_GOING").map(([u])=>u);
+  deliver(p,upd,recips,{title:`${p.title} is cancelled`,body:`${S.people[p.hostId]} cancelled the party planned for ${fmtDate(p.date)}.`},"can");
+  S.saving=false;S.overlay=null;render();toast("Party cancelled. Guests are being notified.");
+}
+
+function onClick(e){
+  const t=e.target.closest("[data-act]");if(!t)return;
+  const a=t.dataset.act;
+  if(a==="closeOv"&&t.classList.contains("scrim")&&e.target.closest("[data-stop]"))return;
+  switch(a){
+    case"back":return back();
+    case"home":return goRoot();
+    case"tab":S.tab=t.dataset.v;return render(true);
+    case"create":return go("create");
+    case"notifs":return go("notifs");
+    case"open":log("evt","party_viewed {party_id: "+t.dataset.id+"}");return go("party",{id:t.dataset.id});
+    case"rsvp":return setRsvp(t.dataset.v);
+    case"manage":S.overlay={type:"manage",id:S.route.id};return render();
+    case"share":S.overlay={type:"share",id:S.route.id};log("evt","party_shared {party_id: "+S.route.id+"}");return render();
+    case"closeOv":S.overlay=null;return render();
+    case"edit":return go("edit",{id:S.route.id});
+    case"guests":return go("guests",{id:S.route.id});
+    case"history":return go("history",{id:S.route.id});
+    case"gfilter":S.route.filter=t.dataset.v;return render();
+    case"askCancel":S.overlay={type:"cancel",id:S.route.id};return render();
+    case"doCancel":return cancelParty();
+    case"publish":return publish();
+    case"cover":S.draft.cover=t.dataset.v;return render();
+    case"save":return save(false);
+    case"confirmSave":return save(true);
+    case"doCreate":return create();
+    case"leave":S.overlay=null;return back(true);
+    case"refreshConflict":{const p=P(S.route.id);log("api",`GET /api/parties/${p.id} → 200 v${p.version}`);startForm("edit",p.id);render(true);return toast("Loaded the latest version. Make your changes again.")}
+    case"refreshParty":{const id=S.overlay.id;const p=P(id);S.overlay=null;log("api",`GET /api/parties/${id} → 200 v${p.version}`);S.draft=null;S.route=S.stack.pop()||{name:"party",id};render(true);return toast("Refreshed. Your changes were saved.")}
+    case"copy":{const v=t.dataset.v;const done=()=>{t.textContent="Copied";setTimeout(()=>{if(t.isConnected)t.textContent="Copy"},1600)};
+      try{navigator.clipboard.writeText(v).then(done,()=>selectLink(t))}catch(_){selectLink(t)}return}
+    case"readAll":S.notifs.forEach(n=>{if(n.userId===me())n.read=true});return render();
+    case"openNotif":{const n=S.notifs.find(x=>x.id===t.dataset.id);n.read=true;log("evt","notification_opened {party_id: "+n.partyId+"}");return go("party",{id:n.partyId,fromNotif:n.version})}
+  }
+}
+function selectLink(btn){const s=btn.parentElement.querySelector("span");const r=document.createRange();r.selectNodeContents(s);const sel=getSelection();sel.removeAllRanges();sel.addRange(r);btn.textContent="Press Ctrl+C"}
+app.addEventListener("click",onClick);
+app.addEventListener("input",e=>{
+  const el=e.target;if(!S.draft)return;
+  if(el.id==="notifyLow"){S.notifyLow=el.checked;return}
+  const f=el.name;if(!f||!(f in S.draft))return;
+  S.draft[f]=el.value;
+  if(S.errors[f]){delete S.errors[f];const fe=el.closest(".field");if(fe){fe.classList.remove("has-err");const er=fe.querySelector(".err");if(er)er.remove()}}
+  updateFormBar();
+});
+app.addEventListener("change",e=>{if(e.target.name==="visibility"&&S.draft){S.draft.visibility=e.target.value;updateFormBar()}});
+app.addEventListener("submit",e=>e.preventDefault());
+
+/* panel events */
+document.querySelector(".panel").addEventListener("click",e=>{
+  const v=e.target.closest("[data-viewer]"),n=e.target.closest("[data-notif]"),l=e.target.closest("[data-life]");
+  if(v){S.viewer=v.dataset.viewer;log("info",`signed in as ${VIEWERS[S.viewer].name}`);S.tab="upcoming";return goRoot()}
+  if(n){S.sim.notif=n.dataset.notif;return drawPanel()}
+  if(l){const p=P("party_123");if(p.status!==l.dataset.life){log("info",`scheduler: party_123 ${p.status} → ${l.dataset.life}`);p.status=l.dataset.life}return render()}
+  if(e.target.closest("#openByLink")){log("api","GET /api/parties/party_123 as "+VIEWERS[S.viewer].name);return go("party",{id:"party_123"})}
+  if(e.target.closest("#forceEdit")){log("info","opening /parties/party_123/edit directly");return go("edit",{id:"party_123"})}
+  if(e.target.closest("#reset")){const keep=S.viewer;S=initState();S.viewer=keep;log("info","prototype reset");return render(true)}
+});
+document.getElementById("simConflict").addEventListener("change",e=>{S.sim.conflict=e.target.checked});
+document.getElementById("simTimeout").addEventListener("change",e=>{S.sim.timeout=e.target.checked});
+document.getElementById("clearLog").addEventListener("click",()=>{S.log=[];drawLog()});
+
+S=initState();render(true);drawLog();
+})();
+</script>
+
+</body></html>
