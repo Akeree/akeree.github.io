@@ -21,7 +21,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2212%22 fill=%22%23FFC20E%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap"></noscript>
 <style>
 /* Clean, new-age portfolio. Poppins for headings, Roboto for reading. Danfo yellow is the personal accent; each case study borrows its product's colour. Light + dark via data-theme on <html>. */
 :root{
@@ -790,6 +790,9 @@ ul.states{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:
 .sqc:hover .sqr,.sqc:focus-visible .sqr{transform:rotate(-45deg)}
 @media (hover:none){.sql{max-width:60px;opacity:1;margin-right:8px}}
 @media (prefers-reduced-motion:reduce){.sql,.sqr{transition:none}}
+.cover,.shot{background:var(--soft)}
+.cover img,.shot img{display:block;width:100%;height:auto}
+a.brand{min-height:44px}
 </style>
 </head>
 <body>
@@ -837,11 +840,12 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",
 const ph=(src,cap)=>`<figure><div class="ph"><img src="${src}" alt="${esc(cap)}" loading="lazy"></div><figcaption>${cap}</figcaption></figure>`;
 const shot=(src,cap)=>`<figure><div class="shot"><img src="${src}" alt="${esc(cap)}" loading="lazy"></div><figcaption>${cap}</figcaption></figure>`;
 const blk=(lab,h,inner)=>`<section class="blk"><span class="lab">${lab}</span><div class="body"><h2>${h}</h2>${inner}</div></section>`;
-const csc=(k,i)=>{const p=P[k];return `<a class="csc rv${i%2?" flip":""}" href="#${k}" style="--acc:${p.acc}"><div class="cimg"><img src="${p.cover}" alt="${esc(p.title)} cover" loading="lazy"></div><div><span class="num"><span class="qt">Case study ${p.n}</span>${p.type}</span><h3>${p.title}</h3><p>${p.lede}</p><div class="did"><span class="role-l"><b>${p.role}</b> · ${p.year}</span><div class="tags">${p.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div></div><span class="readm">Read the case study <span class="ar">→</span></span></div></a>`};
+const csc=(k,i)=>{const p=P[k];return `<a class="csc rv${i%2?" flip":""}" href="#${k}" style="--acc:${p.acc}"><div class="cimg"><img src="${th(p.cover)}" alt="${esc(p.title)} cover" loading="lazy"></div><div><span class="num"><span class="qt">Case study ${p.n}</span>${p.type}</span><h3>${p.title}</h3><p>${p.lede}</p><div class="did"><span class="role-l"><b>${p.role}</b> · ${p.year}</span><div class="tags">${p.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div></div><span class="readm">Read the case study <span class="ar">→</span></span></div></a>`};
 // Case-study deck: one big slide at a time, the next one peeking (Pentagram, Webflow #MadeinWebflow), swipe / drag / arrows / keys, counter + progress (Shader). Native scroll-snap does the swiping.
+const th=s=>s.replace("img/","img/t/");
 const deck=ks=>{const n=ks.length,pad=i=>String(i).padStart(2,"0");return `<div class="qdeck cdeck" role="region" aria-roledescription="carousel" aria-label="Case studies">
- <div class="qd-stage" tabindex="0" aria-label="Case study cards. Drag or swipe the top card, or use the arrow keys. Press Enter to open.">${ks.map((k,i)=>{const p=P[k];return `<a class="qc${i?"":" top"}" href="#${k}" style="--acc:${p.acc}" aria-roledescription="slide" aria-label="${i+1} of ${n}: ${esc(p.title)}" draggable="false"${i?' tabindex="-1" aria-hidden="true"':""}>
-  <span class="qc-img"><img src="${p.cover}" alt="" loading="${i?"lazy":"eager"}" draggable="false"><span class="qc-badges"><span class="qt">Case study ${p.n}</span></span></span>
+ <div class="qd-stage" tabindex="0" aria-label="Case study cards. Drag or swipe the top card, or use the arrow keys. Press Enter to open.">${ks.map((k,i)=>{const p=P[k];return `<a class="qc${i?"":" top"}" href="#${k}" style="--acc:${p.acc}" aria-roledescription="slide" draggable="false"${i?' tabindex="-1" aria-hidden="true"':""}>
+  <span class="qc-img"><img src="${th(p.cover)}" srcset="${th(p.cover)} 720w, ${p.cover} 1600w" sizes="(max-width:760px) 92vw, 680px" alt="" loading="eager" decoding="async"${i?"":' fetchpriority="high"'} draggable="false"><span class="qc-badges"><span class="qt">Case study ${p.n}</span></span></span>
   <span class="qc-foil" aria-hidden="true"></span><span class="qc-stamp nx" aria-hidden="true">Next</span><span class="qc-stamp bk" aria-hidden="true">Back</span>
   <span class="qc-body"><span class="qc-meta">${p.type} · ${p.year}</span><b class="qc-t">${p.title}</b><span class="qc-l">${p.lede}</span>
    <span class="qc-foot"><span class="qc-tags">${p.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</span><span class="qc-play">View case study<i aria-hidden="true">→</i></span></span></span></a>`}).join("")}</div>
@@ -857,7 +861,7 @@ const QB1CARD=`<div class="qb-card">
    <div class="qb-cta"><a class="qb-btn" href="prototypes/qb1.html" target="_blank" rel="noopener">Play the prototype <span class="ar">↗</span></a></div></div>
   <div class="qb-art" aria-hidden="true"><span class="qb-mark">QB<i>1</i></span><svg viewBox="0 0 200 140"><g stroke="rgba(238,242,236,.16)" stroke-width="1"><path d="M0 20H200M0 50H200M0 80H200M0 110H200"/></g><path d="M40 118 Q100 -10 168 40" fill="none" stroke="#FF6A2B" stroke-width="2.5" stroke-dasharray="5 6" class="qb-arc"/><circle cx="168" cy="40" r="11" fill="none" stroke="#F2C14E" stroke-width="2"/><circle cx="168" cy="40" r="4" fill="#F2C14E"/><ellipse cx="40" cy="118" rx="7" ry="4.5" fill="#B5652E"/></svg></div>
  </div>`;
-const idx=ks=>`<div class="idx">${ks.map(k=>{const p=P[k];return `<a href="#${k}" data-img="${p.cover}"><span class="n">${p.n}</span><img class="thumb" src="${p.cover}" alt="" loading="lazy"><span><b>${p.title}</b><span class="t">${p.type}${p.role?" · "+p.role:""}</span></span><span class="o">${OUT[k]}</span><span class="y">${p.year}</span><span class="ar" aria-hidden="true">↗</span></a>`}).join("")}</div>`;
+const idx=ks=>`<div class="idx">${ks.map(k=>{const p=P[k];return `<a href="#${k}" data-img="${th(p.cover)}"><span class="n">${p.n}</span><img class="thumb" src="${th(p.cover)}" alt="" loading="lazy"><span><b>${p.title}</b><span class="t">${p.type}${p.role?" · "+p.role:""}</span></span><span class="o">${OUT[k]}</span><span class="y">${p.year}</span><span class="ar" aria-hidden="true">↗</span></a>`}).join("")}</div>`;
 
 /* Pages ---------------------------------------------------------------- */
 function home(){return `
@@ -869,8 +873,6 @@ function home(){return `
 <section class="wrap sec" style="padding-top:56px" aria-labelledby="csh">
  <div class="sec-h"><div><span class="eyebrow">Selected work · in depth</span><h2 id="csh" style="margin-top:6px">Case studies</h2></div><a class="btn ghost" href="#work">All work</a></div>
  ${deck(["agentcx","educare","houseparty","paddy"])}
- <div class="sec-h" style="margin:24px 0 18px"><div><span class="eyebrow">Smaller builds, big fun</span><h2 style="margin-top:6px;font-size:clamp(26px,3vw,34px)">Side quests</h2></div></div>
- <div class="sq three">${["krypto","avant"].map(k=>{const p=P[k];return `<a class="sqc" href="#${k}"><span class="sqi"><img src="${p.cover}" alt="${esc(p.title)} cover" loading="lazy"></span><span class="sqt"><span class="qt side">Project</span><b>${p.title}</b><span class="m">${p.type} · ${p.year}</span></span><span class="sqa" aria-hidden="true"><span class="sql">View</span><i class="sqr">→</i></span></a>`}).join("")}<a class="sqc" data-cur="Play" href="prototypes/qb1.html" target="_blank" rel="noopener"><span class="sqi qb-thumb" aria-hidden="true"><span>QB<i>1</i></span></span><span class="sqt"><span class="qt side">Game</span><b>QB1: Throw &amp; Catch</b><span class="m">Game design · Playable prototype</span></span><span class="sqa" aria-hidden="true"><span class="sql">Play</span><i class="sqr">→</i></span></a></div>
 </section>
 <section class="wrap sec" style="padding-top:24px">
  <div class="sec-h"><div><span class="eyebrow">From my CV</span><h2 style="margin-top:6px">Impact</h2></div></div>
@@ -1260,6 +1262,10 @@ function unlock(k){if(got.includes(k))return;got.push(k);try{sessionStorage.setI
  document.querySelectorAll(".ach").forEach(x=>x.remove());document.body.appendChild(el);setTimeout(()=>el.remove(),3600)}
 function trackAch(h){seen.add(h);if(["agentcx","educare","paddy","houseparty","krypto","avant"].includes(h))unlock("quest");if(h==="play")unlock("fun");if(seen.size>=4)unlock("explorer")}
 document.addEventListener("click",e=>{if(e.target.closest("a[data-cv]"))unlock("scout")},true);
+/* images: warm the cache when idle, retry once on a failed load */
+(()=>{const warm=()=>{const s=new Set();Object.values(P).forEach(p=>{s.add(th(p.cover));s.add(p.cover)});s.add("img/acx-dash.webp");s.forEach(u=>{const i=new Image();i.decoding="async";i.src=u})};
+ addEventListener("load",()=>("requestIdleCallback" in window?requestIdleCallback(warm,{timeout:2500}):setTimeout(warm,1200)),{once:true});
+ document.addEventListener("error",e=>{const i=e.target;if(!(i instanceof HTMLImageElement)||i.dataset.retry)return;i.dataset.retry="1";const u=i.currentSrc||i.src;setTimeout(()=>{i.removeAttribute("srcset");i.src=u+(u.includes("?")?"&":"?")+"r=1"},1200)},true)})();
 function toast(m){const t=document.getElementById("toast");t.innerHTML=`<div class="toast" role="status">${m}</div>`;setTimeout(()=>t.innerHTML="",2800)}
 function wire(h){
  if(h==="contact"){document.getElementById("cp").onclick=async()=>{try{await navigator.clipboard.writeText(ME.email);toast("Email copied.")}catch(e){const r=document.createRange();r.selectNodeContents(document.getElementById("em"));getSelection().removeAllRanges();getSelection().addRange(r);toast("Email selected. Press Ctrl+C.")}};
