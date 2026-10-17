@@ -831,39 +831,24 @@ form.card.busy .f{opacity:.55;pointer-events:none;transition:opacity .2s}
 .sent .btn.ghost{background:transparent;color:#F3F3F1;border:1px solid rgba(255,255,255,.28);--c-bg:#F3F3F1;--c-fg:#0E0F12}
 @keyframes sentIn{from{transform:translateY(16px) scale(.97);opacity:0}}
 @keyframes badgePop{from{transform:scale(.3) rotate(-30deg);opacity:0}}
-/* v14 live music: stats.fm now playing + recent + top, Spotify preview player */
-.np{display:flex;gap:20px;align-items:center}
-@media (max-width:420px){.np{flex-wrap:wrap}}
-.vinyl{position:relative;overflow:hidden}
-.vinyl img{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;object-fit:cover;z-index:1;box-shadow:0 0 0 3px #0E0F12}
-.vinyl img+*{display:none}
-.vinyl.art::after{z-index:2;width:10px;height:10px;background:#0E0F12;box-shadow:0 0 0 2px rgba(255,255,255,.35)}
-.np-txt{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
-.np-st{display:inline-flex;align-items:center;gap:8px;font:600 12px var(--head);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.np-st i{width:8px;height:8px;border-radius:50%;background:var(--line);flex:none;position:relative}
-.np-st.on{color:#15803D}:root[data-theme="dark"] .np-st.on{color:#4ADE80}
-.np-st.on i{background:#22C55E}.np-st.on i::after{content:"";position:absolute;inset:0;border-radius:50%;background:#22C55E;animation:ping 1.8s cubic-bezier(0,0,.2,1) infinite}
-.np-t{font:700 20px/1.25 var(--head);letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.np-a{font-size:15px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.np-bar{height:4px;border-radius:2px;background:var(--line);overflow:hidden;margin-top:6px}
-.np-bar i{display:block;height:100%;width:var(--p,0%);background:#1DB954;transition:width 1s linear}
-.np-acts{display:flex;align-items:center;gap:14px;margin-top:10px;flex-wrap:wrap}
-.np.playing .eq i{animation:eq .9s ease-in-out infinite}
-.np.playing .vinyl{animation:spin 3.2s linear infinite}
-.player{margin-top:16px;border-radius:14px;overflow:hidden;background:var(--soft)}
-.player iframe{display:block;width:100%;height:152px;border:0}
-.mu-tabs{display:flex;gap:4px;margin:20px 0 8px;padding:4px;border-radius:999px;background:var(--soft);width:max-content;max-width:100%}
-.mu-tabs button{padding:7px 14px;border-radius:999px;font:600 13px var(--head);color:var(--muted);white-space:nowrap}
-.mu-tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
-.mu-tabs[hidden]{display:none}
-.trk button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:12px;align-items:center;padding:8px 4px;border-bottom:1px solid var(--line)}
-.trk button:focus-visible{outline:3px solid var(--danfo);outline-offset:2px;border-radius:8px}
-.trk .cv{width:40px;height:40px;border-radius:8px;object-fit:cover;background:var(--soft)}
-.trk .meta{font:500 12px var(--body);color:var(--muted);white-space:nowrap;text-align:right}
-.trk button:hover .tt2 b,.trk button[aria-current] .tt2 b{color:#1DB954}
-.trk .tt2 b,.trk .tt2 small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mu-note{font-size:12.5px;color:var(--muted);margin-top:10px}
 .sent .sent-prev{font-size:13px;color:#959AA3;border:1px dashed rgba(255,255,255,.22);border-radius:10px;padding:8px 10px}
+/* v15 music: three playlist tabs + Spotify's own playlist player, with an Open in Spotify fallback */
+.music .pls{gap:4px;margin-top:16px}
+.music .pl{width:100%;text-align:left;border:1px solid transparent}
+.music .pl[aria-selected="true"]{background:var(--soft);border-color:var(--line)}
+.music .pl .po{width:10px;height:10px;border-radius:50%;justify-self:center;background:transparent;box-shadow:inset 0 0 0 2px var(--line)}
+.music .pl[aria-selected="true"] .po{background:#1DB954;box-shadow:0 0 0 4px color-mix(in srgb,#1DB954 25%,transparent)}
+.music .pl:hover .po{transform:none}
+.player{position:relative;margin-top:16px;border-radius:16px;overflow:hidden;background:var(--soft);min-height:352px}
+.player iframe{display:block;width:100%;height:352px;border:0}
+.pl-wait{position:absolute;inset:0;display:grid;place-items:center;padding:16px;text-align:center;font-size:14px;color:var(--muted)}
+.mu-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:16px}
+.mu-note{font-size:13px;color:var(--muted);flex:1;min-width:180px}
+/* v15 audit fixes: dark cards stay dark in dark mode (contrast), 44px back link */
+.tcard,.bet{background:#0E0F12;color:#F3F3F1}
+.tcard p{color:rgba(243,243,241,.78)}
+:root[data-theme="dark"] .tcard,:root[data-theme="dark"] .bet{background:var(--surface);border:1px solid var(--line)}
+.back{display:inline-flex;align-items:center;min-height:44px}
 </style>
 </head>
 <body>
@@ -1161,16 +1146,16 @@ const DECK=[["Students can pay school fees by USSD","Must","No smartphone data s
 function play(){return `<section class="wrap cs-hero" style="padding-bottom:10px"><span class="eyebrow">Off the clock</span><h1>Not all work.</h1><p class="lead">What's playing while I work, and a game for anyone who's ever had to say no to a stakeholder.</p></section>
 <section class="wrap play">
  <div class="panel music">
-  <div class="mu-top"><span class="eyebrow" id="muSrc">From my Spotify</span><span class="sp-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1DB954"/><path d="M6.5 9.3c3.8-1.1 8-.8 11 .9M7.2 12.4c3.1-.9 6.6-.6 9.2.8M7.8 15.3c2.5-.6 5.2-.4 7.3.7" fill="none" stroke="#0E0F12" stroke-width="1.6" stroke-linecap="round"/></svg>Spotify</span></div>
-  <h2 style="font-size:24px;margin:6px 0 14px">What I work to</h2>
-  <div class="np" id="np"><div class="vinyl" id="vinyl" role="img" aria-label="Record"><img id="npArt" alt="" hidden></div>
-   <div class="np-txt"><span class="np-st" id="npSt"><i aria-hidden="true"></i><span>Afrobeats, amapiano and trap</span></span><b class="np-t" id="npT">What I work to</b><span class="np-a" id="npA">Asake is on heavy rotation.</span>
-    <div class="np-bar" id="npBar" hidden><i></i></div>
-    <div class="np-acts"><button class="btn y" id="spinBtn" type="button">▶ Play a preview</button><div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div></div></div>
-  <div class="player" id="player" hidden></div>
-  <div class="pls"><a class="pl" href="https://open.spotify.com/playlist/4hi5ijOqzNq3nPuxsPxgSR" target="_blank" rel="noopener"><span class="pc" style="background:linear-gradient(135deg,#FF5A5F,#B14BFF)" aria-hidden="true"><b>AT</b><i></i></span><span class="plt"><b>Afrobeat & Trap Fusion</b><small>Playlist · made by me</small></span><span class="po" aria-hidden="true">↗</span></a><a class="pl" href="https://open.spotify.com/playlist/6zWqfUpV9kn7KX6tXDKfao" target="_blank" rel="noopener"><span class="pc" style="background:linear-gradient(135deg,#34D399,#12785A)" aria-hidden="true"><b>AP</b><i></i></span><span class="plt"><b>Amapiano</b><small>Playlist · made by me</small></span><span class="po" aria-hidden="true">↗</span></a><a class="pl" href="https://open.spotify.com/playlist/1HI9ajuxJKbmOFeJb5jiua" target="_blank" rel="noopener"><span class="pc" style="background:linear-gradient(135deg,#FFC20E,#F2884B)" aria-hidden="true"><b>14</b><i></i></span><span class="plt"><b>2014–2016 Club Afro Beat</b><small>Playlist · made by me</small></span><span class="po" aria-hidden="true">↗</span></a></div>
-  <div class="mu-tabs" role="tablist" aria-label="Tracks"><button role="tab" aria-selected="true" data-tab="recent">Recently played</button><button role="tab" aria-selected="false" data-tab="top">On repeat this week</button></div>
-  <ol class="trk" id="trk"><li><a href="https://open.spotify.com/track/5WTj1jVzufTuSzFMyjy60M" target="_blank" rel="noopener"><span class="tn">01</span><span class="tt2"><b>Back Outside</b><small>BNXN, Sarz</small></span><span class="eqs" aria-hidden="true"><i></i><i></i><i></i></span></a></li><li><a href="https://open.spotify.com/track/5xFnqGLySijRJ2q6som381" target="_blank" rel="noopener"><span class="tn">02</span><span class="tt2"><b>Amen</b><small>Asake</small></span><span class="eqs" aria-hidden="true"><i></i><i></i><i></i></span></a></li><li><a href="https://open.spotify.com/track/59zlaPDhvE414BZ82AFjH5" target="_blank" rel="noopener"><span class="tn">03</span><span class="tt2"><b>Oba</b><small>Asake</small></span><span class="eqs" aria-hidden="true"><i></i><i></i><i></i></span></a></li></ol>
+  <div class="mu-top"><span class="eyebrow">My playlists</span><span class="sp-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1DB954"/><path d="M6.5 9.3c3.8-1.1 8-.8 11 .9M7.2 12.4c3.1-.9 6.6-.6 9.2.8M7.8 15.3c2.5-.6 5.2-.4 7.3.7" fill="none" stroke="#0E0F12" stroke-width="1.6" stroke-linecap="round"/></svg>Spotify</span></div>
+  <h2 style="font-size:24px;margin:6px 0 4px">What I work to</h2>
+  <p class="muted" style="font-size:15px">Afrobeats, amapiano and trap for long Figma sessions. Pick one and press play.</p>
+  <div class="pls" role="tablist" aria-label="Playlists">
+   <button class="pl" role="tab" type="button" aria-selected="true" data-pl="4hi5ijOqzNq3nPuxsPxgSR"><span class="pc" style="background:linear-gradient(135deg,#FF5A5F,#B14BFF)" aria-hidden="true"><b>AT</b><i></i></span><span class="plt"><b>Afrobeat & Trap Fusion</b><small>Playlist · made by me</small></span><span class="po" aria-hidden="true"></span></button>
+   <button class="pl" role="tab" type="button" aria-selected="false" data-pl="6zWqfUpV9kn7KX6tXDKfao"><span class="pc" style="background:linear-gradient(135deg,#34D399,#12785A)" aria-hidden="true"><b>AP</b><i></i></span><span class="plt"><b>Amapiano</b><small>Playlist · made by me</small></span><span class="po" aria-hidden="true"></span></button>
+   <button class="pl" role="tab" type="button" aria-selected="false" data-pl="1HI9ajuxJKbmOFeJb5jiua"><span class="pc" style="background:linear-gradient(135deg,#FFC20E,#F2884B)" aria-hidden="true"><b>14</b><i></i></span><span class="plt"><b>2014–2016 Club Afro Beat</b><small>Playlist · made by me</small></span><span class="po" aria-hidden="true"></span></button>
+  </div>
+  <div class="player" id="player" role="tabpanel" aria-label="Spotify player"><div class="pl-wait" id="plWait">Loading the player…</div></div>
+  <div class="mu-foot"><a class="btn ghost" id="plOpen" href="https://open.spotify.com/playlist/4hi5ijOqzNq3nPuxsPxgSR" target="_blank" rel="noopener">Open in Spotify ↗</a><span class="mu-note">Previews play here. Log in to Spotify in this browser for full tracks.</span></div>
  </div>
  <div class="arcade" id="game">
   <div class="ar-top"><span class="ar-tag">Mini-game · 30s</span><button class="ar-snd" id="gsnd" aria-pressed="false" aria-label="Sound off">♪ Sound off</button></div>
@@ -1390,45 +1375,19 @@ function wire(h){
   wireForm(document.getElementById("form"))}
  if(h==="play")wirePlay();
 }
-/* Live music from stats.fm (public profile). Now playing, recently played and this week's top tracks,
-   refreshed every minute while the page is open. Anything that fails falls back to the hand-picked list.
-   Clicking a track loads Spotify's own embed player, so visitors can actually hear it. */
-const STATSFM_USER="";   // ← your stats.fm username or profile id (stats.fm/<this>)
-const SFM="https://api.stats.fm/api/v1/users/";
-const FALLBACK_TRACKS=[["5WTj1jVzufTuSzFMyjy60M","Back Outside","BNXN, Sarz"],["5xFnqGLySijRJ2q6som381","Amen","Asake"],["59zlaPDhvE414BZ82AFjH5","Oba","Asake"]];
-let musicTimer=null,musicTab="recent",musicData={recent:null,top:null};
-const ago=t=>{const m=Math.round((Date.now()-new Date(t))/60000);return m<1?"just now":m<60?m+"m ago":m<1440?Math.round(m/60)+"h ago":Math.round(m/1440)+"d ago"};
-const sfmTrack=t=>({id:(t.externalIds?.spotify||[])[0],name:t.name,artists:(t.artists||[]).map(a=>a.name).join(", "),art:(t.albums||[])[0]?.image});
-async function sfm(path){const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),8000);try{const r=await fetch(SFM+encodeURIComponent(STATSFM_USER)+path,{signal:ctl.signal});if(r.status===204)return null;if(!r.ok)throw new Error(r.status);return await r.json()}finally{clearTimeout(tm)}}
-function playTrack(id,label){const pl=document.getElementById("player");if(!pl||!id)return;
- pl.hidden=false;pl.innerHTML=`<iframe title="Spotify player: ${esc(label)}" src="https://open.spotify.com/embed/track/${id}?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
- document.querySelectorAll("#trk button").forEach(b=>b.toggleAttribute("aria-current",b.dataset.id===id))}
-function renderList(){const ol=document.getElementById("trk");if(!ol)return;const rows=musicData[musicTab];if(!rows)return;
- ol.innerHTML=rows.slice(0,5).map((r,i)=>`<li><button type="button" data-id="${esc(r.id||"")}" aria-label="Play ${esc(r.name)} by ${esc(r.artists)}">${r.art?`<img class="cv" src="${esc(r.art)}" alt="" loading="lazy">`:`<span class="tn">${String(i+1).padStart(2,"0")}</span>`}<span class="tt2"><b>${esc(r.name)}</b><small>${esc(r.artists)}</small></span><span class="meta">${esc(r.meta||"")}</span></button></li>`).join("");
- ol.querySelectorAll("button").forEach(b=>b.onclick=()=>playTrack(b.dataset.id,b.querySelector("b").textContent))}
-function setNow(st,live,t){const np=document.getElementById("np");if(!np)return;const art=document.getElementById("npArt"),v=document.getElementById("vinyl");
- const s=document.getElementById("npSt");s.classList.toggle("on",live);s.lastElementChild.textContent=st;
- if(t){document.getElementById("npT").textContent=t.name;document.getElementById("npA").textContent=t.artists;np.dataset.id=t.id||"";
-  if(t.art){art.src=t.art;art.hidden=false;v.classList.add("art");v.setAttribute("aria-label","Album art: "+t.name)}}
- np.classList.toggle("playing",live)}
-async function refreshMusic(){if(!document.getElementById("np")||!STATSFM_USER)return;
- try{const [cur,rec,top]=await Promise.all([sfm("/streams/current").catch(()=>null),sfm("/streams/recent?limit=10"),sfm("/top/tracks?range=weeks&limit=5").catch(()=>null)]);
-  musicData.recent=(rec?.items||[]).map(x=>({...sfmTrack(x.track),meta:ago(x.endTime)}));
-  musicData.top=(top?.items||[]).map(x=>({...sfmTrack(x.track),meta:x.streams?x.streams+" plays":"#"+x.position}));
-  const c=cur?.item;
-  if(c&&c.isPlaying!==false&&c.track){const t=sfmTrack(c.track);setNow("Listening now",true,t);const bar=document.getElementById("npBar");
-   if(c.progressMs&&c.track.durationMs){bar.hidden=false;bar.style.setProperty("--p",Math.min(100,c.progressMs/c.track.durationMs*100)+"%")}}
-  else if(musicData.recent[0]){setNow("Last played "+musicData.recent[0].meta,false,musicData.recent[0]);document.getElementById("npBar").hidden=true}
-  document.getElementById("muSrc").textContent="Live from my stats.fm";
-  document.querySelector(".mu-tabs").hidden=!musicData.top?.length;renderList()}
- catch(e){/* keep the hand-picked list */}}
-function initMusic(){clearInterval(musicTimer);musicData={recent:FALLBACK_TRACKS.map(([id,name,artists])=>({id,name,artists})),top:null};musicTab="recent";
- const tabs=document.querySelector(".mu-tabs");tabs.hidden=true;
- tabs.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{musicTab=b.dataset.tab;tabs.querySelectorAll("[data-tab]").forEach(x=>x.setAttribute("aria-selected",x===b));renderList()});
- renderList();
- document.getElementById("spinBtn").onclick=()=>{const np=document.getElementById("np");const id=np.dataset.id||musicData[musicTab]?.[0]?.id||FALLBACK_TRACKS[0][0];
-  playTrack(id,document.getElementById("npT").textContent);np.classList.add("playing")};
- refreshMusic();musicTimer=setInterval(()=>{if(location.hash==="#play"&&!document.hidden)refreshMusic();else if(location.hash!=="#play")clearInterval(musicTimer)},60000)}
+/* Music: three playlists. Picking one swaps Spotify's playlist player below. If the player can't load
+   (blocked, offline), the Open in Spotify button is still there and the message says so. */
+function initMusic(){const pls=[...document.querySelectorAll(".music .pl")],pl=document.getElementById("player"),open=document.getElementById("plOpen");if(!pl)return;
+ const load=id=>{const name=pls.find(b=>b.dataset.pl===id)?.querySelector("b")?.textContent||"Playlist";
+  pl.innerHTML=`<div class="pl-wait">Loading the player…</div><iframe title="Spotify player: ${esc(name)}" src="https://open.spotify.com/embed/playlist/${id}?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+  const fr=pl.querySelector("iframe"),w=pl.querySelector(".pl-wait");let ok=false;fr.style.opacity=0;
+  fr.onload=()=>{ok=true;fr.style.opacity=1;w.remove()};
+  setTimeout(()=>{if(!ok&&w.isConnected)w.textContent="The player didn't load here. Use Open in Spotify below."},9000);
+  open.href=`https://open.spotify.com/playlist/${id}`;
+  ctaify(open.parentElement)};
+ pls.forEach(b=>b.onclick=()=>{pls.forEach(x=>x.setAttribute("aria-selected",x===b));load(b.dataset.pl)});
+ pls.forEach((b,k)=>b.onkeydown=e=>{const d=e.key==="ArrowDown"||e.key==="ArrowRight"?1:e.key==="ArrowUp"||e.key==="ArrowLeft"?-1:0;if(!d)return;e.preventDefault();const n=pls[(k+d+pls.length)%pls.length];n.focus();n.click()});
+ load(pls[0].dataset.pl)}
 function wirePlay(){initMusic();
  // game: arcade MoSCoW
  let deck=[],i=0,score=0,left=30,on=false,combo=1,right=0,best=0,snd=false;try{best=+localStorage.getItem("moscow-best2")||0}catch(e){}
