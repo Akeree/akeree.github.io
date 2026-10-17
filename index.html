@@ -801,6 +801,36 @@ a.brand{min-height:44px}
 .qd-list button[aria-current]:hover .qd-li-ar em,.qd-list button[aria-current]:focus-visible .qd-li-ar em{max-width:48px;opacity:1}
 .qd-list button[aria-current]:hover .qd-li-ar{transform:none}
 @media (hover:none){.qd-list button[aria-current] .qd-li-ar em{max-width:48px;opacity:1}}
+/* v13 contact form: sends to the inbox, then a quest-complete card */
+form.card{position:relative}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0}
+form.card.busy .f{opacity:.55;pointer-events:none;transition:opacity .2s}
+.btn .ld{display:inline-block;width:16px;height:16px;border-radius:50%;border:2.5px solid currentColor;border-right-color:transparent;animation:ld .7s linear infinite;vertical-align:-3px;margin-right:8px}
+@keyframes ld{to{transform:rotate(1turn)}}
+.form-err{border-radius:16px;padding:12px 14px;background:color-mix(in srgb,#C4352B 9%,var(--surface));border:1px solid color-mix(in srgb,#C4352B 35%,transparent);font-size:14.5px;line-height:1.5;color:var(--ink)}
+.form-err a{font-weight:600}
+.sent{position:relative;overflow:hidden;isolation:isolate;border-radius:26px;padding:28px;background:#0E0F12;color:#F3F3F1;box-shadow:0 8px 0 #000;display:flex;flex-direction:column;align-items:flex-start;gap:12px;animation:sentIn .5s cubic-bezier(.2,1.4,.4,1)}
+.sent::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:22px 22px}
+.sent::after{content:"";position:absolute;inset:-40% -20% auto;height:70%;z-index:-1;background:radial-gradient(45% 60% at 20% 30%,rgba(255,194,14,.28),transparent 70%),radial-gradient(40% 55% at 85% 20%,rgba(52,211,153,.22),transparent 70%)}
+.sent:focus{outline:none}
+.sent-fx{position:absolute;left:60px;top:60px;width:0;height:0;pointer-events:none;overflow:visible}
+.sent-badge{width:64px;height:64px;border-radius:18px;background:#FFC20E;color:#0E0F12;display:grid;place-items:center;box-shadow:0 5px 0 #B88700,0 0 34px rgba(255,194,14,.45);animation:badgePop .6s cubic-bezier(.2,1.8,.4,1) .12s both}
+.sent-badge svg{width:32px;height:32px}
+.sent-tag{font:700 11.5px var(--head);letter-spacing:.12em;text-transform:uppercase;color:#FFC20E;margin-top:4px}
+.sent-h{font:800 clamp(26px,3vw,34px)/1.1 var(--head);letter-spacing:-.03em;color:#fff}
+.sent p{color:#C9CBD0;font-size:16px;margin:0}
+.sent p b{color:#fff;font-weight:600;overflow-wrap:anywhere}
+.sent-xp{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;align-items:center;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.sent-xp b{font:800 18px var(--head);color:#FFC20E;font-variant-numeric:tabular-nums;min-width:5ch}
+.sent-bar{height:8px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden}
+.sent-bar i{display:block;height:100%;width:0;border-radius:4px;background:#FFC20E;box-shadow:0 0 10px #FFC20E;transition:width 1.1s cubic-bezier(.2,.8,.2,1) .25s}
+.sent.go .sent-bar i{width:100%}
+.sent-xp small{grid-column:1/-1;font-size:12.5px;color:#959AA3}
+.sent-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.sent .btn.y{--c-bg:#F3F3F1;--c-fg:#0E0F12}
+.sent .btn.ghost{background:transparent;color:#F3F3F1;border:1px solid rgba(255,255,255,.28);--c-bg:#F3F3F1;--c-fg:#0E0F12}
+@keyframes sentIn{from{transform:translateY(16px) scale(.97);opacity:0}}
+@keyframes badgePop{from{transform:scale(.3) rotate(-30deg);opacity:0}}
 </style>
 </head>
 <body>
@@ -1130,14 +1160,16 @@ function play(){return `<section class="wrap cs-hero" style="padding-bottom:10px
 function contact(){return `<section class="wrap contact"><div style="display:flex;flex-direction:column;gap:22px">
  <span class="eyebrow">Contact</span><h1 style="font-size:clamp(36px,5vw,60px);line-height:1.08">Let's talk about what you're building.</h1>
  <p class="lead" style="color:var(--ink-2);font-size:19px">Roles, projects or a quick question. Tell me what you're building and who it's for.</p>
- <div><span class="eyebrow">Email</span><div class="copy" style="margin-top:6px"><span id="em">${ME.email}</span><button id="cp">Copy</button></div></div>
+ <div style="display:flex;flex-direction:column;align-items:flex-start;gap:12px"><span class="eyebrow">Email</span><div class="copy"><span id="em">${ME.email}</span><button id="cp">Copy</button></div></div>
  <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn ghost" href="${ME.linkedin}" target="_blank" rel="noopener">Connect on LinkedIn ↗</a><a class="btn ghost" href="cv/Abdulfatai-Akere-CV.pdf" download="Abdulfatai-Akere-CV.pdf" data-cv target="_blank" rel="noopener">Download CV ↓</a></div></div>
  <form class="card" id="form" novalidate>
   <div class="f"><label for="fn">Your name</label><input id="fn" autocomplete="name" placeholder="Your full name"><span class="err" hidden>Add your name.</span></div>
   <div class="f"><label for="fe">Your email</label><input id="fe" type="email" autocomplete="email" placeholder="you@company.com"><span class="err" hidden>Add an email like ada@company.com.</span></div>
   <div class="f"><label for="fm">Message</label><textarea id="fm" placeholder="What are you building, and what's the timeline?"></textarea><span class="err" hidden>Tell me a little more (20+ characters).</span></div>
-  <button class="btn y" type="submit" style="align-self:flex-start">Write the email <span class="ar">→</span></button>
-  <p class="note">Opens your email app with everything filled in. Nothing is stored here.</p>
+  <div class="hp" aria-hidden="true"><label for="fh">Leave this empty</label><input id="fh" tabindex="-1" autocomplete="off"></div>
+  <div class="form-err" id="ferr" role="alert" hidden></div>
+  <button class="btn y" type="submit" id="fsend" style="align-self:flex-start">Send message <span class="ar">→</span></button>
+  <p class="note">Goes straight to my inbox. No email app needed.</p>
  </form></section>`}
 
 /* Router + wiring ------------------------------------------------------ */
@@ -1262,7 +1294,7 @@ ctaify(document);
 const xp=document.getElementById("xp");const setXP=()=>{const h=document.documentElement.scrollHeight-innerHeight;xp.style.setProperty("--xp",h>0?Math.min(1,scrollY/h):0)};addEventListener("scroll",setXP,{passive:true});addEventListener("resize",setXP);
 /* achievements: small, once per visit */
 const TROPHY='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4"/></svg>';
-const ACH={quest:["First quest","You opened a case study."],dealer:["Card shark","You flipped through every quest card."],explorer:["Explorer","Four pages visited."],fun:["Off the clock","You found the fun page."],scout:["Talent scout","You grabbed the CV."]};
+const ACH={quest:["First quest","You opened a case study."],dealer:["Card shark","You flipped through every quest card."],explorer:["Explorer","Four pages visited."],fun:["Off the clock","You found the fun page."],scout:["Talent scout","You grabbed the CV."],signal:["Signal sent","You sent me a message."]};
 let got=[],seen=new Set();try{got=JSON.parse(sessionStorage.getItem("ach")||"[]")}catch(e){}
 function achCount(){const c=document.getElementById("achc");if(c)c.innerHTML=`${TROPHY} ${got.length}/${Object.keys(ACH).length} achievements`}
 function unlock(k){if(got.includes(k))return;got.push(k);try{sessionStorage.setItem("ach",JSON.stringify(got))}catch(e){}achCount();
@@ -1270,17 +1302,51 @@ function unlock(k){if(got.includes(k))return;got.push(k);try{sessionStorage.setI
  document.querySelectorAll(".ach").forEach(x=>x.remove());document.body.appendChild(el);setTimeout(()=>el.remove(),3600)}
 function trackAch(h){seen.add(h);if(["agentcx","educare","paddy","houseparty","krypto","avant"].includes(h))unlock("quest");if(h==="play")unlock("fun");if(seen.size>=4)unlock("explorer")}
 document.addEventListener("click",e=>{if(e.target.closest("a[data-cv]"))unlock("scout")},true);
+/* CV download: use the host download helper when available; otherwise the link works as normal */
+let DL=null;(async()=>{try{DL=await window.claude?.use?.("downloads")}catch(e){DL=null}})();
+document.addEventListener("click",async e=>{const a=e.target.closest("a[data-cv]");if(!a||!DL)return;e.preventDefault();
+ try{const blob=await (await fetch(a.getAttribute("href"))).blob();await DL.save({filename:"Abdulfatai-Akere-CV.pdf",data:blob});toast("CV saved.")}
+ catch(err){if(err&&err.code==="declined")return;toast(err&&err.code==="rate_limited"?"A save is already open. Finish that one first.":"Couldn't save the CV here. Email me and I'll send it.")}});
 /* images: warm the cache when idle, retry once on a failed load */
 (()=>{const warm=()=>{const s=new Set();Object.values(P).forEach(p=>{s.add(th(p.cover));s.add(p.cover)});s.add("img/acx-dash.webp");s.forEach(u=>{const i=new Image();i.decoding="async";i.src=u})};
  addEventListener("load",()=>("requestIdleCallback" in window?requestIdleCallback(warm,{timeout:2500}):setTimeout(warm,1200)),{once:true});
  document.addEventListener("error",e=>{const i=e.target;if(!(i instanceof HTMLImageElement)||i.dataset.retry)return;i.dataset.retry="1";const u=i.currentSrc||i.src;setTimeout(()=>{i.removeAttribute("srcset");i.src=u+(u.includes("?")?"&":"?")+"r=1"},1200)},true)})();
 function toast(m){const t=document.getElementById("toast");t.innerHTML=`<div class="toast" role="status">${m}</div>`;setTimeout(()=>t.innerHTML="",2800)}
+/* contact form: posts to FormSubmit, which emails the message to ME.email (no backend needed on GitHub Pages).
+   The first message ever sent triggers a one-time "activate this form" email to that inbox. */
+const FORM_ENDPOINT=`https://formsubmit.co/ajax/${ME.email}`;
+const CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+function setBtn(b,html){const bl=b.querySelector(".bl");if(bl){bl.children[0].innerHTML=html;bl.children[1].innerHTML=html}else b.innerHTML=html}
+function wireForm(f){if(!f)return;const n=f.querySelector("#fn"),em=f.querySelector("#fe"),m=f.querySelector("#fm"),hp=f.querySelector("#fh"),err=f.querySelector("#ferr"),btn=f.querySelector("#fsend");
+ f.onsubmit=async e=>{e.preventDefault();if(f.classList.contains("busy"))return;err.hidden=true;
+  const checks=[[n,n.value.trim().length>0],[em,/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())],[m,m.value.trim().length>=20]];let ok=true;
+  checks.forEach(([el,good])=>{el.nextElementSibling.hidden=good;el.setAttribute("aria-invalid",!good);if(!good&&ok){el.focus();ok=false}});
+  if(!ok)return;
+  const who=n.value.trim(),mail=em.value.trim(),msg=m.value.trim();
+  if(hp.value){celebrate(f,who,mail);return}
+  f.classList.add("busy");btn.disabled=true;f.setAttribute("aria-busy","true");setBtn(btn,'<span class="ld" aria-hidden="true"></span>Sending…');
+  const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),15000);
+  try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},signal:ctl.signal,
+    body:JSON.stringify({name:who,email:mail,message:msg,_replyto:mail,_subject:`Portfolio: message from ${who}`,_template:"table",_captcha:"false"})});
+   const d=await r.json().catch(()=>({}));if(!r.ok||!(d.success===true||d.success==="true"))throw new Error(d.message||"send failed");
+   clearTimeout(tm);celebrate(f,who,mail)}
+  catch(x){clearTimeout(tm);f.classList.remove("busy");btn.disabled=false;f.removeAttribute("aria-busy");setBtn(btn,"Try again");
+   err.innerHTML=`That didn't send. Check your connection and try again, or email me at <a href="mailto:${ME.email}">${ME.email}</a>. Your message is still here.`;err.hidden=false}}}
+function celebrate(f,who,mail){const first=esc(who.split(/\s+/)[0]||"friend"),RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+ const card=document.createElement("div");card.className="sent";card.setAttribute("role","status");card.tabIndex=-1;
+ card.innerHTML=`<div class="sent-fx" aria-hidden="true"></div><span class="sent-badge" aria-hidden="true">${CHECK}</span><span class="sent-tag">Quest complete</span>
+  <h2 class="sent-h">Message delivered, ${first}.</h2><p>It's in my inbox now. I'll reply to <b>${esc(mail)}</b>.</p>
+  <div class="sent-xp" aria-hidden="true"><b>+0 XP</b><span class="sent-bar"><i></i></span><small>Achievement progress: Signal sent</small></div>
+  <div class="sent-acts"><a class="btn y" href="#work">Browse the work →</a><button class="btn ghost" type="button" data-again>Send another</button></div>`;
+ f.replaceWith(card);ctaify(card);card.focus({preventScroll:true});card.scrollIntoView({block:"nearest",behavior:RM?"auto":"smooth"});
+ requestAnimationFrame(()=>card.classList.add("go"));
+ const xb=card.querySelector(".sent-xp b"),T=250;if(RM)xb.textContent=`+${T} XP`;else{const t0=performance.now();const st=t=>{const k=Math.min(1,(t-t0-250)/1100);xb.textContent=`+${Math.max(0,Math.round(T*(1-Math.pow(1-Math.max(0,k),3))))} XP`;if(k<1)requestAnimationFrame(st)};requestAnimationFrame(st)}
+ if(!RM){const fx=card.querySelector(".sent-fx");for(let k=0;k<26;k++){const d=document.createElement("i");d.className="cf";d.style.setProperty("--dx",(Math.random()*2-.6)*220+"px");d.style.setProperty("--dy",(Math.random()*2-1.2)*130+"px");d.style.setProperty("--r",(Math.random()*720-360)+"deg");d.style.background=["#FFC20E","#34D399","#FF5A5F","#8EA2FF","#B14BFF"][k%5];d.style.animationDuration=(.8+Math.random()*.6)+"s";fx.appendChild(d);setTimeout(()=>d.remove(),1500)}}
+ setTimeout(()=>unlock("signal"),900);
+ card.querySelector("[data-again]").onclick=()=>{route()}}
 function wire(h){
  if(h==="contact"){document.getElementById("cp").onclick=async()=>{try{await navigator.clipboard.writeText(ME.email);toast("Email copied.")}catch(e){const r=document.createRange();r.selectNodeContents(document.getElementById("em"));getSelection().removeAllRanges();getSelection().addRange(r);toast("Email selected. Press Ctrl+C.")}};
-  const f=document.getElementById("form");f.onsubmit=e=>{e.preventDefault();const n=f.querySelector("#fn"),em=f.querySelector("#fe"),m=f.querySelector("#fm");
-   const errs=[[n,n.value.trim().length>0],[em,/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())],[m,m.value.trim().length>=20]];let ok=true;
-   errs.forEach(([el,good])=>{el.nextElementSibling.hidden=good;el.setAttribute("aria-invalid",!good);if(!good&&ok){el.focus();ok=false}});
-   if(ok){location.href=`mailto:${ME.email}?subject=${encodeURIComponent("Hello from "+n.value.trim())}&body=${encodeURIComponent(m.value.trim()+"\n\n"+n.value.trim()+" · "+em.value.trim())}`;toast("Opening your email app…")}}}
+  wireForm(document.getElementById("form"))}
  if(h==="play")wirePlay();
 }
 function wirePlay(){const v=document.getElementById("vinyl"),sb=document.getElementById("spinBtn");sb.onclick=()=>{v.classList.toggle("spin");sb.textContent=v.classList.contains("spin")?"Pause":"Spin it"};
