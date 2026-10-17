@@ -863,6 +863,7 @@ form.card.busy .f{opacity:.55;pointer-events:none;transition:opacity .2s}
 .trk button:hover .tt2 b,.trk button[aria-current] .tt2 b{color:#1DB954}
 .trk .tt2 b,.trk .tt2 small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mu-note{font-size:12.5px;color:var(--muted);margin-top:10px}
+.sent .sent-prev{font-size:13px;color:#959AA3;border:1px dashed rgba(255,255,255,.22);border-radius:10px;padding:8px 10px}
 </style>
 </head>
 <body>
@@ -1351,6 +1352,8 @@ function toast(m){const t=document.getElementById("toast");t.innerHTML=`<div cla
 /* contact form: posts to FormSubmit, which emails the message to ME.email (no backend needed on GitHub Pages).
    The first message ever sent triggers a one-time "activate this form" email to that inbox. */
 const FORM_ENDPOINT=`https://formsubmit.co/ajax/${ME.email}`;
+/* In the Claude preview (or a local file) nothing can be sent, so show the success card with a note instead of an error. */
+const FORM_PREVIEW=/(^|\.)claude\.ai$|claudeusercontent|anthropic/.test(location.hostname)||location.protocol==="file:";
 const CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 function setBtn(b,html){const bl=b.querySelector(".bl");if(bl){bl.children[0].innerHTML=html;bl.children[1].innerHTML=html}else b.innerHTML=html}
 function wireForm(f){if(!f)return;const n=f.querySelector("#fn"),em=f.querySelector("#fe"),m=f.querySelector("#fm"),hp=f.querySelector("#fh"),err=f.querySelector("#ferr"),btn=f.querySelector("#fsend");
@@ -1361,6 +1364,7 @@ function wireForm(f){if(!f)return;const n=f.querySelector("#fn"),em=f.querySelec
   const who=n.value.trim(),mail=em.value.trim(),msg=m.value.trim();
   if(hp.value){celebrate(f,who,mail);return}
   f.classList.add("busy");btn.disabled=true;f.setAttribute("aria-busy","true");setBtn(btn,'<span class="ld" aria-hidden="true"></span>Sending…');
+  if(FORM_PREVIEW){await new Promise(r=>setTimeout(r,700));celebrate(f,who,mail,true);return}
   const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),15000);
   try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},signal:ctl.signal,
     body:JSON.stringify({name:who,email:mail,message:msg,_replyto:mail,_subject:`Portfolio: message from ${who}`,_template:"table",_captcha:"false"})});
@@ -1368,11 +1372,12 @@ function wireForm(f){if(!f)return;const n=f.querySelector("#fn"),em=f.querySelec
    clearTimeout(tm);celebrate(f,who,mail)}
   catch(x){clearTimeout(tm);f.classList.remove("busy");btn.disabled=false;f.removeAttribute("aria-busy");setBtn(btn,"Try again");
    err.innerHTML=`That didn't send. Check your connection and try again, or email me at <a href="mailto:${ME.email}">${ME.email}</a>. Your message is still here.`;err.hidden=false}}}
-function celebrate(f,who,mail){const first=esc(who.split(/\s+/)[0]||"friend"),RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+function celebrate(f,who,mail,preview){const first=esc(who.split(/\s+/)[0]||"friend"),RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
  const card=document.createElement("div");card.className="sent";card.setAttribute("role","status");card.tabIndex=-1;
  card.innerHTML=`<div class="sent-fx" aria-hidden="true"></div><span class="sent-badge" aria-hidden="true">${CHECK}</span><span class="sent-tag">Quest complete</span>
   <h2 class="sent-h">Message delivered, ${first}.</h2><p>It's in my inbox now. I'll reply to <b>${esc(mail)}</b>.</p>
   <div class="sent-xp" aria-hidden="true"><b>+0 XP</b><span class="sent-bar"><i></i></span><small>Achievement progress: Signal sent</small></div>
+  ${preview?'<p class="sent-prev">Preview only: nothing was sent from here. On the live site this lands in my inbox.</p>':''}
   <div class="sent-acts"><a class="btn y" href="#work">Browse the work →</a><button class="btn ghost" type="button" data-again>Send another</button></div>`;
  f.replaceWith(card);ctaify(card);card.focus({preventScroll:true});card.scrollIntoView({block:"nearest",behavior:RM?"auto":"smooth"});
  requestAnimationFrame(()=>card.classList.add("go"));
