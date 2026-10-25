@@ -849,11 +849,90 @@ form.card.busy .f{opacity:.55;pointer-events:none;transition:opacity .2s}
 .tcard p{color:rgba(243,243,241,.78)}
 :root[data-theme="dark"] .tcard,:root[data-theme="dark"] .bet{background:var(--surface);border:1px solid var(--line)}
 .back{display:inline-flex;align-items:center;min-height:44px}
+/* Splash: first visit per session, home only. Ink screen, the brand dot, a flicker of the hero line, the name on a danfo stripe, then the screen folds back into the nav dot. Tap, click or any key skips. Reduced motion gets a plain fade. */
+#splash{position:fixed;inset:0;z-index:9999;background:#0E0F12;color:#FAFAF7;overflow:hidden;display:grid;place-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:none;}
+#splash[hidden]{display:none}
+html.splashing{overflow:hidden}
+html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:paused}
+#splash .sp-c{position:absolute;font:500 13px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:rgba(250,250,247,.55);display:flex;gap:8px;align-items:center}
+#splash .sp-tl{top:calc(16px + env(safe-area-inset-top,0px));left:var(--gm)}
+#splash .sp-tr{top:calc(16px + env(safe-area-inset-top,0px));right:var(--gm)}
+#splash .sp-bl{bottom:calc(16px + env(safe-area-inset-bottom,0px));left:var(--gm)}
+#splash .sp-br{position:absolute;cursor:pointer;bottom:calc(16px + env(safe-area-inset-bottom,0px));right:var(--gm);background:none;border:1px solid rgba(250,250,247,.25);border-radius:999px;padding:8px 14px;color:#FAFAF7;font:500 13px/1 var(--body);letter-spacing:.08em;text-transform:uppercase}
+#splash .sp-br:hover{border-color:#FFC20E;color:#FFC20E}
+#splash .sp-n{font:600 clamp(56px,14vw,168px)/1 var(--head);letter-spacing:-.04em;color:#FAFAF7;font-variant-numeric:tabular-nums;position:absolute;left:var(--gm);bottom:calc(40px + env(safe-area-inset-bottom,0px));opacity:.08}
+#splash .sp-n sup{font-size:.3em;vertical-align:top;margin-left:4px}
+#splash .sp-dot{position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#FFC20E;box-shadow:0 0 0 6px rgba(255,194,14,.25);transform:scale(0)}
+#splash .sp-w{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font:700 clamp(44px,11vw,150px)/1 var(--head);letter-spacing:-.045em;white-space:nowrap;padding-inline:var(--gm)}
+#splash .sp-w.y{color:#0E0F12}
+#splash .sp-w.y::before{content:"";position:absolute;left:50%;top:50%;width:var(--bw,60%);height:1.15em;transform:translate(-50%,-50%) skewX(-8deg);background:#FFC20E;z-index:-1}
+#splash .sp-w.o{-webkit-text-stroke:2px #FAFAF7;color:transparent}
+#splash .sp-name{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:0;padding-inline:var(--gm);width:min(100%,calc(1280px + 2 * var(--gm)))}
+#splash .sp-line{display:block;overflow:hidden;font:700 clamp(52px,13vw,190px)/.92 var(--head);letter-spacing:-.05em;padding-bottom:.06em}
+#splash .sp-line:nth-child(2){align-self:flex-end;color:#FFC20E}
+#splash .sp-line span{display:inline-block;transform:translateY(110%)}
+#splash .sp-role{margin-top:clamp(16px,2vw,32px);font:400 clamp(16px,1.6vw,21px)/1.4 var(--body);color:rgba(250,250,247,.75);opacity:0}
+#splash .sp-role em{font-style:normal;color:#FFC20E}
+#splash .sp-bus{position:absolute;left:0;right:0;top:50%;height:clamp(64px,9vw,120px);transform:translateY(-50%) scaleX(0);transform-origin:left;background:repeating-linear-gradient(90deg,#FFC20E 0 64px,#0E0F12 64px 76px);background-size:152px 100%;animation:spBus 1.2s linear infinite;opacity:.95}
+@keyframes spBus{to{background-position:-152px 0}}
+#splash .sp-flash{position:absolute;inset:0;background:#FFC20E;opacity:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){#splash .sp-bus{animation:none}}
 </style>
 </head>
 <body>
 
 <a class="skip" href="#app" onclick="event.preventDefault();document.getElementById('app').focus()">Skip to content</a>
+<div id="splash" hidden aria-hidden="true">
+ <span class="sp-c sp-tl">Abdulfatai Akere</span>
+ <span class="sp-c sp-tr">Portfolio ’26</span>
+ <span class="sp-c sp-bl">Business analyst + product designer</span>
+ <button class="sp-br" type="button" tabindex="-1">Skip</button>
+ <span class="sp-n"><b>0</b><sup>%</sup></span>
+ <span class="sp-bus"></span>
+ <span class="sp-dot"></span>
+ <span class="sp-w"></span>
+ <div class="sp-name" hidden><span class="sp-line">Abdulfatai</span><span class="sp-line">Akere.</span><p class="sp-role">I turn messy problems into products <em>people actually use</em>.</p></div>
+ <span class="sp-flash"></span>
+</div>
+<script>
+/* Splash timeline (Web Animations API, no libraries). Runs before the page renders so there is no flash of the site underneath. */
+(()=>{const S=document.getElementById("splash"),H=location.hash;let seen=false;try{seen=sessionStorage.getItem("splash")==="1"}catch(e){}
+ if(seen||(H&&H!=="#home")||!S.animate){S.remove();return}
+ try{sessionStorage.setItem("splash","1")}catch(e){}
+ const RMs=matchMedia("(prefers-reduced-motion: reduce)").matches,R=document.documentElement,$=s=>S.querySelector(s);
+ R.classList.add("splashing");S.hidden=false;
+ const OUT="cubic-bezier(.16,1,.3,1)",INOUT="cubic-bezier(.76,0,.24,1)",T=[];let done=false;
+ const at=(ms,fn)=>T.push(setTimeout(fn,ms));
+ const finish=()=>{if(done)return;done=true;T.forEach(clearTimeout);
+  const b=document.querySelector(".nav .brand i"),r=b&&b.getBoundingClientRect();
+  const x=r&&r.width?r.left+r.width/2+"px":"50%",y=r&&r.width?r.top+r.height/2+"px":"50%";
+  R.classList.remove("splashing");
+  const a=RMs?S.animate([{opacity:1},{opacity:0}],{duration:300,fill:"forwards"})
+   :S.animate([{clipPath:`circle(150% at ${x} ${y})`},{clipPath:`circle(0px at ${x} ${y})`}],{duration:900,easing:INOUT,fill:"forwards"});
+  a.onfinish=()=>S.remove()};
+ S.addEventListener("click",finish);addEventListener("keydown",finish,{once:true});
+ if(RMs){$(".sp-dot").style.transform="scale(1)";at(700,finish);return}
+ // 1. brand dot pops, counter runs
+ $(".sp-dot").animate([{transform:"scale(0)"},{transform:"scale(1.6)",offset:.6},{transform:"scale(1)"}],{duration:500,easing:OUT,fill:"forwards"});
+ const n=$(".sp-n b"),t0=performance.now(),DUR=2300;
+ (function tick(t){const p=Math.min(1,(t-t0)/DUR),e=1-Math.pow(1-p,3);n.textContent=Math.round(e*100);if(p<1&&!done)requestAnimationFrame(tick)})(t0);
+ // 2. the hero line flickers past, word by word
+ const W=[["Messy",""],["business","o"],["problems",""],["→","y"],["Products","y"],["people","o"],["actually",""],["use.","y"]],w=$(".sp-w");
+ at(520,()=>$(".sp-dot").animate([{transform:"scale(1)"},{transform:"scale(80)",opacity:0}],{duration:420,easing:"cubic-bezier(.5,0,.75,0)",fill:"forwards"}));
+ W.forEach(([word,c],i)=>at(640+i*115,()=>{w.textContent=word;w.className="sp-w "+c;w.style.setProperty("--bw",(word.length*.62+.6)+"em");
+  w.animate([{transform:`translateY(-50%) scale(${1.25-i%2*.4}) rotate(${(i%3-1)*4}deg)`,filter:"blur(6px)",opacity:0},{transform:"translateY(-50%) scale(1) rotate(0)",filter:"blur(0)",opacity:1}],{duration:110,easing:OUT,fill:"forwards"})}));
+ at(640+W.length*115,()=>{w.textContent="";w.className="sp-w";$(".sp-flash").animate([{opacity:.9},{opacity:0}],{duration:260,easing:"ease-out"})});
+ // 3. the danfo stripe tears across, the name rises over it
+ at(1600,()=>{$(".sp-bus").animate([{transform:"translateY(-50%) scaleX(0)"},{transform:"translateY(-50%) scaleX(1)"}],{duration:520,easing:INOUT,fill:"forwards"});
+  const nm=$(".sp-name");nm.hidden=false;
+  nm.querySelectorAll(".sp-line").forEach((l,j)=>{l.innerHTML=[...l.textContent].map(ch=>`<span>${ch}</span>`).join("");
+   l.querySelectorAll("span").forEach((s,k)=>s.animate([{transform:"translateY(110%) rotate(8deg)"},{transform:"translateY(0) rotate(0)"}],{duration:700,delay:j*160+k*28,easing:OUT,fill:"forwards"}))});
+  $(".sp-role").animate([{opacity:0,transform:"translateY(12px)"},{opacity:1,transform:"none"}],{duration:500,delay:620,easing:OUT,fill:"forwards"})});
+ at(2050,()=>$(".sp-bus").animate([{transform:"translateY(-50%) scaleX(1)",transformOrigin:"right"},{transform:"translateY(-50%) scaleX(0)",transformOrigin:"right"}],{duration:520,easing:INOUT,fill:"forwards"}));
+ // 4. fold back into the nav dot
+ at(3300,finish);
+})();
+</script>
 <header class="nav"><div class="wrap">
  <a class="brand" href="#home"><i aria-hidden="true"></i>Abdulfatai Akere</a>
  <nav class="links" aria-label="Main"><a href="#work">Work</a><a href="#about">About</a><a href="#play">Off the clock</a><a href="#contact">Contact</a><a class="cvl keep" href="cv/Abdulfatai-Akere-CV.pdf" download="Abdulfatai-Akere-CV.pdf" data-cv target="_blank" rel="noopener">CV ↓</a></nav>
