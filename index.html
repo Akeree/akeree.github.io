@@ -901,34 +901,34 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
  try{sessionStorage.setItem("splash","1")}catch(e){}
  const RMs=matchMedia("(prefers-reduced-motion: reduce)").matches,R=document.documentElement,$=s=>S.querySelector(s);
  R.classList.add("splashing");S.hidden=false;
- const OUT="cubic-bezier(.16,1,.3,1)",INOUT="cubic-bezier(.76,0,.24,1)",T=[];let done=false;
- const at=(ms,fn)=>T.push(setTimeout(fn,ms));
+ const K=1.35,OUT="cubic-bezier(.16,1,.3,1)",INOUT="cubic-bezier(.76,0,.24,1)",T=[];let done=false;
+ const at=(ms,fn)=>T.push(setTimeout(fn,ms*K));
  const finish=()=>{if(done)return;done=true;T.forEach(clearTimeout);
   const b=document.querySelector(".nav .brand i"),r=b&&b.getBoundingClientRect();
   const x=r&&r.width?r.left+r.width/2+"px":"50%",y=r&&r.width?r.top+r.height/2+"px":"50%";
   R.classList.remove("splashing");
   const a=RMs?S.animate([{opacity:1},{opacity:0}],{duration:300,fill:"forwards"})
-   :S.animate([{clipPath:`circle(150% at ${x} ${y})`},{clipPath:`circle(0px at ${x} ${y})`}],{duration:900,easing:INOUT,fill:"forwards"});
+   :S.animate([{clipPath:`circle(150% at ${x} ${y})`},{clipPath:`circle(0px at ${x} ${y})`}],{duration:900*K,easing:INOUT,fill:"forwards"});
   a.onfinish=()=>S.remove()};
  S.addEventListener("click",finish);addEventListener("keydown",finish,{once:true});
  if(RMs){$(".sp-dot").style.transform="scale(1)";at(700,finish);return}
  // 1. brand dot pops, counter runs
- $(".sp-dot").animate([{transform:"scale(0)"},{transform:"scale(1.6)",offset:.6},{transform:"scale(1)"}],{duration:500,easing:OUT,fill:"forwards"});
- const n=$(".sp-n b"),t0=performance.now(),DUR=2300;
+ $(".sp-dot").animate([{transform:"scale(0)"},{transform:"scale(1.6)",offset:.6},{transform:"scale(1)"}],{duration:500*K,easing:OUT,fill:"forwards"});
+ const n=$(".sp-n b"),t0=performance.now(),DUR=2300*K;
  (function tick(t){const p=Math.min(1,(t-t0)/DUR),e=1-Math.pow(1-p,3);n.textContent=Math.round(e*100);if(p<1&&!done)requestAnimationFrame(tick)})(t0);
  // 2. the hero line flickers past, word by word
  const W=[["Messy",""],["business","o"],["problems",""],["→","y"],["Products","y"],["people","o"],["actually",""],["use.","y"]],w=$(".sp-w");
- at(520,()=>$(".sp-dot").animate([{transform:"scale(1)"},{transform:"scale(80)",opacity:0}],{duration:420,easing:"cubic-bezier(.5,0,.75,0)",fill:"forwards"}));
+ at(520,()=>$(".sp-dot").animate([{transform:"scale(1)"},{transform:"scale(80)",opacity:0}],{duration:420*K,easing:"cubic-bezier(.5,0,.75,0)",fill:"forwards"}));
  W.forEach(([word,c],i)=>at(640+i*115,()=>{w.textContent=word;w.className="sp-w "+c;w.style.setProperty("--bw",(word.length*.62+.6)+"em");
-  w.animate([{transform:`translateY(-50%) scale(${1.25-i%2*.4}) rotate(${(i%3-1)*4}deg)`,filter:"blur(6px)",opacity:0},{transform:"translateY(-50%) scale(1) rotate(0)",filter:"blur(0)",opacity:1}],{duration:110,easing:OUT,fill:"forwards"})}));
- at(640+W.length*115,()=>{w.textContent="";w.className="sp-w";$(".sp-flash").animate([{opacity:.9},{opacity:0}],{duration:260,easing:"ease-out"})});
+  w.animate([{transform:`translateY(-50%) scale(${1.25-i%2*.4}) rotate(${(i%3-1)*4}deg)`,filter:"blur(6px)",opacity:0},{transform:"translateY(-50%) scale(1) rotate(0)",filter:"blur(0)",opacity:1}],{duration:110*K,easing:OUT,fill:"forwards"})}));
+ at(640+W.length*115,()=>{w.textContent="";w.className="sp-w";$(".sp-flash").animate([{opacity:.9},{opacity:0}],{duration:260*K,easing:"ease-out"})});
  // 3. the danfo stripe tears across, the name rises over it
- at(1600,()=>{$(".sp-bus").animate([{transform:"translateY(-50%) scaleX(0)"},{transform:"translateY(-50%) scaleX(1)"}],{duration:520,easing:INOUT,fill:"forwards"});
+ at(1600,()=>{$(".sp-bus").animate([{transform:"translateY(-50%) scaleX(0)"},{transform:"translateY(-50%) scaleX(1)"}],{duration:520*K,easing:INOUT,fill:"forwards"});
   const nm=$(".sp-name");nm.hidden=false;
   nm.querySelectorAll(".sp-line").forEach((l,j)=>{l.innerHTML=[...l.textContent].map(ch=>`<span>${ch}</span>`).join("");
-   l.querySelectorAll("span").forEach((s,k)=>s.animate([{transform:"translateY(110%) rotate(8deg)"},{transform:"translateY(0) rotate(0)"}],{duration:700,delay:j*160+k*28,easing:OUT,fill:"forwards"}))});
-  $(".sp-role").animate([{opacity:0,transform:"translateY(12px)"},{opacity:1,transform:"none"}],{duration:500,delay:620,easing:OUT,fill:"forwards"})});
- at(2050,()=>$(".sp-bus").animate([{transform:"translateY(-50%) scaleX(1)",transformOrigin:"right"},{transform:"translateY(-50%) scaleX(0)",transformOrigin:"right"}],{duration:520,easing:INOUT,fill:"forwards"}));
+   l.querySelectorAll("span").forEach((s,k)=>s.animate([{transform:"translateY(110%) rotate(8deg)"},{transform:"translateY(0) rotate(0)"}],{duration:700*K,delay:(j*160+k*28)*K,easing:OUT,fill:"forwards"}))});
+  $(".sp-role").animate([{opacity:0,transform:"translateY(12px)"},{opacity:1,transform:"none"}],{duration:500*K,delay:620*K,easing:OUT,fill:"forwards"})});
+ at(2050,()=>$(".sp-bus").animate([{transform:"translateY(-50%) scaleX(1)",transformOrigin:"right"},{transform:"translateY(-50%) scaleX(0)",transformOrigin:"right"}],{duration:520*K,easing:INOUT,fill:"forwards"}));
  // 4. fold back into the nav dot
  at(3300,finish);
 })();
