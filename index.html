@@ -960,15 +960,13 @@ const ME={name:"Abdulfatai Akere",full:"Abdulfatai Akere",email:"akeredayo@gmail
 const P={
  agentcx:{n:"01",title:"AgentCX Dashboard",short:"AgentCX Dashboard",type:"AI SaaS · Business dashboard",year:"2026",acc:"#2B50E8",cover:"img/acx-cover.webp",role:"Product designer + BA",tags:["Audit","Design system","Web app"],
   lede:"The dashboard where small businesses run their AI agents, chat link page, shop and bookings, redesigned so everyday jobs are one tap away instead of a hunt."},
- educare:{n:"02",title:"Educare",short:"Educare",type:"EdTech · App + web",year:"2025",acc:"#3B5BFD",cover:"img/edu-cover.webp",role:"Product designer + BA",tags:["Research","Design system","App + web"],
-  lede:"A study companion for Nigerian universities: your next class, what's due and your grades in one calm place, on phones and laptops, in light and dark."},
- paddy:{n:"04",title:"Student Paddy",short:"Student Paddy",type:"EdTech · Community + careers",year:"2021",acc:"#12785A",cover:"img/sp-cover.webp",role:"Product designer + BA",tags:["Audit","Design system","Careers"],
+ paddy:{n:"03",title:"Student Paddy",short:"Student Paddy",type:"EdTech · Community + careers",year:"2021",acc:"#12785A",cover:"img/sp-cover.webp",role:"Product designer + BA",tags:["Audit","Design system","Careers"],
   lede:"A digital campus where students get unstuck: ask by course, get one trusted answer, and connect with verified employers."},
- houseparty:{n:"03",title:"House Party",short:"House Party",type:"Events · iOS prototype",year:"2025",acc:"#FF4F9A",cover:"img/hp-cover.webp",role:"Product + UX designer",tags:["PRD","UX design","AI assistant"],
+ houseparty:{n:"02",title:"House Party",short:"House Party",type:"Events · iOS prototype",year:"2025",acc:"#FF4F9A",cover:"img/hp-cover.webp",role:"Product + UX designer",tags:["PRD","UX design","AI assistant"],
   lede:"Plan a party once. Every guest stays in the loop, from the invite to the door, and the DJ gets an AI assistant that reads the room."},
- krypto:{n:"05",title:"Krypto Alienz",short:"Krypto Alienz",type:"Web3 · NFT mint",year:"2021",acc:"#39E01F",cover:"img/ka-mint.webp",tags:["Web3","Live prototype"],
+ krypto:{n:"04",title:"Krypto Alienz",short:"Krypto Alienz",type:"Web3 · NFT mint",year:"2021",acc:"#39E01F",cover:"img/ka-mint.webp",tags:["Web3","Live prototype"],
   lede:"A pixel-art NFT collection with a mint that always shows what you'll pay and what's happening."},
- avant:{n:"06",title:"Avant-Garde",short:"Avant-Garde",type:"Art collection · Web3",year:"2021",acc:"#181717",cover:"img/ag-art3.webp",tags:["Art","Web3"],
+ avant:{n:"05",title:"Avant-Garde",short:"Avant-Garde",type:"Art collection · Web3",year:"2021",acc:"#181717",cover:"img/ag-art3.webp",tags:["Art","Web3"],
   lede:"A 100-piece art collection told in four eras, with a community built around the art."}
 };
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -988,7 +986,7 @@ const deck=ks=>{const n=ks.length,pad=i=>String(i).padStart(2,"0");return `<div 
   <ol class="qd-list" aria-label="All case studies">${ks.map((k,i)=>{const p=P[k];return `<li><button type="button" data-go="${i}"${i?"":' aria-current="true"'} style="--acc:${p.acc}"><span class="qd-li-n">${pad(i+1)}</span><span class="qd-li-t"><b>${p.title}</b><small>${p.type} · ${p.year}</small></span><span class="qd-li-ar" aria-hidden="true"><em>Open</em>→</span></button></li>`}).join("")}</ol>
  <div class="qd-hud"><button type="button" class="qd-btn qd-prev" aria-label="Previous case study">←</button><div class="qd-mid"><span class="qd-count" aria-hidden="true"><b class="qd-cur">${pad(1)}</b> / ${pad(n)}</span><span class="qd-pips" aria-hidden="true">${ks.map((_,i)=>`<i class="${i?"":"on seen"}"></i>`).join("")}</span><span class="sr qd-say" aria-live="polite">Case study 1 of ${n}</span></div><button type="button" class="qd-btn qd-next" aria-label="Next case study">→</button></div>
  <p class="qd-hint"><span class="hand" aria-hidden="true">👆</span>Drag the card or pick a case · tap the card to open</p></div></div>`};
-const OUT={agentcx:"Agents, channels and QR posters",educare:"App + web, light and dark",paddy:"Trusted answers + Careers",houseparty:"Party planning + a DJ assistant",krypto:"Every wallet state designed",avant:"Art-first collection site"};
+const OUT={agentcx:"Agents, channels and QR posters",paddy:"Trusted answers + Careers",houseparty:"Party planning + a DJ assistant",krypto:"Every wallet state designed",avant:"Art-first collection site"};
 const QB1CARD=`<div class="qb-card">
   <div class="qb-txt"><span class="qb-tag">Game design · Prototype</span><h2>QB<i>1</i>: Throw &amp; Catch</h2>
    <p>A mobile American football game I designed and prototyped. Build your quarterback, then run throwing and catching drills: drag to aim, release to throw, tap to catch.</p>
@@ -1007,7 +1005,7 @@ function home(){return `
 </section>
 <section class="wrap sec" style="padding-top:56px" aria-labelledby="csh">
  <div class="sec-h"><div><span class="eyebrow">Selected work · in depth</span><h2 id="csh" style="margin-top:6px">Case studies</h2></div><a class="btn ghost" href="#work">All work</a></div>
- ${deck(["agentcx","educare","houseparty","paddy"])}
+ ${deck(["agentcx","houseparty","paddy"])}
 </section>
 <section class="wrap sec" style="padding-top:24px">
  <div class="sec-h"><div><span class="eyebrow">From my CV</span><h2 style="margin-top:6px">Impact</h2></div></div>
@@ -1043,7 +1041,7 @@ function home(){return `
 </section>`}
 
 function work(){return `<section class="wrap cs-hero"><span class="eyebrow">Work</span><h1>Products I've shaped</h1><p class="lead">Four in-depth case studies, then three side quests.</p></section>
-<section class="wrap" style="padding-bottom:24px"><h2 class="eyebrow" style="margin-bottom:12px"><span class="qt">Case studies</span>In depth</h2>${idx(["agentcx","educare","houseparty","paddy"])}</section>
+<section class="wrap" style="padding-bottom:24px"><h2 class="eyebrow" style="margin-bottom:12px"><span class="qt">Case studies</span>In depth</h2>${idx(["agentcx","houseparty","paddy"])}</section>
 <section class="wrap" style="padding-block:32px 64px"><h2 class="eyebrow" style="margin-bottom:12px"><span class="qt side">Smaller builds</span>Side quests</h2>${idx(["krypto","avant"])}<div class="qb" style="margin-top:20px">${QB1CARD}</div></section>`}
 
 /* process icons (24px stroke) */
@@ -1080,34 +1078,6 @@ const states=(rows)=>`<ul class="states">${rows.map(([tone,t,d])=>`<li class="st
 const hmw=(q)=>`<p class="hmw"><span>How might we</span>${q}</p>`;
 const flow=steps=>`<ol class="flow">${steps.map(([k,t,d],i)=>`<li><span class="fi">${ico(k)}</span><span class="fn">Step ${i+1}</span><b>${t}</b><p>${d}</p></li>`).join("")}</ol>`;
 const biz=cards=>`<div class="cards3 bizc">${cards.map(([k,who,t,d])=>`<div><span class="bi">${ico(k)}</span><em>${who}</em><b>${t}</b><span>${d}</span></div>`).join("")}</div>`;
-
-function educare(){const p=P.educare;return `<div style="--acc:${p.acc}">
-<section class="wrap cs-hero"><a class="back" href="#work">← All work</a><p class="eyebrow" style="margin-top:22px">Case study ${p.n} · EdTech · App + web · 2025 · <span class="fmt">Format: Double Diamond</span></p>
- <h1>Educare: your semester, one calm screen at a time</h1><p class="lead">${p.lede}</p>
- ${tldr([["Problem","Notes on WhatsApp, deadlines on a notice board, results on the portal, fees at the bursary. Students miss things."],["My role","Product designer and BA: research, design system, phone app and web platform."],["What I did","Benchmarked four study apps, built a “clean but alive” system in Figma, designed app + web in light and dark."],["Outcome","One place for the semester. Next: a pilot with one faculty, measured against the targets below."]])}</section>
-<section class="wrap"><div class="cover"><img src="${p.cover}" alt="Educare 3.0 cover with the Today screen in light and dark"></div>
- <ol class="dd" aria-label="Design process"><li><b>01</b>Discover</li><li><b>02</b>Define</li><li><b>03</b>Develop</li><li><b>04</b>Deliver</li></ol>
- <div class="cs-grid"><aside class="cs-side"></aside><div class="cs-main">
- ${blk("01 · Discover","What the best study apps get right",`<p>I compared Educare with Google Classroom, Canvas, Quizlet and Duolingo, then turned each gap into a fix.</p>
-  <div class="tablewrap"><table class="cmp"><thead><tr><th>Pattern</th><th>Best in class</th><th>Fix in Educare</th></tr></thead><tbody>
-  <tr><td>Home</td><td>Quizlet: one big “keep going” action</td><td>Today: next class, one Resume button, then what's due</td></tr>
-  <tr><td>To-do</td><td>Canvas: grouped by date, relative deadlines</td><td>Today · This week · Later, with “Due in 3h” in red only when urgent</td></tr>
-  <tr><td>Quiz</td><td>Quizlet + Duolingo: one question, instant feedback</td><td>A–D options, flagging, review before submit, explanations after</td></tr>
-  <tr><td>Motivation</td><td>Duolingo: streaks and badges</td><td>Badges for on-time work, quiz streaks and early fees</td></tr>
-  <tr><td>Payments</td><td>No local option in Classroom or Canvas</td><td>School fees through Paystack: card, transfer, USSD</td></tr></tbody></table></div>`)}
- ${blk("02 · Define","One semester, five places",`<p>Students weren't missing work because they didn't care. The information they needed lived in five places, and none of it worked well on mobile data.</p>${hmw("put a student's whole semester in one calm place that still works on a weak connection?")}<ul><li><b>One main action per screen.</b> The next class, then what's due.</li><li><b>Built for data costs.</b> Every download shows its size, with a data saver.</li><li><b>Fees in the same app,</b> with the full amount before paying.</li></ul>`)}
- ${blk("03 · Develop","Clean, but alive",`<p>The first pass was calm but flat. The final direction keeps the calm and adds energy where it matters: one electric gradient for the next class, soft glows, pastel course colours and a floating tab bar. Poppins for headings, Roboto for reading, and light and dark as equals.</p>
-  <div class="tokens"><div><i style="background:linear-gradient(135deg,#3B5BFD,#6D4BFF 55%,#B14BFF)"></i>gradient</div><div><i style="background:#3B5BFD"></i>#3B5BFD</div><div><i style="background:#ECEFFF"></i>#ECEFFF</div><div><i style="background:#34D399"></i>#34D399</div><div><i style="background:#0E0F12"></i>#0E0F12</div><div><i style="background:#090C18"></i>dark #090C18</div></div>
-  <div class="shot"><img src="img/edu-components.webp" alt="Educare components in Figma" loading="lazy"></div>`)}
- ${blk("04 · Deliver","A student's week, in four steps",`${flow([["today","Open Today","The next class, what's due and one Resume button. Nothing else competes for attention."],["offline","Learn on mobile data","Download lessons before class. Data saver swaps video for audio and slides."],["quiz","Take the quiz","One question at a time, flag what you're unsure of, and review before you submit."],["pay","Pay fees","Paystack by card, transfer or USSD, with the full amount shown before you pay."]])}<div class="phones">${ph("img/edu-app-today.webp","Today")}${ph("img/edu-app-course.webp","Course with offline lessons")}${ph("img/edu-app-quiz.webp","Quiz")}${ph("img/edu-app-pay.webp","Pay with Paystack")}</div>`)}
- ${blk("Today","The one screen students open most",`<p>The next class gets the gradient. The study goal and a badge sit side by side, and due items follow. One main action per screen.</p><div class="phones">${ph("img/edu-app-today.webp","Today, light")}${ph("img/edu-app-today-dark.webp","Today, dark")}${ph("img/edu-app-todo.webp","To-do by urgency")}${ph("img/edu-app-task.webp","Submit an assignment")}</div>`)}
- ${blk("Learn","Lessons that work on mobile data",`<ul><li><b>Data saver</b> swaps video for audio + slides, and every download shows its size.</li><li><b>One question at a time</b> with flagging and a “Ready to submit?” check that warns about unanswered questions.</li><li><b>Results that teach</b>: your answer, the right one, and why.</li></ul><div class="phones">${ph("img/edu-app-lesson.webp","Lesson and knowledge check")}${ph("img/edu-app-review.webp","Review before submit")}${ph("img/edu-app-result.webp","Results with explanations")}${ph("img/edu-app-me.webp","Fees and settings")}</div>`)}
- ${blk("Web platform","The same system on a laptop",`<p>A sidebar, search (press /), a Light · Dark · System switch, a dashboard with the week view and badges, a cinema-style lesson player, quizzes in a focus mode, and assignments in a slide-in panel.</p>
-  <div class="grid2">${shot("img/edu-web-today.webp","Today dashboard, light")}${shot("img/edu-web-today-dark.webp","Today dashboard, dark")}${shot("img/edu-web-course.webp","Lesson player")}${shot("img/edu-web-quiz.webp","Quiz focus mode")}${shot("img/edu-web-drawer.webp","Submit in a slide-in panel")}${shot("img/edu-web-pay.webp","Pay fees")}</div>`)}
- ${blk("Impact","How it makes money",`${biz([["uni","Universities","Per-student licence","The school pays for the platform. Students never pay to learn."],["cash","Fee collection","Small processing margin","School fees through Paystack, with every fee shown before paying."],["star","Students","Free forever","Core learning stays free, so adoption isn't blocked by cost."]])}`)}
- ${blk("Measure","What the pilot will measure",`<div class="kpis"><div><b>+20%</b><span>assignments submitted before the deadline</span></div><div><b>60%</b><span>weekly active students who open a lesson</span></div><div><b>80%</b><span>students fully paid by week 4</span></div><div><b>&lt;10 MB</b><span>average data per lesson with data saver</span></div></div><p class="note">Pilot targets.</p>`)}
- </div></div>
- <a class="next" href="#houseparty"><span class="eyebrow">Next case study</span><b>House Party →</b></a></section></div>`}
 
 function paddy(){const p=P.paddy;return `<div style="--acc:${p.acc}">
 <section class="wrap cs-hero"><a class="back" href="#work">← All work</a><p class="eyebrow" style="margin-top:22px">Case study ${p.n} · EdTech · Community + careers · 2021 · <span class="fmt">Format: audit and redesign</span></p>
@@ -1153,7 +1123,7 @@ function agentcx(){const p=P.agentcx;return `<div style="--acc:${p.acc}">
  ${blk("Business","How AgentCX makes money",`${biz([["store","Starter","Free","A chat link page with an AI agent and all your links."],["bag","Business","₦15,000 / month","Adds a shop: products, orders, delivery and pickup."],["cash","Pro","₦35,000 / month","Adds bookings, deposits and staff calendars."]])}<p class="note">Locked features show what they unlock and which plan has them, so upgrading is a choice, not a wall.</p>`)}
  ${blk("Quality","Tested like a release",`<div class="kpis"><div><b>46</b><span>pages crawled, every safe button clicked</span></div><div><b>0</b><span>broken links or errors in the published build</span></div><div><b>6</b><span>print-ready QR poster designs</span></div><div><b>AA</b><span>accessibility checks clean on desktop and phone</span></div></div><p class="note">Measured on the tested release. Next: time to share the chat link and plan upgrades with real businesses.</p>`)}
  </div></div>
- <a class="next" href="#educare"><span class="eyebrow">Next case study</span><b>Educare →</b></a></section></div>`}
+ <a class="next" href="#houseparty"><span class="eyebrow">Next case study</span><b>House Party →</b></a></section></div>`}
 
 function houseparty(){const p=P.houseparty;return `<div style="--acc:${p.acc}">
 <section class="wrap cs-hero"><a class="back" href="#work">← All work</a><p class="eyebrow" style="margin-top:22px">Case study ${p.n} · Events · iOS · 2025 · <span class="fmt">Format: product bet</span></p>
@@ -1274,7 +1244,7 @@ function contact(){return `<section class="wrap contact"><div style="display:fle
  </form></section>`}
 
 /* Router + wiring ------------------------------------------------------ */
-const ROUTES={home,agentcx,work,about,play,contact,educare,paddy,houseparty,krypto,avant};
+const ROUTES={home,agentcx,work,about,play,contact,paddy,houseparty,krypto,avant};
 let gameTimer=null;
 function route(){const h=(location.hash||"#home").slice(1);const fn=ROUTES[h]||home;clearInterval(gameTimer);
  document.getElementById("app").innerHTML=fn();
@@ -1401,7 +1371,7 @@ function achCount(){const c=document.getElementById("achc");if(c)c.innerHTML=`${
 function unlock(k){if(got.includes(k))return;got.push(k);try{sessionStorage.setItem("ach",JSON.stringify(got))}catch(e){}achCount();
  const [n,d]=ACH[k];const el=document.createElement("div");el.className="ach";el.setAttribute("role","status");el.innerHTML=`<span class="tr">${TROPHY}</span><span><small>Achievement unlocked</small><b>${n}</b><br><span>${d}</span></span>`;
  document.querySelectorAll(".ach").forEach(x=>x.remove());document.body.appendChild(el);setTimeout(()=>el.remove(),3600)}
-function trackAch(h){seen.add(h);if(["agentcx","educare","paddy","houseparty","krypto","avant"].includes(h))unlock("quest");if(h==="play")unlock("fun");if(seen.size>=4)unlock("explorer")}
+function trackAch(h){seen.add(h);if(["agentcx","paddy","houseparty","krypto","avant"].includes(h))unlock("quest");if(h==="play")unlock("fun");if(seen.size>=4)unlock("explorer")}
 document.addEventListener("click",e=>{if(e.target.closest("a[data-cv]"))unlock("scout")},true);
 /* CV download: use the host download helper when available; otherwise the link works as normal */
 let DL=null;(async()=>{try{DL=await window.claude?.use?.("downloads")}catch(e){DL=null}})();
