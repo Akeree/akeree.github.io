@@ -877,6 +877,149 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 @keyframes spBus{to{background-position:-152px 0}}
 #splash .sp-flash{position:absolute;inset:0;background:#FFC20E;opacity:0;pointer-events:none}
 @media (prefers-reduced-motion:reduce){#splash .sp-bus{animation:none}}
+/* AgentCX case study: a day in the life */
+.ax{--ax-ink:#0B0D14;--ax-blue:#2B50E8}
+.ax h2{font:600 clamp(28px,3.4vw,44px)/1.12 var(--head);margin:10px 0 16px;max-width:24ch}
+.ax-k{font:600 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb,var(--acc) 75%,#000)}
+:root[data-theme="dark"] .ax-k{color:color-mix(in srgb,var(--acc) 55%,#fff)}
+.ax-sub{color:var(--ink-2);max-width:60ch;margin:0 0 32px}
+.ax-sec{padding-block:72px 24px}
+.ax-hero{padding-block:40px 8px}
+.ax-hero-in{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:48px;align-items:center}
+.ax-hero h1{font:600 clamp(36px,5vw,64px)/1.04 var(--head);letter-spacing:-.035em;margin:14px 0 16px;max-width:14ch}
+.ax-hero .eyebrow{margin-top:20px}
+.ax-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.ax-play{gap:12px}
+.ax-pl{width:24px;height:24px;border-radius:999px;background:var(--bg);position:relative;flex:none}
+.ax-pl::after{content:"";position:absolute;left:9px;top:7px;border-left:8px solid var(--ink);border-top:5px solid transparent;border-bottom:5px solid transparent}
+.ax-live{position:relative;min-height:520px;border-radius:32px;background:radial-gradient(120% 80% at 80% 0%,#1F3BB8 0%,rgba(31,59,184,0) 55%),#0B0D14;overflow:hidden;padding:56px 32px 32px;display:flex;align-items:center;justify-content:center;isolation:isolate}
+.ax-live::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:48px 48px;z-index:-1;mask-image:radial-gradient(80% 80% at 50% 40%,#000,transparent)}
+.ax-chat{width:min(100%,360px);background:#F7F6F2;border-radius:24px;padding:16px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:rotate(-2deg);display:flex;flex-direction:column;gap:8px;min-height:340px;color:#0E0F12}
+.ax-chat-h{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center;padding-bottom:12px;border-bottom:1px solid #E6E4DD;margin-bottom:4px}
+.ax-av{grid-row:span 2;width:40px;height:40px;border-radius:12px;background:#E8590C;color:#fff;font:700 14px var(--head);display:grid;place-items:center}
+.ax-chat-h b{font:600 15px var(--head)}
+.ax-chat-h small{font-size:12.5px;color:#4A4E57;display:flex;align-items:center;gap:6px}
+.ax-chat-h small i{width:8px;height:8px;border-radius:9px;background:#16A34A}
+.ax-b{margin:0;max-width:82%;padding:10px 14px;border-radius:18px;font-size:14.5px;line-height:1.4;opacity:0;transform:translateY(8px) scale(.98);transition:opacity .3s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.ax-b.in{opacity:1;transform:none}
+.ax-b.me{align-self:flex-end;background:var(--ax-blue);color:#fff;border-bottom-right-radius:6px}
+.ax-b.ag{align-self:flex-start;background:#fff;border:1px solid #E6E4DD;border-bottom-left-radius:6px}
+.ax-b.ty{align-self:flex-start;background:#fff;border:1px solid #E6E4DD;display:flex;gap:4px;padding:14px}
+.ax-b.ty i{width:7px;height:7px;border-radius:9px;background:#9A9DA5;animation:axdot 1s infinite}
+.ax-b.ty i:nth-child(2){animation-delay:.15s}.ax-b.ty i:nth-child(3){animation-delay:.3s}
+@keyframes axdot{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.ax-b.ty:not(.in){position:absolute;visibility:hidden}
+.ax-prod{display:grid!important;grid-template-columns:auto 1fr auto;column-gap:10px;align-items:center}
+.ax-prod span{grid-row:span 2;font-size:22px}
+.ax-prod b{font:600 14px var(--head)}.ax-prod em{font-style:normal;font-size:13px;color:#4A4E57}
+.ax-prod u{grid-row:1/3;grid-column:3;text-decoration:none;font:600 13px var(--body);border:1px solid #D9D7CF;border-radius:999px;padding:6px 12px}
+.ax-toast{position:absolute;margin:0;display:flex;gap:12px;align-items:center;padding:12px 16px;border-radius:16px;background:rgba(20,22,30,.86);border:1px solid rgba(255,255,255,.12);color:#fff;backdrop-filter:blur(10px);box-shadow:0 20px 40px -16px rgba(0,0,0,.6);opacity:0;transform:translateY(12px);transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1)}
+.ax-toast.in{opacity:1;transform:none}
+.ax-toast i{font-style:normal;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-weight:700;background:#16A34A;flex:none}
+.ax-toast.t2 i{background:#BFC8FF;color:#0B0D14}
+.ax-toast span{display:flex;flex-direction:column}.ax-toast b{font:600 14px var(--head)}.ax-toast small{font-size:12.5px;color:#C9CCD6}
+.ax-toast.t1{top:20px;left:20px}.ax-toast.t2{bottom:20px;right:20px}
+/* Problems */
+.ax-probs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:16px}
+.ax-prob{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px}
+.ax-ic{font-size:28px;line-height:1}
+.ax-prob h3{font:600 19px/1.25 var(--head);margin:8px 0 0}
+.ax-cost{margin:0;color:var(--ink-2);font-size:15.5px;line-height:1.5}
+.ax-fix{margin:auto 0 0;padding-top:12px;border-top:1px dashed var(--line);font-size:15px;line-height:1.5;color:var(--ink-2)}
+.ax-fix b{color:color-mix(in srgb,var(--acc) 80%,#000)}
+:root[data-theme="dark"] .ax-fix b{color:color-mix(in srgb,var(--acc) 50%,#fff)}
+/* Day walkthrough */
+.ax-day{background:var(--soft);padding-block:72px;margin-top:48px}
+.ax-walk{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:start}
+.ax-chs{list-style:none;margin:0;padding:0}
+.ax-ch{min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding-block:24px;opacity:.45;transition:opacity .3s}
+.ax-ch.on{opacity:1}
+.ax-t{font:600 14px var(--head);letter-spacing:.04em;display:inline-flex;align-self:flex-start;padding:6px 12px;border-radius:999px;background:var(--ink);color:var(--bg)}
+.ax-ch h3{font:600 clamp(24px,2.4vw,32px)/1.15 var(--head);margin:16px 0 8px;letter-spacing:-.02em}
+.ax-ch p{margin:0 0 12px;color:var(--ink-2)}
+.ax-d{font-size:15px;padding:12px 16px;border-left:3px solid var(--acc);background:var(--surface);border-radius:0 12px 12px 0}
+.ax-d b{display:block;font:600 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.ax-stage{position:sticky;top:96px;height:min(620px,calc(100vh - 140px))}
+.ax-stage .ax-media{position:absolute;inset:0 0 40px;margin:auto;opacity:0;transform:scale(.97) translateY(12px);transition:opacity .45s,transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ax-stage .ax-media.on{opacity:1;transform:none}
+.ax-media{margin:0}
+.ax-br{width:100%;border-radius:16px;overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.ax-stage .ax-br{height:fit-content}
+.ax-bar{display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+.ax-bar i{width:10px;height:10px;border-radius:9px;background:var(--line)}
+.ax-bar em{font-style:normal;font-size:12px;color:var(--muted);margin-left:12px}
+.ax-br img,.ax-br video{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top left}
+.ax-ph{width:min(300px,70%);background:#0b0c0e;border-radius:38px;padding:8px;box-shadow:var(--shadow)}
+.ax-ph img,.ax-ph video{display:block;width:100%;border-radius:31px;aspect-ratio:390/844;object-fit:cover;object-position:top}
+.ax-stage .ax-ph{width:auto;height:calc(100% - 40px);aspect-ratio:406/860}
+.ax-stage .ax-ph img,.ax-stage .ax-ph video{height:100%;width:100%}
+.ax-clock{position:absolute;left:0;bottom:0;display:flex;align-items:center;gap:16px;font:600 14px var(--head)}
+.ax-dots{display:flex;gap:6px}.ax-dots i{width:24px;height:4px;border-radius:4px;background:var(--line);transition:background .3s}.ax-dots i.on{background:var(--acc)}
+.ax-inl{display:none}
+/* Everyday life */
+.ax-life{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.ax-lc{margin:0}.ax-lc .ph{max-width:300px;margin:0 auto}
+.ax-lc figcaption{display:flex;flex-direction:column;gap:4px;margin-top:16px;text-align:center}
+.ax-lc em{font-style:normal;font:600 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ax-lc b{font:600 18px var(--head)}.ax-lc span{color:var(--ink-2);font-size:15.5px}
+.ax-more{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:40px;justify-content:center}
+.ax-more>span:first-child{font:600 13px var(--body);color:var(--muted);margin-right:4px}
+/* How it works */
+.ax-how{margin-top:48px;border-block:1px solid var(--line)}
+.ax-sys{display:grid;grid-template-columns:1fr 64px 1fr 64px 1fr;align-items:center;gap:8px;margin:24px 0 56px}
+.ax-col{display:flex;flex-direction:column;gap:8px}
+.ax-ct{font:600 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;display:block}
+.ax-node{padding:10px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font:500 15px var(--body)}
+.ax-core .ax-node{text-align:center}
+.ax-orb{border-radius:24px;padding:24px;text-align:center;color:#fff;background:radial-gradient(100% 100% at 50% 0%,#3F63FF,#1A2EA6);box-shadow:0 0 0 6px color-mix(in srgb,var(--acc) 18%,transparent),0 20px 40px -16px #1A2EA6;animation:axpulse 3s ease-in-out infinite}
+.ax-orb b{display:block;font:600 22px var(--head)}.ax-orb small{color:#DCE2FF;font-size:13.5px}
+@keyframes axpulse{50%{box-shadow:0 0 0 14px color-mix(in srgb,var(--acc) 8%,transparent),0 20px 40px -16px #1A2EA6}}
+.ax-wire{height:120px;position:relative;display:flex;flex-direction:column;justify-content:space-around}
+.ax-wire i{display:block;height:2px;background:repeating-linear-gradient(90deg,var(--acc) 0 6px,transparent 6px 12px);background-size:24px 2px;animation:axflow 1.2s linear infinite;opacity:.7}
+.ax-wire.r i{animation-direction:normal}
+@keyframes axflow{to{background-position:24px 0}}
+.ax-go{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;align-items:center}
+.ax-go h3{font:600 26px var(--head);margin:0 0 16px}
+.ax-steps{margin:0 0 24px;padding:0;list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:16px}
+.ax-steps li{counter-increment:s;padding-left:48px;position:relative;color:var(--ink-2);font-size:15.5px}
+.ax-steps li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:999px;display:grid;place-items:center;background:var(--ink);color:var(--bg);font:600 14px var(--head)}
+.ax-steps b{display:block;color:var(--ink);font:600 16px var(--head)}
+.ax-roll{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--surface)}
+.ax-roll div{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:8px 0;border-top:1px solid var(--line);font-size:15px;color:var(--ink-2)}
+.ax-roll b{font:600 15px var(--head);color:var(--ink)}
+.ax-next{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}
+.ax-next ul{margin:0;padding-left:20px;color:var(--ink-2)}.ax-next p{margin:0;color:var(--ink-2)}
+/* Tour */
+.ax-tour{position:fixed;inset:0;z-index:100;background:rgba(8,9,12,.97);backdrop-filter:blur(12px);display:grid;place-items:center;padding:16px}
+.ax-tour[hidden]{display:none}
+.ax-tw{width:min(1080px,100%);display:flex;flex-direction:column;gap:16px;color:#fff}
+.ax-prog{display:flex;gap:4px}.ax-prog i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.22);overflow:hidden}.ax-prog b{display:block;height:100%;width:0;background:#fff}
+.ax-tm{display:grid;place-items:center;height:min(62vh,600px)}
+.ax-tm img,.ax-tm video{max-width:100%;max-height:min(62vh,600px);width:auto;height:auto;border-radius:16px;box-shadow:0 30px 80px -20px #000;object-fit:contain}
+.ax-tm.ph img,.ax-tm.ph video{border-radius:32px;border:8px solid #000}
+.ax-cap{margin:0;font:500 clamp(17px,1.8vw,22px)/1.45 var(--head);max-width:62ch;min-height:4.4em}
+.ax-tc{display:flex;align-items:center;gap:8px}
+.ax-tb{width:44px;height:44px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:18px;cursor:pointer}
+.ax-tb:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ax-tn{font:500 14px var(--body);color:#C9CCD6;min-width:56px;text-align:center}
+.ax-x{margin-left:auto}
+@media (max-width:1023px){
+ .ax-hero-in,.ax-go{grid-template-columns:minmax(0,1fr)}
+ .ax-probs{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ax-walk{grid-template-columns:minmax(0,1fr)}
+ .ax-stage{display:none}.ax-inl{display:block;margin-top:16px}.ax-inl.ax-ph{width:min(280px,80%)}
+ .ax-ch{min-height:0;opacity:1;padding-block:32px;border-top:1px solid var(--line)}
+ .ax-sys{grid-template-columns:minmax(0,1fr)}.ax-wire{height:32px;flex-direction:row;justify-content:center;gap:16px}.ax-wire i{width:2px;height:100%;background:repeating-linear-gradient(180deg,var(--acc) 0 6px,transparent 6px 12px)}
+ .ax-life{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:599px){
+ .ax-probs,.ax-next{grid-template-columns:minmax(0,1fr)}
+ .ax-live{min-height:460px;padding:72px 16px 72px;border-radius:24px}
+ .ax-toast.t1{top:12px;left:12px;right:12px}.ax-toast.t2{bottom:12px;right:12px;left:12px}
+ .ax-chat{transform:none}
+ .ax-sec{padding-block:56px 16px}
+}
+@media (prefers-reduced-motion:reduce){.ax-b,.ax-toast{opacity:1;transform:none}.ax-stage .ax-media{transition:none}}
 </style>
 </head>
 <body>
@@ -958,8 +1101,8 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 /* Content ------------------------------------------------------------- */
 const ME={name:"Abdulfatai Akere",full:"Abdulfatai Akere",email:"akeredayo@gmail.com",linkedin:"https://www.linkedin.com/in/abdulfatai-akere-702787198/"};
 const P={
- agentcx:{n:"01",title:"AgentCX Dashboard",short:"AgentCX Dashboard",type:"AI SaaS · Business dashboard",year:"2026",acc:"#2B50E8",cover:"img/acx-cover.webp",role:"Product designer + BA",tags:["Audit","Design system","Web app"],
-  lede:"The dashboard where small businesses run their AI agents, chat link page, shop and bookings, redesigned so everyday jobs are one tap away instead of a hunt."},
+ agentcx:{n:"01",title:"AgentCX",short:"AgentCX",type:"AI SaaS · Customer agents",year:"2026",acc:"#2B50E8",cover:"img/acx-cover.webp",role:"Product designer + BA",tags:["Product design","AI agents","Prototype"],
+  lede:"An AI agent for small businesses that answers customers, takes orders and books slots on every channel, day and night, with one calm dashboard for the owner."},
  paddy:{n:"03",title:"Student Paddy",short:"Student Paddy",type:"EdTech · Community + careers",year:"2021",acc:"#12785A",cover:"img/sp-cover.webp",role:"Product designer + BA",tags:["Audit","Design system","Careers"],
   lede:"A digital campus where students get unstuck: ask by course, get one trusted answer, and connect with verified employers."},
  houseparty:{n:"02",title:"House Party",short:"House Party",type:"Events · iOS prototype",year:"2025",acc:"#FF4F9A",cover:"img/hp-cover.webp",role:"Product + UX designer",tags:["PRD","UX design","AI assistant"],
@@ -986,7 +1129,7 @@ const deck=ks=>{const n=ks.length,pad=i=>String(i).padStart(2,"0");return `<div 
   <ol class="qd-list" aria-label="All case studies">${ks.map((k,i)=>{const p=P[k];return `<li><button type="button" data-go="${i}"${i?"":' aria-current="true"'} style="--acc:${p.acc}"><span class="qd-li-n">${pad(i+1)}</span><span class="qd-li-t"><b>${p.title}</b><small>${p.type} · ${p.year}</small></span><span class="qd-li-ar" aria-hidden="true"><em>Open</em>→</span></button></li>`}).join("")}</ol>
  <div class="qd-hud"><button type="button" class="qd-btn qd-prev" aria-label="Previous case study">←</button><div class="qd-mid"><span class="qd-count" aria-hidden="true"><b class="qd-cur">${pad(1)}</b> / ${pad(n)}</span><span class="qd-pips" aria-hidden="true">${ks.map((_,i)=>`<i class="${i?"":"on seen"}"></i>`).join("")}</span><span class="sr qd-say" aria-live="polite">Case study 1 of ${n}</span></div><button type="button" class="qd-btn qd-next" aria-label="Next case study">→</button></div>
  <p class="qd-hint"><span class="hand" aria-hidden="true">👆</span>Drag the card or pick a case · tap the card to open</p></div></div>`};
-const OUT={agentcx:"Agents, channels and QR posters",paddy:"Trusted answers + Careers",houseparty:"Party planning + a DJ assistant",krypto:"Every wallet state designed",avant:"Art-first collection site"};
+const OUT={agentcx:"A day with an AI shop assistant",paddy:"Trusted answers + Careers",houseparty:"Party planning + a DJ assistant",krypto:"Every wallet state designed",avant:"Art-first collection site"};
 const QB1CARD=`<div class="qb-card">
   <div class="qb-txt"><span class="qb-tag">Game design · Prototype</span><h2>QB<i>1</i>: Throw &amp; Catch</h2>
    <p>A mobile American football game I designed and prototyped. Build your quarterback, then run throwing and catching drills: drag to aim, release to throw, tap to catch.</p>
@@ -1101,29 +1244,127 @@ function paddy(){const p=P.paddy;return `<div style="--acc:${p.acc}">
  </div></div>
  <a class="next" href="#krypto"><span class="eyebrow">Next</span><b>Krypto Alienz →</b></a></section></div>`}
 
-function agentcx(){const p=P.agentcx;return `<div style="--acc:${p.acc}">
-<section class="wrap cs-hero"><a class="back" href="#work">← All work</a><p class="eyebrow" style="margin-top:22px">Case study ${p.n} · AI SaaS · Business dashboard · 2026 · <span class="fmt">Format: decision log</span></p>
- <h1>AgentCX Dashboard: one calm place to run your AI agents</h1><p class="lead">${p.lede}</p>
- ${tldr([["Problem","Every feature worked, but owners had to hunt for them across a crowded dashboard."],["My role","Audit, business analysis and product design, from sign in to the chat link page."],["What I did","Six decisions that moved features to where people look, plus a QR studio for printable posters."],["Outcome","Every feature kept. A tested release: 46 pages, every safe button clicked, 0 broken links."]])}
- <a class="wip" href="https://agentcxworld.com/" target="_blank" rel="noopener">
-  <div class="wip-txt"><span class="wip-tag"><i aria-hidden="true"></i>In the works</span><b>Next up: the AgentCX website</b><p>I'm revamping agentcxworld.com to match the new dashboard. It's on the drawing board now. Until it launches, you can visit the current site.</p><span class="wip-link">See the current site <span class="ar">↗</span></span></div>
-  <div class="wip-art" aria-hidden="true"><div class="wip-bar"><i></i><i></i><i></i><span>agentcxworld.com</span></div><div class="wip-body"><span class="wip-stamp">Coming soon</span><div class="sk h"></div><div class="sk w60"></div><div class="sk w40"></div><div class="sk-row"><div class="sk c"></div><div class="sk c"></div><div class="sk c"></div></div></div><div class="wip-tape"></div></div>
- </a></section>
-<section class="wrap"><div class="cover"><img src="img/acx-dash.webp" alt="AgentCX Dashboard: an agent's weekly briefing with the things that need the owner"></div>
- <div class="cs-grid"><aside class="cs-side"></aside><div class="cs-main">
- ${blk("Context","Who it's for",`<p>Business owners use AgentCX to run an AI agent that answers their customers on a chat link page, WhatsApp, their website and the phone: restaurants, salons, boutiques, clinics and other small businesses. The screens in this case study use BQ Cuisine, a restaurant, as the example. The brief: keep every feature and every piece of content, but put things where owners would look for them.</p>`)}
- ${blk("Decisions","Six decisions, before and after",`${decs([
-  ["Navigation","One long menu that mixed workspace places and the tools of one agent.","A dark icon rail for the workspace, and a menu beside it that changes inside an agent.","Owners always know which agent they're working on. Benchmarked on Linear and Slack."],
-  ["Chat link","Its own page on Overview, away from the other channels.","Featured first in Channels, with its QR poster and Copy, Download and Edit.","It's a channel like WhatsApp, so it's set up in the same place."],
-  ["Knowledge Base","A full-width upload modal, half a screen of version history, and guides on a separate page.","Upload, Add navigation and History are three buttons next to the text.","The text is the job. The rest are tools for it, as in AirOps and Dropbox Dash."],
-  ["QR code","A raw code on screen, with no easy way to put it anywhere.","A QR studio: six print-ready designs. Download one PNG, or tick several for a .zip.","Owners need something for the counter and the window, not a code."],
-  ["Agents","A wall of cards that was hard to compare.","One row per agent: live switch, channels, and a week of activity as a sparkline.","Comparing agents is a scan down a list, not across cards."],
-  ["Dashboard","Four number tiles first, then a list of tasks.","One sentence answers how the agent is doing, with what needs you beside it, one button each.","Answer the owner's question before showing numbers."]])}`)}
- ${blk("Screens","The result",`${shot("img/acx-agents.webp","Agents: one row per agent with a live switch and a week of activity")}<div class="grid2">${shot("img/acx-channels.webp","Channels: the chat link featured, other channels as tiles")}${shot("img/acx-kb.webp","Knowledge Base: three buttons, not three panels")}</div>${shot("img/acx-qr.webp","QR studio: pick designs, tune the headline and colour, download as a .zip")}<div class="phones">${ph("img/acx-m-page.webp","BQ Cuisine's chat link page")}${ph("img/acx-m-share.webp","A share card customers can save")}${ph("img/acx-m-dash.webp","The weekly briefing on a phone")}</div>`)}
- ${blk("Business","How AgentCX makes money",`${biz([["store","Starter","Free","A chat link page with an AI agent and all your links."],["bag","Business","₦15,000 / month","Adds a shop: products, orders, delivery and pickup."],["cash","Pro","₦35,000 / month","Adds bookings, deposits and staff calendars."]])}<p class="note">Locked features show what they unlock and which plan has them, so upgrading is a choice, not a wall.</p>`)}
- ${blk("Quality","Tested like a release",`<div class="kpis"><div><b>46</b><span>pages crawled, every safe button clicked</span></div><div><b>0</b><span>broken links or errors in the published build</span></div><div><b>6</b><span>print-ready QR poster designs</span></div><div><b>AA</b><span>accessibility checks clean on desktop and phone</span></div></div><p class="note">Measured on the tested release. Next: time to share the chat link and plan upgrades with real businesses.</p>`)}
+const AXDEMO="https://claude.ai/artifact/2qchWUK6NgxN6yvbU8xjAQ";
+const AXCH=[
+ {t:"07:30",k:"brief",h:"Read the morning in one sentence",b:"Before the shop opens, Dayo sees how Ask BQ did and the three things that need him. Each has one button.",d:"I replaced four number tiles with one sentence that answers \"how is my agent doing?\" first.",img:"img/acx2-brief-c.webp",alt:"Agent dashboard: Ask BQ answered 94% of 412 conversations on its own, with three things that need the owner"},
+ {t:"11:40",k:"chat",h:"A customer asks. The agent sells.",b:"Someone in Tanke asks about delivery, then wants something spicy under ₦4,000. Ask BQ answers and shows dishes they can add straight to the basket.",d:"Answers turn into products with an Add button, so a question becomes an order without leaving the chat.",vid:"img/acx-chat.mp4",img:"img/acx-chat-poster.webp",alt:"A customer chats with Ask BQ and gets spicy dishes under ₦4,000 with Add buttons",phone:1},
+ {t:"13:00",k:"qr",h:"Put the agent on the counter",b:"Walk-in customers scan a poster on the table or the window. Dayo picks designs, sets the headline and downloads them all at once.",d:"A raw QR code became a studio of print-ready posters, because owners need something for the counter, not a code.",vid:"img/acx-qr.mp4",img:"img/acx-qr-poster.webp",alt:"QR studio with a table card and a window sticker selected for download"},
+ {t:"16:00",k:"train",h:"Fix a wrong answer in one tap",b:"A customer corrects the agent about public holidays. Dayo reads the suggestion and approves it. The knowledge base updates on every channel.",d:"Customers can suggest corrections, but nothing changes until the owner approves. The agent learns without going rogue.",vid:"img/acx-train.mp4",img:"img/acx-train-poster.webp",alt:"Training Room: approving a customer's correction updates the knowledge base"},
+ {t:"21:00",k:"flows",h:"Jobs that run on their own",b:"At 9pm the agent sends a sales summary. An hour after a basket is left unpaid, it follows up. Each job is a switch.",d:"Workflows read like sentences, so an owner can see what runs without learning automation.",img:"img/acx2-workflows-c.webp",alt:"Workflows: daily sales summary at 9pm and unpaid basket follow-up, each with a switch"},
+ {t:"23:10",k:"notes",h:"Nothing slips while you sleep",b:"A catering enquiry for 120 guests and a refund request come in after closing. The agent writes them up as notes, with the phone number and order, for the morning.",d:"Agent notes capture the leads and problems a reply alone would lose.",img:"img/acx2-notepad-c.webp",alt:"Notepad: agent notes for a catering enquiry, a refund request and a complaint"}
+];
+const AXTOUR=[
+ {img:"img/acx2-login.webp",cap:"Small businesses lose sales in the gaps: the message at midnight, the same twenty questions, orders scattered across DMs. AgentCX gives each business an AI agent that answers for them, everywhere."},
+ ...AXCH.map(c=>({img:c.img,vid:c.vid,phone:c.phone,cap:c.t+". "+c.h.replace(/\.$/,"")+". "+c.b})),
+ {img:"img/acx-setup-poster.webp",vid:"img/acx-setup.mp4",cap:"Going live takes three steps: pick a template, give the agent a name and a voice, then tell it what to know and where to answer."},
+ {img:"img/acx2-m-glow.webp",phone:1,cap:"The same agent works for a salon, a photographer or a boutique. Each one speaks in its own voice and does its own job: booking, quoting or selling."}
+];
+function agentcx(){const p=P.agentcx;
+ const media=(c,cls)=>{const fr=c.phone?"ax-ph":"ax-br";return `<figure class="ax-media ${fr} ${cls||""}" data-i="${c.k}">${c.phone?"":`<span class="ax-bar" aria-hidden="true"><i></i><i></i><i></i><em>Client Hub · app.agentcxworld.com</em></span>`}${c.vid?`<video muted playsinline loop preload="none" poster="${c.img}" aria-label="${esc(c.alt)}"><source src="${c.vid}" type="video/mp4"></video>`:`<img src="${c.img}" alt="${esc(c.alt)}" loading="lazy">`}</figure>`};
+ return `<div class="ax" style="--acc:${p.acc}">
+<section class="ax-hero"><div class="wrap ax-hero-in">
+ <div class="ax-hero-txt"><a class="back" href="#work">← All work</a>
+  <p class="eyebrow">Case study ${p.n} · AI SaaS · 2026 · <span class="fmt">Format: a day in the life</span></p>
+  <h1>AgentCX: a shop assistant that never sleeps</h1>
+  <p class="lead">${p.lede}</p>
+  <div class="ax-cta"><button type="button" class="btn ax-play" data-tour><span class="ax-pl" aria-hidden="true"></span>Watch the 60-second walkthrough</button><a class="btn ghost" href="${AXDEMO}" target="_blank" rel="noopener">Try the prototype <span class="ar">↗</span></a></div>
+ </div>
+ <div class="ax-live" aria-label="Animated example: a customer asks BQ Cuisine's agent for a free slot and gets a booking">
+  <div class="ax-chat"><div class="ax-chat-h"><span class="ax-av">bq</span><b>BQ Cuisine</b><small><i></i>AI agent replying 24/7</small></div>
+   <p class="ax-b me" data-s="1">Do you deliver to Tanke?</p>
+   <p class="ax-b ty" data-s="2" aria-hidden="true"><i></i><i></i><i></i></p>
+   <p class="ax-b ag" data-s="3">Yes! Tanke delivery is ₦1,000 and takes 30 to 45 minutes. Want the menu?</p>
+   <p class="ax-b me" data-s="4">Something spicy under ₦4,000</p>
+   <p class="ax-b ag ax-prod" data-s="5"><span>🌶</span><b>Party jollof rice</b><em>₦3,500</em><u>Add</u></p>
+  </div>
+  <p class="ax-toast t1" data-s="6"><i>✓</i><span><b>₦3,500 order paid</b><small>Handled by the agent · no reply needed from you</small></span></p>
+  <p class="ax-toast t2" data-s="7"><i>?</i><span><b>Question answered in 3s</b><small>"Are you open on Sunday?"</small></span></p>
  </div></div>
- <a class="next" href="#houseparty"><span class="eyebrow">Next case study</span><b>House Party →</b></a></section></div>`}
+ <div class="wrap">${tldr([["The problem","Small businesses lose sales in the gaps: late messages, repeated questions and orders scattered across apps."],["Who it's for","Restaurants, salons, photographers, boutiques and clinics that sell through chat."],["What I designed","The owner's dashboard, the agent's tools and the customer page, end to end, as a working prototype."],["Proof","A tested release: 46 pages crawled, 0 broken links, accessibility checks clean on desktop and phone."]])}</div>
+</section>
+
+<section class="wrap ax-sec"><span class="ax-k">01 · The problem</span><h2>Small businesses don't lose customers to rivals. They lose them in the gaps.</h2>
+ <div class="ax-probs">${[["🌙","Messages arrive while you sleep","A customer asks at 11pm. By morning they've ordered somewhere else.","The agent answers on the link page, WhatsApp, the website and Instagram, day and night."],["🔁","The same questions, every day","Delivery areas, prices, opening hours. The owner types the same answers again and again.","The knowledge base answers them once. The dashboard shows what people ask most, so gaps are easy to spot."],["🧩","Orders in five places","DMs, WhatsApp, calls and a notebook. Something always gets missed.","One link page holds the chat, the shop and bookings. Every order lands in one list."],["📉","No idea what's working","Owners can't see which channel sells or what the agent got wrong.","A one-sentence briefing, sales by channel, and a short list of things that need the owner."]].map(([i,h,c,f])=>`<article class="ax-prob rv"><span class="ax-ic" aria-hidden="true">${i}</span><h3>${h}</h3><p class="ax-cost">${c}</p><p class="ax-fix"><b>AgentCX:</b> ${f}</p></article>`).join("")}</div>
+ <p class="note">The problems come from the AgentCX brief. The figures in the screens are the prototype's demo data for BQ Cuisine, a restaurant in Ilorin and Lagos, not live results.</p>
+</section>
+
+<section class="ax-day" aria-labelledby="axday"><div class="wrap"><span class="ax-k">02 · Walkthrough</span><h2 id="axday">A day at BQ Cuisine</h2><p class="ax-sub">Scroll through one day with the owner, Dayo. Every clip is recorded from the working prototype.</p>
+ <div class="ax-walk"><ol class="ax-chs">${AXCH.map((c,i)=>`<li class="ax-ch${i?"":" on"}" data-i="${c.k}"><span class="ax-t">${c.t}</span><h3>${c.h}</h3><p>${c.b}</p><p class="ax-d"><b>Design call</b>${c.d}</p>${media(c,"ax-inl")}</li>`).join("")}</ol>
+  <div class="ax-stage" aria-hidden="true">${AXCH.map((c,i)=>media(c,i?"":"on")).join("")}<div class="ax-clock"><b>${AXCH[0].t}</b><span class="ax-dots">${AXCH.map((c,i)=>`<i class="${i?"":"on"}"></i>`).join("")}</span></div></div>
+ </div></div></section>
+
+<section class="wrap ax-sec"><span class="ax-k">03 · In everyday life</span><h2>One agent, any business that sells through chat</h2><p class="ax-sub">Each business gets its own page, colours and voice. The agent does the job that business needs most.</p>
+ <div class="ax-life">${[["img/acx2-m-chat.webp","Restaurant · BQ Cuisine","\"Do you deliver to Tanke?\"","Answers, recommends dishes and takes the order."],["img/acx2-m-glow.webp","Salon · Glow Studio","\"Can I book braids on Saturday?\"","Shows prices and books a free slot."],["img/acx2-m-tayo.webp","Photographer · Tayo Shots","\"How much is a wedding package?\"","Shares packages and checks the date."]].map(([s,w,q,a])=>`<figure class="ax-lc rv"><div class="ph"><img src="${s}" alt="${esc(w)}: the business's own AI assistant on its link page" loading="lazy"></div><figcaption><em>${w}</em><b>${q}</b><span>${a}</span></figcaption></figure>`).join("")}</div>
+ <div class="ax-more"><span>Also fits</span>${["Boutiques taking Instagram orders","Clinics confirming appointments","Tutors answering parents","Caterers quoting for events","Pharmacies checking stock","Event planners sharing dates"].map(t=>`<span class="chip">${t}</span>`).join("")}</div>
+</section>
+
+<section class="ax-how"><div class="wrap ax-sec"><span class="ax-k">04 · How it works</span><h2>Customers on one side, the owner on the other, the agent in the middle</h2>
+ <div class="ax-sys" role="img" aria-label="How AgentCX works: customers reach the agent through the link page, WhatsApp, the website, Instagram DMs, phone and SMS. The agent uses its knowledge base, tools and training room. The owner gets a briefing, sales, notes and workflows.">
+  <div class="ax-col"><span class="ax-ct">Customers ask on</span>${["Chat link page","WhatsApp","Website","Instagram DMs","Phone","SMS"].map(x=>`<span class="ax-node">${x}</span>`).join("")}</div>
+  <div class="ax-wire" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="ax-col ax-core"><span class="ax-ct">The agent</span><div class="ax-orb"><b>Ask BQ</b><small>answers · sells · books</small></div>${["Knowledge Base","Tools: Calendar, Gmail","Training Room"].map(x=>`<span class="ax-node">${x}</span>`).join("")}</div>
+  <div class="ax-wire r" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="ax-col"><span class="ax-ct">The owner gets</span>${["Morning briefing","Orders and sales","Agent notes","Workflows","Corrections to approve"].map(x=>`<span class="ax-node">${x}</span>`).join("")}</div>
+ </div>
+ <div class="ax-go"><div class="ax-go-v">${media({k:"setup",vid:"img/acx-setup.mp4",img:"img/acx-setup-poster.webp",alt:"Creating a new agent: template, name and voice, knowledge and channels"},"")}</div>
+  <div><h3>Going live in three steps</h3><ol class="ax-steps"><li><b>Pick a template</b>Customer support, orders and sales, a bookings receptionist, or start from scratch.</li><li><b>Name and voice</b>Friendly, warm, professional or playful, plus the first message customers see.</li><li><b>Knowledge and channels</b>Paste what it should know and switch on where it answers. It already reads the link page and products.</li></ol>
+  <div class="ax-roll"><span class="ax-ct">Proposed rollout for a new business</span><div><b>Day 1</b><span>Link page live, QR poster on the counter, agent on the link page.</span></div><div><b>Week 1</b><span>WhatsApp and Instagram on. Approve corrections from the Training Room.</span></div><div><b>Month 1</b><span>Shop or bookings on, two workflows running, upgrade only if it pays.</span></div></div></div></div>
+</div></section>
+
+<section class="wrap ax-sec"><span class="ax-k">05 · Decisions</span><h2>Six calls that shaped it</h2>
+ ${decs([
+  ["Navigation","One long menu that mixed the workspace with the tools of one agent.","A dark icon rail for the workspace, and a menu beside it that changes inside an agent.","Owners always know which agent they're working on. Benchmarked on Linear and Slack."],
+  ["Dashboard","Four number tiles first, then a list of tasks.","One sentence answers how the agent is doing, with what needs the owner beside it.","Answer the owner's question before showing numbers."],
+  ["Corrections","Wrong answers stayed wrong until someone edited a long text field.","Customers suggest a fix, the owner approves it, every channel updates.","The agent improves from real conversations, but the owner stays in control."],
+  ["Chat to order","The chat could answer, but buying meant leaving it.","Answers include products with an Add button.","A question becomes an order in the same place."],
+  ["QR code","A raw code on screen, with no easy way to put it anywhere.","A QR studio of print-ready posters. Download one, or several as a .zip.","Owners need something for the counter and the window."],
+  ["Plans","Locked features were hidden, so owners didn't know what they were missing.","Locked features stay visible and say which plan unlocks them.","Upgrading is a choice, not a wall."]])}
+</section>
+
+<section class="wrap ax-sec"><span class="ax-k">06 · Business</span><h2>How AgentCX makes money</h2>
+ ${biz([["store","Starter","Free","A link page with an AI agent, socials, QR code and share sheet."],["bag","Business","₦15,000 / month","Adds a marketplace: products, basket, checkout and an orders dashboard."],["cash","Pro","₦35,000 / month","Adds bookings, services, staff hours and deposits to cut no-shows."]])}
+ <p class="note">Free gets a business live in minutes. The agent then earns the upgrade by selling. Billing would run through Paystack in the real product.</p>
+</section>
+
+<section class="wrap ax-sec"><span class="ax-k">07 · Quality and what's next</span><h2>Tested like a release</h2>
+ <div class="kpis"><div><b>46</b><span>pages crawled, every safe button clicked</span></div><div><b>0</b><span>broken links or errors in the published build</span></div><div><b>6</b><span>print-ready QR poster designs</span></div><div><b>AA</b><span>accessibility checks clean on desktop and phone</span></div></div>
+ <div class="ax-next"><div><span class="ax-ct">What I'd measure first (proposed)</span><ul><li>Share of conversations the agent resolves without the owner</li><li>Time from sign-up to the first shared link or printed poster</li><li>Orders that start in chat, and the upgrade rate from Free</li></ul></div><div><span class="ax-ct">What I learned</span><p>Owners don't want to manage an AI. They want to know it's handling things and where they're needed. Designing the briefing first, then everything else around it, made the rest of the product easier to place.</p></div></div>
+</section>
+<section class="wrap"><a class="next" href="#houseparty"><span class="eyebrow">Next case study</span><b>House Party →</b></a></section>
+<div class="ax-tour" role="dialog" aria-modal="true" aria-label="AgentCX walkthrough" hidden><div class="ax-tw"><div class="ax-prog">${AXTOUR.map(()=>"<i><b></b></i>").join("")}</div>
+ <div class="ax-tm"></div><p class="ax-cap" aria-live="polite"></p>
+ <div class="ax-tc"><button type="button" class="ax-tb" data-a="prev" aria-label="Previous">‹</button><button type="button" class="ax-tb" data-a="pause" aria-label="Pause">❚❚</button><span class="ax-tn"></span><button type="button" class="ax-tb" data-a="next" aria-label="Next">›</button><button type="button" class="ax-tb ax-x" data-a="close" aria-label="Close walkthrough">✕</button></div></div></div>
+</div>`}
+function wireAcx(){const root=document.querySelector(".ax");if(!root)return;const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+ // Hero: a chat that plays itself, then loops.
+ const live=root.querySelector(".ax-live"),steps=[...live.querySelectorAll("[data-s]")];
+ if(reduce){steps.forEach(s=>s.classList.add("in"));live.querySelector(".ty").classList.remove("in")}
+ else{let k=0;const T=[700,1500,1400,1700,1300,1400,1600,3200];const tick=()=>{if(!live.isConnected)return;k++;if(k>steps.length){steps.forEach(s=>s.classList.remove("in"));k=0;setTimeout(tick,600);return}
+  steps.forEach(s=>{const n=+s.dataset.s;if(n===k)s.classList.add("in");if(n===2&&k>=3)s.classList.remove("in")});setTimeout(tick,T[k]||1500)};setTimeout(tick,600)}
+ // Videos play only while on screen, and never under reduced motion.
+ const vids=[...root.querySelectorAll("video")];if(!reduce){const vo=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting&&v.offsetParent){v.play().catch(()=>{})}else v.pause()}),{threshold:.35});vids.forEach(v=>vo.observe(v))}
+ // Walkthrough: the chapter in the middle of the screen drives the sticky stage.
+ const chs=[...root.querySelectorAll(".ax-ch")],stage=root.querySelector(".ax-stage"),ms=[...stage.querySelectorAll(".ax-media")],dots=[...stage.querySelectorAll(".ax-dots i")],clock=stage.querySelector(".ax-clock b");
+ const show=i=>{chs.forEach((c,j)=>c.classList.toggle("on",j===i));ms.forEach((m,j)=>{m.classList.toggle("on",j===i);const v=m.querySelector("video");if(v){if(j===i&&!reduce){v.currentTime=0;v.play().catch(()=>{})}else v.pause()}});dots.forEach((d,j)=>d.classList.toggle("on",j<=i));clock.textContent=AXCH[i].t};
+ const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)show(chs.indexOf(e.target))}),{rootMargin:"-45% 0px -45% 0px"});chs.forEach(c=>co.observe(c));
+ root.querySelectorAll(".rv").forEach(el=>el.classList.add("in"));
+ // Guided tour: stories-style, 7s a step or the clip's length.
+ const tour=root.querySelector(".ax-tour"),tm=tour.querySelector(".ax-tm"),cap=tour.querySelector(".ax-cap"),bars=[...tour.querySelectorAll(".ax-prog i")],tn=tour.querySelector(".ax-tn"),pb=tour.querySelector('[data-a="pause"]');
+ let i=0,timer=null,paused=false,opener=null,t0=0,left=0;
+ const dur=s=>s.vid?7500:7000;
+ const run=ms=>{clearTimeout(timer);t0=performance.now();left=ms;bars[i].querySelector("b").style.transition=reduce?"none":`width ${ms}ms linear`;requestAnimationFrame(()=>bars[i].querySelector("b").style.width="100%");if(!reduce)timer=setTimeout(()=>go(i+1),ms)};
+ const go=n=>{if(n>=AXTOUR.length){close();return}i=Math.max(0,n);const s=AXTOUR[i];
+  bars.forEach((b,j)=>{const x=b.querySelector("b");x.style.transition="none";x.style.width=j<i?"100%":"0%"});
+  tm.className="ax-tm"+(s.phone?" ph":"");tm.innerHTML=s.vid&&!reduce?`<video muted playsinline autoplay loop poster="${s.img}"><source src="${s.vid}" type="video/mp4"></video>`:`<img src="${s.img}" alt="">`;
+  cap.textContent=s.cap;tn.textContent=`${i+1} / ${AXTOUR.length}`;paused=false;pb.textContent="❚❚";pb.setAttribute("aria-label","Pause");run(dur(s))};
+ const close=()=>{clearTimeout(timer);tour.hidden=true;tm.innerHTML="";document.body.style.overflow="";opener&&opener.focus()};
+ root.querySelectorAll("[data-tour]").forEach(b=>b.onclick=()=>{opener=b;tour.hidden=false;document.body.style.overflow="hidden";go(0);tour.querySelector('[data-a="next"]').focus()});
+ tour.addEventListener("click",e=>{const a=e.target.closest("[data-a]")?.dataset.a;if(!a)return;
+  if(a==="next")go(i+1);else if(a==="prev")go(i-1);else if(a==="close")close();
+  else if(a==="pause"){const x=bars[i].querySelector("b");if(!paused){clearTimeout(timer);left-=performance.now()-t0;x.style.width=getComputedStyle(x).width;x.style.transition="none";paused=true;pb.textContent="▶";pb.setAttribute("aria-label","Play");tm.querySelector("video")?.pause()}else{paused=false;pb.textContent="❚❚";pb.setAttribute("aria-label","Pause");tm.querySelector("video")?.play().catch(()=>{});run(Math.max(400,left))}}});
+ tour.addEventListener("keydown",e=>{if(e.key==="Escape")close();else if(e.key==="ArrowRight")go(i+1);else if(e.key==="ArrowLeft")go(i-1);else if(e.key==="Tab"){const f=[...tour.querySelectorAll("button")];const a=f.indexOf(document.activeElement);if(e.shiftKey&&a<=0){e.preventDefault();f.at(-1).focus()}else if(!e.shiftKey&&a===f.length-1){e.preventDefault();f[0].focus()}}});
+ let sx=null;tour.addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:true});tour.addEventListener("touchend",e=>{if(sx==null)return;const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50)go(i+(d<0?1:-1));sx=null});
+}
 
 function houseparty(){const p=P.houseparty;return `<div style="--acc:${p.acc}">
 <section class="wrap cs-hero"><a class="back" href="#work">← All work</a><p class="eyebrow" style="margin-top:22px">Case study ${p.n} · Events · iOS · 2025 · <span class="fmt">Format: product bet</span></p>
@@ -1379,7 +1620,7 @@ document.addEventListener("click",async e=>{const a=e.target.closest("a[data-cv]
  try{const blob=await (await fetch(a.getAttribute("href"))).blob();await DL.save({filename:"Abdulfatai-Akere-CV.pdf",data:blob});toast("CV saved.")}
  catch(err){if(err&&err.code==="declined")return;toast(err&&err.code==="rate_limited"?"A save is already open. Finish that one first.":"Couldn't save the CV here. Email me and I'll send it.")}});
 /* images: warm the cache when idle, retry once on a failed load */
-(()=>{const warm=()=>{const s=new Set();Object.values(P).forEach(p=>{s.add(th(p.cover));s.add(p.cover)});s.add("img/acx-dash.webp");s.forEach(u=>{const i=new Image();i.decoding="async";i.src=u})};
+(()=>{const warm=()=>{const s=new Set();Object.values(P).forEach(p=>{s.add(th(p.cover));s.add(p.cover)});s.add("img/acx2-brief-c.webp");s.forEach(u=>{const i=new Image();i.decoding="async";i.src=u})};
  addEventListener("load",()=>("requestIdleCallback" in window?requestIdleCallback(warm,{timeout:2500}):setTimeout(warm,1200)),{once:true});
  document.addEventListener("error",e=>{const i=e.target;if(!(i instanceof HTMLImageElement)||i.dataset.retry)return;i.dataset.retry="1";const u=i.currentSrc||i.src;setTimeout(()=>{i.removeAttribute("srcset");i.src=u+(u.includes("?")?"&":"?")+"r=1"},1200)},true)})();
 function toast(m){const t=document.getElementById("toast");t.innerHTML=`<div class="toast" role="status">${m}</div>`;setTimeout(()=>t.innerHTML="",2800)}
@@ -1423,6 +1664,7 @@ function wire(h){
  if(h==="contact"){document.getElementById("cp").onclick=async()=>{try{await navigator.clipboard.writeText(ME.email);toast("Email copied.")}catch(e){const r=document.createRange();r.selectNodeContents(document.getElementById("em"));getSelection().removeAllRanges();getSelection().addRange(r);toast("Email selected. Press Ctrl+C.")}};
   wireForm(document.getElementById("form"))}
  if(h==="play")wirePlay();
+ if(h==="agentcx")wireAcx();
 }
 /* Music: three playlists. Picking one swaps Spotify's playlist player below. If the player can't load
    (blocked, offline), the Open in Spotify button is still there and the message says so. */
