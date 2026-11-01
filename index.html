@@ -1020,6 +1020,87 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
  .ax-sec{padding-block:56px 16px}
 }
 @media (prefers-reduced-motion:reduce){.ax-b,.ax-toast{opacity:1;transform:none}.ax-stage .ax-media{transition:none}}
+/* AgentCX World case study: one promise, end to end */
+.aw{--fo:#1F3B2C;--ol:#7B7D5C;--cr:#ECE9E1;--st:#F3F2EF}
+.aw h2{font:600 clamp(28px,3.4vw,44px)/1.12 var(--head);margin:10px 0 16px;max-width:22ch}
+.aw-k{font:600 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:#4E6A5A}
+:root[data-theme="dark"] .aw-k{color:#A9AA8D}
+.aw-sub{color:var(--ink-2);max-width:62ch;margin:0 0 28px;font-size:18px}
+.aw-sec{padding-block:72px 16px}
+.aw-hero{padding-block:40px 8px}
+.aw-hero h1{font:600 clamp(38px,5.6vw,72px)/1.03 var(--head);letter-spacing:-.035em;margin:16px 0 18px;max-width:15ch}
+.aw-hero .lead{font-size:clamp(18px,1.6vw,21px);color:var(--ink-2);max-width:60ch}
+.aw-stage{margin-top:32px;border-radius:32px;overflow:hidden;background:var(--fo)}
+.aw-stage img{width:100%;height:auto}
+/* frames */
+.aw-f{margin:0}
+.aw-br{border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.aw-br img{width:100%;height:auto}
+.aw-ph{width:min(100%,300px);border-radius:36px;overflow:hidden;border:8px solid #151A16;background:#151A16;box-shadow:var(--shadow);margin-inline:auto}
+.aw-ph img{width:100%;height:auto;border-radius:28px}
+.aw-f figcaption{margin-top:12px;font-size:14.5px;line-height:1.5;color:var(--muted);max-width:70ch}
+.aw-f figcaption b{color:var(--ink);font-weight:600}
+/* idea cards */
+.aw-rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:8px 0 32px}
+.aw-rule{background:var(--fo);color:#F3F2EF;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.aw-rule em{font:600 12px var(--body);letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:#A9AA8D}
+.aw-rule b{font:600 21px/1.25 var(--head);letter-spacing:-.01em}
+.aw-rule p{color:#D9DCD3;font-size:15.5px;line-height:1.55}
+/* story chapters */
+.aw-ch{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:48px;align-items:center;padding-block:40px;border-top:1px solid var(--line)}
+.aw-ch.flip{grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr)}.aw-ch.flip>div:first-child{order:2}
+.aw-ch h3{font:600 clamp(22px,2.2vw,28px)/1.2 var(--head);margin:8px 0 12px}
+.aw-ch p{color:var(--ink-2)}
+.aw-ch p+p{margin-top:12px}
+.aw-call{margin-top:16px;padding:14px 16px;border-left:3px solid var(--fo);background:var(--soft);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55}
+:root[data-theme="dark"] .aw-call{border-left-color:#A9AA8D}
+.aw-call b{display:block;font:600 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.aw-pair{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:16px;align-items:center}.aw-pair .aw-ph{border-width:5px;border-radius:24px}.aw-pair .aw-ph img{border-radius:19px}
+/* the decision I lost */
+.aw-turn{background:var(--surface);border:1px solid var(--line);border-radius:32px;padding:clamp(20px,4vw,48px);margin-top:8px}
+.aw-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:24px 0}
+.aw-step span{font:600 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.aw-step b{display:block;font:600 19px/1.3 var(--head);margin:6px 0 8px}
+.aw-step p{color:var(--ink-2);font-size:15.5px;line-height:1.55}
+.aw-ba{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:8px}
+.aw-tag{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:999px;font:600 12px var(--body);margin-bottom:10px}
+.aw-tag.no{background:#FBE6E3;color:#8E2A23}.aw-tag.yes{background:#E5F2EA;color:#22603A}
+.aw-big{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}
+.aw-big div{background:var(--fo);color:#F3F2EF;border-radius:20px;padding:20px}
+.aw-big b{display:block;font:600 clamp(28px,3vw,40px)/1 var(--head);letter-spacing:-.03em}
+.aw-big span{display:block;margin-top:8px;font-size:14.5px;color:#C8CCC2}
+/* decisions list */
+.aw-decs{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.aw-decs li{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.aw-decs .n{font:600 12px var(--body);letter-spacing:.1em;color:var(--muted)}
+.aw-decs b{font:600 20px/1.25 var(--head)}
+.aw-decs p{color:var(--ink-2);font-size:15.5px;line-height:1.55}
+.aw-decs .w{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line);font-size:15px}
+.aw-decs .w strong{color:var(--ink)}
+/* brand */
+.aw-brand{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:32px;align-items:center}
+.aw-sw{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0 8px}
+.aw-sw div{border-radius:16px;padding:56px 12px 12px;border:1px solid var(--line);font:500 13px var(--body);color:#151A16}
+.aw-sw div:first-child,.aw-sw div:nth-child(2){color:#F3F2EF}
+.aw-sw small{display:block;opacity:.8}
+/* process */
+.aw-pipe{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 24px}
+.aw-pipe span{display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:999px;font:600 14px var(--body);background:var(--soft);border:1px solid var(--line)}
+.aw-pipe span.on{background:var(--fo);color:#F3F2EF;border-color:var(--fo)}
+.aw-pipe i{font-style:normal;color:var(--muted)}
+.aw-open{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-top:24px}
+.aw-open>div{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px}
+.aw-open ul{margin:10px 0 0;padding-left:18px;color:var(--ink-2)}
+.aw-open li+li{margin-top:6px}
+.aw-ct{font:600 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.aw-quote{font:600 clamp(24px,3vw,38px)/1.2 var(--head);letter-spacing:-.02em;max-width:26ch;margin:8px 0 0}
+@media (max-width:900px){
+ .aw-rules,.aw-steps,.aw-big{grid-template-columns:minmax(0,1fr)}
+ .aw-ch{grid-template-columns:minmax(0,1fr);gap:20px}.aw-ch.flip>div:first-child{order:0}
+ .aw-ba,.aw-decs,.aw-brand,.aw-open{grid-template-columns:minmax(0,1fr)}
+ .aw-pair{grid-template-columns:minmax(0,1fr) 110px}.aw-ch.flip{grid-template-columns:minmax(0,1fr)}
+ .aw-sw{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
@@ -1103,13 +1184,15 @@ const ME={name:"Abdulfatai Akere",full:"Abdulfatai Akere",email:"akeredayo@gmail
 const P={
  agentcx:{n:"01",title:"AgentCX",short:"AgentCX",type:"AI SaaS · Customer agents",year:"2026",acc:"#2B50E8",cover:"img/acx-cover.webp",role:"Product designer + BA",tags:["Product design","AI agents","Prototype"],
   lede:"An AI agent for small businesses that answers customers, takes orders and books slots on every channel, day and night, with one calm dashboard for the owner."},
- paddy:{n:"03",title:"Student Paddy",short:"Student Paddy",type:"EdTech · Community + careers",year:"2021",acc:"#12785A",cover:"img/sp-cover.webp",role:"Product designer + BA",tags:["Audit","Design system","Careers"],
+ agentcxworld:{n:"02",title:"AgentCX World",short:"AgentCX World",type:"AI SaaS · Brand + product revamp",year:"2026",acc:"#1F3B2C",cover:"img/acw-cover.webp",role:"Product designer",tags:["Brand","Product design","Website"],
+  lede:"A new brand, product and website for AgentCX World, built around one promise: the AI suggests, the owner decides."},
+ paddy:{n:"04",title:"Student Paddy",short:"Student Paddy",type:"EdTech · Community + careers",year:"2021",acc:"#12785A",cover:"img/sp-cover.webp",role:"Product designer + BA",tags:["Audit","Design system","Careers"],
   lede:"A digital campus where students get unstuck: ask by course, get one trusted answer, and connect with verified employers."},
- houseparty:{n:"02",title:"House Party",short:"House Party",type:"Events · iOS prototype",year:"2025",acc:"#FF4F9A",cover:"img/hp-cover.webp",role:"Product + UX designer",tags:["PRD","UX design","AI assistant"],
+ houseparty:{n:"03",title:"House Party",short:"House Party",type:"Events · iOS prototype",year:"2025",acc:"#FF4F9A",cover:"img/hp-cover.webp",role:"Product + UX designer",tags:["PRD","UX design","AI assistant"],
   lede:"Plan a party once. Every guest stays in the loop, from the invite to the door, and the DJ gets an AI assistant that reads the room."},
- krypto:{n:"04",title:"Krypto Alienz",short:"Krypto Alienz",type:"Web3 · NFT mint",year:"2021",acc:"#39E01F",cover:"img/ka-mint.webp",tags:["Web3","Live prototype"],
+ krypto:{n:"05",title:"Krypto Alienz",short:"Krypto Alienz",type:"Web3 · NFT mint",year:"2021",acc:"#39E01F",cover:"img/ka-mint.webp",tags:["Web3","Live prototype"],
   lede:"A pixel-art NFT collection with a mint that always shows what you'll pay and what's happening."},
- avant:{n:"05",title:"Avant-Garde",short:"Avant-Garde",type:"Art collection · Web3",year:"2021",acc:"#181717",cover:"img/ag-art3.webp",tags:["Art","Web3"],
+ avant:{n:"06",title:"Avant-Garde",short:"Avant-Garde",type:"Art collection · Web3",year:"2021",acc:"#181717",cover:"img/ag-art3.webp",tags:["Art","Web3"],
   lede:"A 100-piece art collection told in four eras, with a community built around the art."}
 };
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1129,7 +1212,7 @@ const deck=ks=>{const n=ks.length,pad=i=>String(i).padStart(2,"0");return `<div 
   <ol class="qd-list" aria-label="All case studies">${ks.map((k,i)=>{const p=P[k];return `<li><button type="button" data-go="${i}"${i?"":' aria-current="true"'} style="--acc:${p.acc}"><span class="qd-li-n">${pad(i+1)}</span><span class="qd-li-t"><b>${p.title}</b><small>${p.type} · ${p.year}</small></span><span class="qd-li-ar" aria-hidden="true"><em>Open</em>→</span></button></li>`}).join("")}</ol>
  <div class="qd-hud"><button type="button" class="qd-btn qd-prev" aria-label="Previous case study">←</button><div class="qd-mid"><span class="qd-count" aria-hidden="true"><b class="qd-cur">${pad(1)}</b> / ${pad(n)}</span><span class="qd-pips" aria-hidden="true">${ks.map((_,i)=>`<i class="${i?"":"on seen"}"></i>`).join("")}</span><span class="sr qd-say" aria-live="polite">Case study 1 of ${n}</span></div><button type="button" class="qd-btn qd-next" aria-label="Next case study">→</button></div>
  <p class="qd-hint"><span class="hand" aria-hidden="true">👆</span>Drag the card or pick a case · tap the card to open</p></div></div>`};
-const OUT={agentcx:"A day with an AI shop assistant",paddy:"Trusted answers + Careers",houseparty:"Party planning + a DJ assistant",krypto:"Every wallet state designed",avant:"Art-first collection site"};
+const OUT={agentcx:"A day with an AI shop assistant",agentcxworld:"An AI workforce you say yes to",paddy:"Trusted answers + Careers",houseparty:"Party planning + a DJ assistant",krypto:"Every wallet state designed",avant:"Art-first collection site"};
 const QB1CARD=`<div class="qb-card">
   <div class="qb-txt"><span class="qb-tag">Game design · Prototype</span><h2>QB<i>1</i>: Throw &amp; Catch</h2>
    <p>A mobile American football game I designed and prototyped. Build your quarterback, then run throwing and catching drills: drag to aim, release to throw, tap to catch.</p>
@@ -1148,7 +1231,7 @@ function home(){return `
 </section>
 <section class="wrap sec" style="padding-top:56px" aria-labelledby="csh">
  <div class="sec-h"><div><span class="eyebrow">Selected work · in depth</span><h2 id="csh" style="margin-top:6px">Case studies</h2></div><a class="btn ghost" href="#work">All work</a></div>
- ${deck(["agentcx","houseparty","paddy"])}
+ ${deck(["agentcx","agentcxworld","houseparty","paddy"])}
 </section>
 <section class="wrap sec" style="padding-top:24px">
  <div class="sec-h"><div><span class="eyebrow">From my CV</span><h2 style="margin-top:6px">Impact</h2></div></div>
@@ -1184,7 +1267,7 @@ function home(){return `
 </section>`}
 
 function work(){return `<section class="wrap cs-hero"><span class="eyebrow">Work</span><h1>Products I've shaped</h1><p class="lead">Four in-depth case studies, then three side quests.</p></section>
-<section class="wrap" style="padding-bottom:24px"><h2 class="eyebrow" style="margin-bottom:12px"><span class="qt">Case studies</span>In depth</h2>${idx(["agentcx","houseparty","paddy"])}</section>
+<section class="wrap" style="padding-bottom:24px"><h2 class="eyebrow" style="margin-bottom:12px"><span class="qt">Case studies</span>In depth</h2>${idx(["agentcx","agentcxworld","houseparty","paddy"])}</section>
 <section class="wrap" style="padding-block:32px 64px"><h2 class="eyebrow" style="margin-bottom:12px"><span class="qt side">Smaller builds</span>Side quests</h2>${idx(["krypto","avant"])}<div class="qb" style="margin-top:20px">${QB1CARD}</div></section>`}
 
 /* process icons (24px stroke) */
@@ -1405,6 +1488,98 @@ function avant(){const p=P.avant;return `<div>
  </div></div>
  <a class="next" href="#agentcx"><span class="eyebrow">Back to the start</span><b>AgentCX Dashboard →</b></a></section></div>`}
 
+function agentcxworld(){const p=P.agentcxworld;
+ const br=(src,alt,cap)=>`<figure class="aw-f rv"><div class="aw-br"><img src="img/acw-${src}.webp" alt="${esc(alt)}" loading="lazy"></div>${cap?`<figcaption>${cap}</figcaption>`:""}</figure>`;
+ const ph=(src,alt,cap)=>`<figure class="aw-f rv"><div class="aw-ph"><img src="img/acw-${src}.webp" alt="${esc(alt)}" loading="lazy"></div>${cap?`<figcaption>${cap}</figcaption>`:""}</figure>`;
+ const ch=(k,h,body,call,media,flip)=>`<article class="aw-ch${flip?" flip":""}"><div><span class="aw-k">${k}</span><h3>${h}</h3>${body}${call?`<p class="aw-call"><b>Design call</b>${call}</p>`:""}</div><div>${media}</div></article>`;
+ return `<div class="aw" style="--acc:${p.acc}">
+<section class="wrap aw-hero"><a class="back" href="#work">← All work</a>
+ <p class="eyebrow" style="margin-top:22px">Case study ${p.n} · AI SaaS · Brand, product and website · 2026 · <span class="fmt">Format: one promise, end to end</span></p>
+ <h1>Nothing happens until you say yes</h1>
+ <p class="lead">${p.lede}</p>
+ <div class="aw-stage"><img src="${p.cover}" alt="AgentCX World on desktop and phone: the Today dashboard for Klefi Foods and Kemi's morning brief" fetchpriority="high"></div>
+ ${tldr([["The brief","Revamp AgentCX World's brand, product and website as one system, from two PRDs."],["The promise","AI proposes, the owner decides. Every change the assistant suggests waits for a \"Yes, do it\"."],["What I designed","A logo and palette, a five-tab product on desktop and mobile, a store for 80 agents and workflows, and the marketing website."],["Proof","68 product frames QA'd twice: 0 clipped text, WCAG AA text contrast, 99% of text colours bound to tokens."]])}
+ <p class="note">Klefi Foods, its team and every number on these screens are sample data from the design file, not live results.</p>
+</section>
+
+<section class="wrap aw-sec"><span class="aw-k">01 · The moment</span><h2>Everyone was shipping a bot. Nobody was shipping trust.</h2>
+ <p class="aw-sub">AgentCX World already had a live app: a Workforce, an Assistant, a Build store, a Notepad and a Training Room. The revamp asked for a brand, a product and a website that felt like one company. Before drawing anything, I looked at who owners compare us with.</p>
+ ${br("x0-competitors","Competitor audit: Intercom Fin, Gorgias, Chatbase, Wati and respond.io, what each does well and what AgentCX adds","<b>Where AgentCX can win.</b> Each competitor does one thing well, from Intercom's tested procedures to Wati's WhatsApp-first inbox. But each one puts a bot inside its own product. For a business in Lagos that runs on WhatsApp, that's one more dashboard to babysit.")}
+</section>
+
+<section class="wrap aw-sec"><span class="aw-k">02 · The idea</span><h2>One assistant, and one rule it never breaks</h2>
+ <p class="aw-sub">The hard part wasn't making the AI do more. It was making owners comfortable letting it. So the whole product hangs on three rules.</p>
+ <div class="aw-rules">
+  <div class="aw-rule rv"><em>Rule 1</em><b>One assistant across everything</b><p>Kemi sits in the centre of the navigation on desktop and mobile. She sees every agent and workflow, so she can link them. Competitors put a bot inside each product.</p></div>
+  <div class="aw-rule rv"><em>Rule 2</em><b>Nothing changes until you say yes</b><p>Every suggestion arrives as a proposed change card: what it affects, where the facts came from, what it costs, and three answers. Yes, do it. Not now. Edit first.</p></div>
+  <div class="aw-rule rv"><em>Rule 3</em><b>Never animate what isn't real</b><p>Kemi's Living Sphere shows one orbit dot for each agent or workflow that is actually running. When something needs you, the urgency lives on the card, so the brand stays calm.</p></div>
+ </div>
+ ${br("kemi-assistant","Ask Kemi: Kemi finds four delivery areas on the website and proposes adding them to Sarah, waiting for Yes, do it","<b>Rule 2 in practice.</b> Three customers asked about Ikeja. Kemi finds the delivery areas on the website, then stops and asks. The card names the agent it affects, the source and the cost, and says how to undo it.")}
+</section>
+
+<section class="wrap aw-sec" aria-labelledby="awstory"><span class="aw-k">03 · The story</span><h2 id="awstory">One owner, from first tap to first sale</h2>
+ <p class="aw-sub">Follow Ola, who runs Klefi Foods in Lagos, through the journeys the file designs end to end: build, set up, go live, hand over, teach and sell.</p>
+ ${ch("Build","Pick a helper without reading 80 names","<p>The store holds 80 agents and workflows in 8 categories. Each card says what the item does, whether it's an agent or a workflow, and whether it's already in your Workforce.</p>","This layout wasn't my first recommendation. The story of how it changed is in section 04.",br("build-category","Build store, Customer service category: six cards with one-line descriptions, demo status and In your Workforce badges"),false)}
+ ${ch("Set up","An AI that shows its homework","<p>Kemi reads the website and the inbox, then lists every fact with its source. Ola edits or removes anything wrong. Sarah, the new customer service agent, only uses what Ola keeps.</p><p>When two sources disagree about Sunday hours, the screen says so and asks Ola to pick.</p>","A conflict is shown, never silently resolved. Sarah won't answer Sunday questions until Ola chooses.",br("setup2-learned","Setup step 2, Here's what we learned: facts with sources, and a Two sources disagree warning about Sunday hours"),true)}
+ ${ch("When it breaks","Nothing is lost","<p>The menu page didn't load after 30 seconds. Instead of a dead end, setup shows what was read, offers a retry, and lets Ola save and leave. Every step saves on its own.</p>","Failure states were designed with the happy path, not after it.",br("setup1-problem","Setup step 1 error state: We couldn't read everything, with a retry for the menu page and a choice between two Sunday hours"),false)}
+ ${ch("Live","Sarah is working","<p>When setup finishes, Sarah is live on WhatsApp and the chat link. On Today, the owner sees conversations by hour, handovers waiting, workflow runs and orders, plus one thing Kemi noticed.</p>","",`<div class="aw-pair">${br("today-v2","Today dashboard: 126 conversations, handovers, workflow runs, orders, what happened today and Needs you")}${ph("m-morning-brief","Mobile morning brief: what happened overnight and three things that need attention")}</div>`,true)}
+ ${ch("Hand over","When a customer wants a person","<p>Chidi's order came late and cold, and he asks for a person. The rule \"insists on talking to a human\" fires, Ola and Kayode are notified, and Ola replies in the same thread. One tap hands the chat back to Sarah.</p>","The banner names the exact rule that fired, so the owner can see why the agent stepped back.",br("sarah-handover-v2","Sarah's chats: a handover banner, the AI reply, and Ola's human reply in the same conversation"),false)}
+ ${ch("Teach","Every unanswered question becomes a lesson","<p>Insights lists the questions Sarah couldn't answer this week, with how often each was asked. One tap on Teach Sarah drafts the answer, and it waits for a yes like everything else.</p>","",br("insights-teach","Insights: questions Sarah couldn't answer, with Teach Sarah buttons, and a proposed change to add Ajah to delivery areas"),true)}
+ ${ch("Sell","A sold-out dish becomes a waitlist","<p>Ola told Sarah: if jollof rice is sold out, take a name, a WhatsApp number and how many trays. 18 people later, the note becomes a list Ola can pin to Today. When the jollof is back, the Outreach workflow messages the 17 who said yes.</p>","Outreach has guardrails written on the screen: only people who said yes, once per waitlist, never between 9pm and 8am Lagos time, and STOP removes someone straight away.",`<div style="display:grid;gap:20px">${br("notepad-waitlist","Sarah's notepad: the jollof rice waitlist with 18 people and a prompt to reach out with Outreach")}${br("outreach","Outreach workflow: who gets it, the message, when to send, and rules")}</div>`,false)}
+</section>
+
+<section class="wrap aw-sec"><span class="aw-k">04 · The turn</span><h2>The recommendation I didn't win</h2>
+ <div class="aw-turn">
+  <p class="aw-sub" style="margin-bottom:0">At 80 items, the Build store needed a new layout. I audited three options against what matters at that size, and I recommended a hybrid. The review agreed on something else. Here is what happened next.</p>
+  <div style="margin-top:24px">${br("build-audit-b0","Audit: icon grid, cards by category and Kemi by goal scored against seven things that matter at 50 to 80 items, with my recommendation","<b>My audit.</b> Three layouts scored on seven questions, from finding a known name to effort to build. I recommended the icon grid as the front door.")}</div>
+  <div class="aw-steps">
+   <div class="aw-step"><span>What I recommended</span><b>Keep the icon grid</b><p>It's what people already know, and it shows 3 to 4 times more items per screen than cards. I'd fix its weak spot, \"what does this do?\", behind See all.</p></div>
+   <div class="aw-step"><span>What the review chose</span><b>Cards by category</b><p>Pick a category, then scan about 10 cards, each with one line on what it does, its channels and a Try demo.</p></div>
+   <div class="aw-step"><span>What I did next</span><b>Made the case for it</b><p>I rebuilt the store and wrote the rationale for the client: the same sample of 80 items, shown both ways.</p></div>
+  </div>
+  <div class="aw-ba">
+   <div><span class="aw-tag no">Not chosen · icon grid</span>${br("build-icon-grid-notchosen","Not chosen: the refined icon grid with 16 agents and 64 workflows as icons with names")}</div>
+   <div><span class="aw-tag yes">Agreed · cards by category</span>${br("build-category","Agreed: cards by category with descriptions and status")}</div>
+  </div>
+  <div class="aw-big"><div><b>10, not 80</b><span>items to scan once you pick a category</span></div><div><b>0 taps</b><span>to see what an item does. It's written on the card</span></div><div><b>1 glance</b><span>to see what you already have, with ticks and the Workforce strip</span></div></div>
+  <p class="note" style="margin-top:16px">The icon grid only got longer as the store grew. With cards, a new category is one more row and the page keeps its shape. Patterns checked on Mobbin: Perplexity connectors, Calendly and Supabase integrations, Gumloop connectors.</p>
+ </div>
+</section>
+
+<section class="wrap aw-sec"><span class="aw-k">05 · Decisions</span><h2>Smaller calls that kept it calm</h2>
+ <ol class="aw-decs">
+  <li class="rv"><span class="n">01 · Onboarding</span><b>Is onboarding necessary? Yes, but light.</b><p>One welcome, then at most 4 tips on the real screens. Every tip can be skipped, and you replay the tour by asking Kemi \"show me around\". The checklist disappears when the first agent is live.</p><p class="w"><strong>Why:</strong> people learn the five tabs by doing. Patterns studied on Mobbin: Shopify, Linktree, monday.com, My BMW, Craft and Gymshark.</p></li>
+  <li class="rv"><span class="n">02 · Pin</span><b>Pin, but only where it helps</b><p>Pins work on the Workforce, agent pages, Today, lists in Sarah's notes and through Kemi. Not in the Build store, setup steps, account settings or the customer chat link. Up to 5 pins, yours only.</p><p class="w"><strong>Why:</strong> pin is for things you already have and open every day. Pinning a setup step would leave half-built agents at the top.</p></li>
+  <li class="rv"><span class="n">03 · Workforce</span><b>A quiet workflow never looks broken</b><p>Agents and workflows share one list, sorted by recent activity, with health in plain words: \"18 chats today · 1 handover\". Scheduled workflows show their next run.</p><p class="w"><strong>Why:</strong> a yearly compliance check is quiet for months. \"Next run 12 Jan 2027 · quiet is normal\" stops a false alarm.</p></li>
+  <li class="rv"><span class="n">04 · Customer page</span><b>The same chat, in the business's own colours</b><p>Each business gets a link page with its agent, its menu and its WhatsApp lines. BQ Cuisine shows the pattern: ask, get an answer, add to the basket.</p><p class="w"><strong>Why:</strong> the page belongs to the business. AgentCX is one small \"Powered by\" line at the bottom.</p></li>
+ </ol>
+ <div style="margin-top:24px">${br("bq-customer-page","BQ Cuisine customer page: the business's chat assistant, WhatsApp lines, and a menu with checkout in naira")}</div>
+</section>
+
+<section class="wrap aw-sec"><span class="aw-k">06 · Brand and website</span><h2>The same calm, outside the app</h2>
+ <p class="aw-sub">The Atlas palette has four brand colours: forest, olive, cream and stone. The Sphere logo is one component, never redrawn. In QA I added two support colours for accessible muted text and team replies, without touching the four brand colours.</p>
+ <div class="aw-sw" aria-label="Atlas brand colours"><div style="background:#1F3B2C">Forest<small>#1F3B2C</small></div><div style="background:#7B7D5C">Olive<small>#7B7D5C</small></div><div style="background:#ECE9E1">Cream<small>#ECE9E1</small></div><div style="background:#F3F2EF">Stone<small>#F3F2EF</small></div></div>
+ <div class="aw-brand" style="margin-top:20px">${br("ds-living-sphere","Kemi Living Sphere motion spec: idle, working, needs you, live, reduce motion and sizes","<b>Living Sphere.</b> Rings breathe on a 6-second loop. With reduced motion on, the rings and dots stay still.")}${ph("m-welcome-kemi","Mobile welcome: Hi Ola, I'm Kemi, with Show me around, 4 tips, and Skip for now","<b>First sign-in.</b> The sphere introduces Kemi, then gets out of the way.")}</div>
+ <div style="margin-top:32px">${br("web-hero","AgentCX website hero: Build your own AI workforce, with a live Workforce card and an Outreach approval","<b>The website.</b> \"Build your own AI workforce.\" The hero shows the product's own promise: Outreach asks before it messages your waitlist. Every page is designed for desktop and mobile, and anything not yet confirmed, like prices and Connector details, carries an amber VERIFY note.")}</div>
+</section>
+
+<section class="wrap aw-sec"><span class="aw-k">07 · How I ran it</span><h2>A design file that tells you what's true</h2>
+ <p class="aw-sub">A revamp this wide goes wrong in the gaps between brand, product and site. So the file itself became the process: every frame carries a status, every open question has an owner, and nothing ships without a check.</p>
+ <div class="aw-pipe" aria-label="Review pipeline"><span>Exploring</span><i>to</i><span>Agreed</span><i>to</i><span>Updated</span><i>to</i><span class="on">Final</span></div>
+ <div class="kpis"><div><b>14</b><span>decisions in a register, each with an owner and a gate</span></div><div><b>10</b><span>logged versions, 17 to 18 October 2026</span></div><div><b>68</b><span>frames through automated QA, fixed, then checked again</span></div><div><b>0</b><span>clipped, hidden or empty text layers after QA</span></div></div>
+ <p class="note" style="margin-top:16px">I directed the production with Claude working inside Figma. I set the rules (tokens, naming, review states), made the calls in the decision register, and reviewed every frame before it moved to Agreed. One low-contrast chat bubble stays in the file on purpose, as the \"before\" for its fix.</p>
+</section>
+
+<section class="wrap aw-sec"><span class="aw-k">08 · What's open and what I learned</span><h2>Honest about where it stands</h2>
+ <div class="aw-open">
+  <div><span class="aw-ct">Still open in the register</span><ul><li>Plans, credits and currency (D-08), so billing screens show TBC</li><li>How deep the first workflow builder goes (D-12)</li><li>Roles and resource scopes for members (D-05)</li><li>The Claude and ChatGPT connector mechanism (D-04)</li><li>Legal and privacy: sources, consent and retention (D-10)</li></ul></div>
+  <div><span class="aw-ct">What I'd measure first (proposed)</span><ul><li>Share of Kemi's proposed changes that owners accept, edit or decline</li><li>Time from opening Build to the first live agent</li><li>Handovers per 100 conversations, and how fast a person replies</li><li>Waitlist sign-ups that turn into orders through Outreach</li></ul></div>
+ </div>
+ <div style="margin-top:40px"><span class="aw-ct">What I learned</span><p class="aw-quote">Trust is a design surface. Every time the AI could act on its own, I gave it a card instead, and the product got calmer, not slower.</p></div>
+</section>
+<section class="wrap"><a class="next" href="#houseparty"><span class="eyebrow">Next case study</span><b>House Party →</b></a></section>
+</div>`}
+
 function about(){return `<section class="wrap about">
  <aside class="me-card" aria-label="Profile">
   <div class="me-top"><span class="me-av" aria-hidden="true">AA</span><div class="me-id"><b>${ME.full}</b><span>Business analyst + product designer</span></div></div>
@@ -1485,7 +1660,7 @@ function contact(){return `<section class="wrap contact"><div style="display:fle
  </form></section>`}
 
 /* Router + wiring ------------------------------------------------------ */
-const ROUTES={home,agentcx,work,about,play,contact,paddy,houseparty,krypto,avant};
+const ROUTES={home,agentcx,agentcxworld,work,about,play,contact,paddy,houseparty,krypto,avant};
 let gameTimer=null;
 function route(){const h=(location.hash||"#home").slice(1);const fn=ROUTES[h]||home;clearInterval(gameTimer);
  document.getElementById("app").innerHTML=fn();
@@ -1612,7 +1787,7 @@ function achCount(){const c=document.getElementById("achc");if(c)c.innerHTML=`${
 function unlock(k){if(got.includes(k))return;got.push(k);try{sessionStorage.setItem("ach",JSON.stringify(got))}catch(e){}achCount();
  const [n,d]=ACH[k];const el=document.createElement("div");el.className="ach";el.setAttribute("role","status");el.innerHTML=`<span class="tr">${TROPHY}</span><span><small>Achievement unlocked</small><b>${n}</b><br><span>${d}</span></span>`;
  document.querySelectorAll(".ach").forEach(x=>x.remove());document.body.appendChild(el);setTimeout(()=>el.remove(),3600)}
-function trackAch(h){seen.add(h);if(["agentcx","paddy","houseparty","krypto","avant"].includes(h))unlock("quest");if(h==="play")unlock("fun");if(seen.size>=4)unlock("explorer")}
+function trackAch(h){seen.add(h);if(["agentcx","agentcxworld","paddy","houseparty","krypto","avant"].includes(h))unlock("quest");if(h==="play")unlock("fun");if(seen.size>=4)unlock("explorer")}
 document.addEventListener("click",e=>{if(e.target.closest("a[data-cv]"))unlock("scout")},true);
 /* CV download: use the host download helper when available; otherwise the link works as normal */
 let DL=null;(async()=>{try{DL=await window.claude?.use?.("downloads")}catch(e){DL=null}})();
