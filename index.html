@@ -946,6 +946,31 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 @media (max-width:759px){.acw-lb img{width:1100px;max-width:none;margin:56px 16px 32px}}
 .acw-lb button{position:fixed;top:12px;right:12px;width:44px;height:44px;border-radius:99px;border:1px solid rgba(255,255,255,.35);background:#0B0C0F;color:#fff;font-size:18px;cursor:pointer}
 .acw-lb button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.acw-chap{padding-block:120px 0;scroll-margin-top:80px}
+.acw-chap>span{display:inline-flex;font:600 13px var(--body);letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--fo);color:var(--cr)}
+:root[data-theme="dark"] .acw-chap>span{background:var(--cr);color:var(--fo)}
+.acw-chap h2{font-size:clamp(34px,4.4vw,56px);line-height:1.05;letter-spacing:-.035em;margin:20px 0 16px;max-width:20ch}
+.acw-chap+.acw-sec{padding-top:24px}
+.acw-sec,[id^=acw-]{scroll-margin-top:80px}
+.acw-toc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:8px 0 0}
+.acw-toc button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:16px 18px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font:inherit;min-height:44px;transition:border-color .2s,transform .2s}
+.acw-toc button:hover{border-color:var(--fo3);transform:translateY(-2px)}
+.acw-toc button:focus-visible{outline:2px solid var(--fo3);outline-offset:2px}
+.acw-toc small{font:600 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.acw-toc b{font:600 18px var(--head)}.acw-toc span{font-size:14px;color:var(--ink-2)}
+.acw-step p{margin:0 0 4px}
+.acw-dec>div>p{margin:0 0 16px;color:var(--ink-2);font-size:16px;line-height:1.6}
+.acw-pair{display:grid;gap:16px}
+.acw-pair.wp{grid-template-columns:minmax(0,1fr) 180px;align-items:end}
+.acw-pair.wp .acw-ph{border-radius:30px;padding:6px}.acw-pair.wp .acw-scr{border-radius:24px}
+.acw-fit{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;align-items:center;padding-block:48px;border-top:1px solid var(--line)}
+.acw-fit.flip{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}.acw-fit.flip>div:first-child{order:2}
+.acw-fit h3,.acw-mob h3{font:600 clamp(22px,2.2vw,28px)/1.2 var(--head);margin:10px 0 12px}
+.acw-fit p,.acw-mob p{margin:0;color:var(--ink-2);font-size:16px;line-height:1.6}
+.acw-mob{display:grid;grid-template-columns:minmax(0,1fr) 240px 240px;gap:32px;align-items:center;padding-block:48px;border-top:1px solid var(--line)}
+@media (max-width:1023px){.acw-fit,.acw-fit.flip{grid-template-columns:minmax(0,1fr);gap:24px}.acw-fit.flip>div:first-child{order:0}.acw-mob{grid-template-columns:repeat(2,minmax(0,1fr))}.acw-mob>div:first-child{grid-column:1/-1}}
+@media (max-width:759px){.acw-toc{grid-template-columns:minmax(0,1fr)}.acw-pair.wp{grid-template-columns:minmax(0,1fr) 120px}.acw-chap{padding-block:88px 0}}
+@media (max-width:599px){.acw-mob{gap:16px}}
 /* Result */
 .acw-res{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px;align-items:end}
 /* Routes */
@@ -1106,8 +1131,8 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 /* Content ------------------------------------------------------------- */
 const ME={name:"Abdulfatai Akere",full:"Abdulfatai Akere",email:"akeredayo@gmail.com",linkedin:"https://www.linkedin.com/in/abdulfatai-akere-702787198/"};
 const P={
- agentcx:{n:"01",title:"AgentCX World",short:"AgentCX",type:"AI SaaS · Product website",year:"2026",acc:"#1F3B2C",cover:"img/acw-hero.webp",role:"Product designer + BA",tags:["Website","AI agents","Figma prototype"],
-  lede:"AgentCX lets businesses build AI agents and workflows. I designed its new website so every visitor finds their way in: build it yourself, build it with AgentCX, or use it from Claude or ChatGPT."},
+ agentcx:{n:"01",title:"AgentCX World",short:"AgentCX",type:"AI SaaS · Website + product",year:"2026",acc:"#1F3B2C",cover:"img/acw-hero.webp",role:"Product designer + BA",tags:["Website","Product app","Brand system"],
+  lede:"AgentCX lets businesses build AI agents and workflows. I designed the whole experience: a website with three ways to start, the app where owners run their agents, and the brand that ties them together."},
  paddy:{n:"03",title:"Student Paddy",short:"Student Paddy",type:"EdTech · Community + careers",year:"2021",acc:"#12785A",cover:"img/sp-cover.webp",role:"Product designer + BA",tags:["Audit","Design system","Careers"],
   lede:"A digital campus where students get unstuck: ask by course, get one trusted answer, and connect with verified employers."},
  houseparty:{n:"02",title:"House Party",short:"House Party",type:"Events · iOS prototype",year:"2025",acc:"#FF4F9A",cover:"img/hp-cover.webp",role:"Product + UX designer",tags:["PRD","UX design","AI assistant"],
@@ -1134,7 +1159,7 @@ const deck=ks=>{const n=ks.length,pad=i=>String(i).padStart(2,"0");return `<div 
   <ol class="qd-list" aria-label="All case studies">${ks.map((k,i)=>{const p=P[k];return `<li><button type="button" data-go="${i}"${i?"":' aria-current="true"'} style="--acc:${p.acc}"><span class="qd-li-n">${pad(i+1)}</span><span class="qd-li-t"><b>${p.title}</b><small>${p.type} · ${p.year}</small></span><span class="qd-li-ar" aria-hidden="true"><em>Open</em>→</span></button></li>`}).join("")}</ol>
  <div class="qd-hud"><button type="button" class="qd-btn qd-prev" aria-label="Previous case study">←</button><div class="qd-mid"><span class="qd-count" aria-hidden="true"><b class="qd-cur">${pad(1)}</b> / ${pad(n)}</span><span class="qd-pips" aria-hidden="true">${ks.map((_,i)=>`<i class="${i?"":"on seen"}"></i>`).join("")}</span><span class="sr qd-say" aria-live="polite">Case study 1 of ${n}</span></div><button type="button" class="qd-btn qd-next" aria-label="Next case study">→</button></div>
  <p class="qd-hint"><span class="hand" aria-hidden="true">👆</span>Drag the card or pick a case · tap the card to open</p></div></div>`};
-const OUT={agentcx:"Three ways to start with AI",paddy:"Trusted answers + Careers",houseparty:"Party planning + a DJ assistant",krypto:"Every wallet state designed",avant:"Art-first collection site"};
+const OUT={agentcx:"Website, product and brand",paddy:"Trusted answers + Careers",houseparty:"Party planning + a DJ assistant",krypto:"Every wallet state designed",avant:"Art-first collection site"};
 const QB1CARD=`<div class="qb-card">
   <div class="qb-txt"><span class="qb-tag">Game design · Prototype</span><h2>QB<i>1</i>: Throw &amp; Catch</h2>
    <p>A mobile American football game I designed and prototyped. Build your quarterback, then run throwing and catching drills: drag to aim, release to throw, tap to catch.</p>
@@ -1255,12 +1280,13 @@ const acwI=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 function agentcx(){const p=P.agentcx;
  const br=(src,alt,url,w,h)=>`<figure class="acw-br"><span class="acw-bar" aria-hidden="true"><i></i><i></i><i></i><em>${url||"agentcxworld.com"}</em></span><img src="${src}" alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy" decoding="async"></figure>`;
  const ph=(src,alt,w,h)=>`<figure class="acw-ph"><span class="acw-scr" tabindex="0" role="img" aria-label="${esc(alt)} (scrolls)"><img src="${src}" alt="" width="${w}" height="${h}" loading="lazy" decoding="async"></span></figure>`;
+ const step=(n,h,what,call,fig,flip)=>`<article class="acw-dec${flip?" flip":""}"><div><span class="acw-dn">${String(n).padStart(2,"0")}</span><h3>${h}</h3><p>${what}</p><dl class="acw-dl"><div class="now"><dt>Design call</dt><dd>${call}</dd></div></dl></div>${fig}</article>`;
  const dec=(n,h,con,now,why,fig,flip)=>`<article class="acw-dec${flip?" flip":""}"><div><span class="acw-dn">${String(n).padStart(2,"0")}</span><h3>${h}</h3><dl class="acw-dl"><div><dt>Considered</dt><dd>${con}</dd></div><div class="now"><dt>Shipped</dt><dd>${now}</dd></div><div><dt>Why</dt><dd>${why}</dd></div></dl></div>${fig}</article>`;
  return `<div class="acw" style="--acc:${p.acc}">
 <section class="acw-hero"><div class="wrap acw-hero-in">
  <div><a class="back" href="#work">← All work</a>
   <p class="eyebrow">Case study ${p.n} · AI SaaS · Website · 2026 · <span class="fmt">Format: product website, end to end</span></p>
-  <h1>AgentCX World: one website, three ways to start with AI</h1>
+  <h1>AgentCX World: an AI workforce, from first visit to first agent</h1>
   <p class="lead">${p.lede}</p>
   <div class="acw-cta"><button type="button" class="btn" data-jump="acw-result">See the final screens <span class="ar">↓</span></button><button type="button" class="btn ghost" data-jump="acw-decs">Jump to the decisions</button></div>
  </div>
@@ -1275,21 +1301,22 @@ function agentcx(){const p=P.agentcx;
   <div class="acw-prog" hidden><p><span class="acw-pt">Messaging 12 people on your waitlist</span><span class="acw-pn">0 of 12</span></p><i><b></b></i></div>
   <p class="acw-say" aria-live="polite"><em></em><span>Example: Outreach asks before it messages your waitlist. Press “Yes, send it”.</span></p>
  </div></div>
- <div class="wrap">${tldr([["The problem","AgentCX sells one product three ways. Visitors had to see which route fits them in seconds, and trust it before connecting their business."],["My role","Product designer and BA. I planned the site from the PRD, designed every page and state, and ran the review rounds."],["What I shipped","19 pages and overlays, each at desktop (1440) and mobile (390), as a clickable Figma prototype."],["Status","Ready for build, October 2026. Not live yet, so there are no launch numbers. Unconfirmed facts are flagged in the file."]])}</div>
+ <div class="wrap">${tldr([["The problem","Businesses want AI to answer customers and do routine jobs, but they won't hand it their business unless they can see it working and stay in control."],["My role","Product designer and BA. I planned from the PRDs, designed every page, screen and state, and ran the review rounds."],["What I shipped","The website (19 pages and overlays), the product app (70+ screens) and the brand system, at desktop and mobile, in Figma."],["Status","Ready for build, October 2026. Not live yet, so there are no launch numbers. Unconfirmed facts are flagged in the file."]])}<div class="acw-toc" role="navigation" aria-label="Chapters">${[["acw-ch1","Chapter 1","The website","Three ways to start"],["acw-ch2","Chapter 2","The product","Setup, chats, workflows, access"],["acw-ch3","Chapter 3","The brand","Logo, Atlas palette, components"]].map(([id,n,t,d])=>`<button type="button" data-jump="${id}"><small>${n}</small><b>${t}</b><span>${d}</span></button>`).join("")}</div></div>
 </section>
 
-<section class="wrap acw-sec" id="acw-result" tabindex="-1"><span class="acw-k">The result</span><h2>Home answers two questions: what is this, and which route is mine?</h2>
+<section class="wrap acw-chap" id="acw-ch1" tabindex="-1"><span>Chapter 1</span><h2>The website: one site, three ways to start</h2></section>
+<section class="wrap acw-sec acw-tight" id="acw-result" tabindex="-1"><span class="acw-k">The result</span><h2>Home answers two questions: what is this, and which route is mine?</h2>
  <div class="acw-res">${br("img/acw-hero.webp","AgentCX home page hero: Build your own AI workforce, with a live Workforce preview and two buttons, Explore self-build and Book a consultation","agentcxworld.com",1440,832)}${ph("img/acw-m-hero.webp","AgentCX home page on mobile: the same hero with full-width buttons and a demo bar",390,1135)}</div>
  <p class="acw-cap">The hero shows the product, not a stock illustration: Kemi, the assistant, says what needs you, and nothing goes out until you tap yes. The preview at the top of this page is the same demo, rebuilt in code. Try it.</p>
 </section>
 
-<section class="wrap acw-sec"><span class="acw-k">01 · The constraint</span><h2>Three kinds of buyer, and claims we couldn't make yet</h2>
+<section class="wrap acw-sec"><span class="acw-k">The constraint</span><h2>Three kinds of buyer, and claims we couldn't make yet</h2>
  <p class="acw-sub">The PRD set three ways to start. Each needs a different promise and a different first step, and all three share one nav, one grid and one footer.</p>
  <div class="acw-routes">${[["Route A","Build it yourself","Pick an agent or workflow in the self-build portal, teach it about your business and switch it on.","Owners who want to set it up today","Explore self-build"],["Route B","Work with AgentCX","Book a consultation. The team recommends an existing solution, sets one up with you, or scopes something custom.","Teams with a process too messy to set up alone","Book a consultation"],["Route C","AgentCX Connector","Check on your agents and workflows from AI tools you already use, such as Claude and ChatGPT.","People who already work inside an AI assistant","See how it works"]].map(([r,h,b,w,a])=>`<article class="acw-route"><span class="chip">${r}</span><h3>${h}</h3><p>${b}</p><dl><dt>Who it's for</dt><dd>${w}</dd><dt>Main action</dt><dd>${a}</dd></dl></article>`).join("")}</div>
  <div class="acw-call"><span class="acw-vf">VERIFY</span><p>Some facts weren't confirmed: the Connector's status and actions, plan features, and which plans include an AI Adoption Specialist. Rather than invent them, I marked each one in amber so nobody ships a promise by accident. Prices were then matched to the live site.</p></div>
 </section>
 
-<section class="wrap acw-sec"><span class="acw-k">02 · How I worked</span><h2>Benchmark, plan every page, then review in rounds</h2>
+<section class="wrap acw-sec"><span class="acw-k">How I worked</span><h2>Benchmark, plan every page, then review in rounds</h2>
  <div class="acw-steps">
   <div class="acw-step"><span>Step 1</span><h3>Learn from four rivals</h3><p>I compared Intercom Fin, Gorgias, Chatbase, and Wati with respond.io, and wrote down where AgentCX can win:</p><ul><li>One assistant, Kemi, across every agent and workflow</li><li>Agents and workflows in one Workforce, so they can be linked</li><li>Nothing changes until you say yes</li><li>Built for WhatsApp and mobile first</li></ul></div>
   <div class="acw-step"><span>Step 2</span><h3>Plan all 19 pages first</h3><p>Every page got a reason to exist, an order of sections, one main action and its states, before any pixels. 14 came from the PRD. I added 5 it missed: a solution template, Security and data, a 404, cookie consent and chat widget themes.</p></div>
@@ -1299,7 +1326,7 @@ function agentcx(){const p=P.agentcx;
  <figure class="acw-fig acw-pipe">${br("img/acw-pipeline.webp","The review pipeline board: Explore, Agree, Update, Finalise","Figma · 04 Review pipeline",1400,293)}<figcaption>The review pipeline from the Figma file.</figcaption></figure>
 </section>
 
-<section class="wrap acw-sec" id="acw-decs" tabindex="-1"><span class="acw-k">03 · Decisions</span><h2>Six calls that shaped the site</h2>
+<section class="wrap acw-sec" id="acw-decs" tabindex="-1"><span class="acw-k">Decisions</span><h2>Six calls that shaped the site</h2>
  <div class="acw-decs">
  ${dec(1,"I parked a page the PRD asked for","A Platform page in the main nav, touring every feature.","Parked after review. Home keeps a short platform summary, and the nav slot goes to Self-build.","Buyers first ask which route is theirs. A feature tour can wait until they've chosen one.",br("img/acw-platform.webp","Home page platform summary: eight small cards for Today, Workforce, Kemi assistant, Automations, Notepad, Training Room, Approvals and Members","agentcxworld.com",1200,705))}
  ${dec(2,"Use cases start with the problem","A grid of features with icons.","Tabs by function. Each use case shows the problem, the agent, what it needs, and where a person stays in charge, beside an example chat that ends in a handover.","Owners recognise their problem faster than a feature name. The handover shows the AI never traps a customer.",br("img/acw-usecases.webp","Use cases section: Customer service tab with problem, agent, needs and human oversight, beside an example WhatsApp chat that hands over to a person","agentcxworld.com",1200,827),1)}
@@ -1310,25 +1337,44 @@ function agentcx(){const p=P.agentcx;
  </div>
 </section>
 
-<section class="wrap acw-sec"><span class="acw-k">04 · Business</span><h2>How AgentCX makes money</h2>
+<section class="wrap acw-chap" id="acw-ch2" tabindex="-1"><span>Chapter 2</span><h2>The product: where owners run their AI workforce</h2><p class="acw-sub">The website gets someone to sign in. The app has to keep them: set up an agent, watch it work, step in when a customer needs a person, and stay in control of every change. Five places in the nav, with Kemi, the assistant, in the middle.</p></section>
+<section class="wrap acw-sec acw-tight"><div class="acw-decs">
+ ${step(1,"Today answers “how is it going?” first","One live number, conversations by hour, and what needs you, in that order. Kemi notices patterns, like three people asking about Ikeja, and offers a fix.","The owner's first question comes before any chart. Orders show in naira, the time in Lagos time.",br("img/acp-today.webp","Today dashboard: 126 conversations today, a chart by hour, handovers, workflow runs, orders in naira, and a Kemi suggestion","app.agentcxworld.com/today",1200,769))}
+ ${step(2,"Kemi proposes. You decide.","Ask Kemi in plain words. It explains what it found, then shows a proposed change: what it affects, where the facts came from, the credit cost, and how to undo it.","Nothing changes until you tap “Yes, do it”. It's the same rule across the app, the website and the Connector.",br("img/acp-kemi.webp","Kemi assistant: a proposed change card to add delivery areas to Sarah, with Yes, do it, Not now and Edit first","app.agentcxworld.com/kemi",1200,750),1)}
+ ${step(3,"Setup checks every fact before the agent uses it","Pick an agent from the Build store. Kemi reads the business's website and email, then lists what it learned. Each fact shows its source, and conflicts are flagged: “Two sources disagree”.","An agent is only as good as what it knows. Showing the source makes each fact quick to check.",`<div class="acw-pair">${br("img/acp-build.webp","Build store: featured Customer Service set-up, workflows and agents as cards with demos","app.agentcxworld.com/build",1200,809)}${br("img/acp-learned.webp","Setup step 2: what Kemi learned, each fact with its source, and a conflict between the website and an email about Sunday hours","app.agentcxworld.com/build/setup",1200,750)}</div>`)}
+ ${step(4,"Test it as a customer before it goes live","Step 5 is a sandbox. The owner chats as a customer, asks for a person, and sees a checklist: knowledge reviewed, channels connected, handover rule set, test passed.","Nothing reaches real customers until the owner has seen the agent hand over correctly.",br("img/acp-sandbox.webp","Setup step 5: a sandboxed chat with Sarah and a ready-to-activate checklist","app.agentcxworld.com/build/setup",1200,750),1)}
+ ${step(5,"When a customer asks for a person, a person gets it","The chat list puts “Waiting for you” first. A banner says which rule triggered the handover and who was told. On mobile, the alert opens straight into the reply.","Customers are never trapped with a bot, and owners can answer from their phone in seconds.",`<div class="acw-pair wp">${br("img/acp-handover.webp","Sarah's chats: a live handover from Chidi on WhatsApp, with the rule that triggered it and Ola replying","app.agentcxworld.com/sarah/chats",1200,750)}${ph("img/acp-m-reply.webp","Mobile handover reply: Sarah needs you, Chidi asked for a person",390,844)}</div>`)}
+ ${step(6,"Workflows come with rules people can read","Outreach messages a waitlist Sarah collected in chats. The rules are plain: only people who said yes, once each, never between 9pm and 8am Lagos time, and STOP opts out straight away.","Automated messages are where trust breaks. The limits sit beside the send button, not in settings.",br("img/acp-outreach.webp","Outreach workflow: who gets it, the WhatsApp message, when to send and the rules","app.agentcxworld.com/workforce/outreach",1200,750),1)}
+ ${step(7,"Owners choose exactly what each person sees","When someone asks to join the account, the owner ticks which agents and workflows they can see, reads a one-line summary, then approves or denies. It's logged in the audit trail.","Small teams share logins when access is all or nothing. Per-item access removes the reason to.",br("img/acp-access.webp","Members and access: approve Tunde to see 3 of 6 items","app.agentcxworld.com/account/members",1200,750))}
+ ${step(8,"Every state is designed, not just the happy path","Kemi working through steps, done with a gap (a page timed out), a declined change with Undo, and an action blocked for lack of permission.","AI fails in small ways. Saying exactly what happened keeps people trusting it.",br("img/acp-states.webp","Kemi states: working, done with one gap, declined with undo, and can't do this","app.agentcxworld.com/kemi",1200,750),1)}
+</div>
+ <div class="acw-fit"><div><span class="acw-k">Dashboards that fit each business</span><h3>A restaurant counts orders. A salon counts bookings.</h3><p>Today reorders itself for the kind of business: sales first for BQ Cuisine, appointments first for Glow Studio, with chats second. Owners can customise it, and sample data is labelled.</p></div>${br("img/acp-glow.webp","Glow Studio's Today dashboard: appointments first, bookings by day, upcoming clients and the team's day","app.agentcxworld.com/today",1417,1395)}</div>
+ <div class="acw-fit flip"><div><span class="acw-k">The customer's side</span><h3>Each business gets its own page, with the agent built in</h3><p>Customers meet the agent on the business's link page, in the business's colours. They can ask, browse the menu in naira and check out without leaving. The same chat works on WhatsApp and the website.</p></div><div class="acw-pair wp">${br("img/acp-bq.webp","BQ Cuisine's customer page: Ask BQ Cuisine chat, WhatsApp links and a menu with a basket in naira","bqcuisine.agentcxworld.com",1356,1277)}${ph("img/acp-m-bq.webp","BQ Cuisine's customer page on mobile",390,1898)}</div></div>
+ <div class="acw-mob"><div><span class="acw-k">On mobile</span><h3>Built for owners who run things from their phone</h3><p>Every desktop screen has a mobile version. Kemi sits in the centre of the tab bar, and the people who need a reply come before the numbers.</p></div>${ph("img/acp-m-today.webp","Today on mobile: your team is working, 126 chats, and Chidi needs a person",390,844)}${ph("img/acw-m-hero.webp","The AgentCX website home on mobile",390,1135)}</div>
+</section>
+
+<section class="wrap acw-chap" id="acw-ch3" tabindex="-1"><span>Chapter 3</span><h2>The brand: one system for the site and the app</h2><p class="acw-sub">The website and the product share one logo, one palette and one set of components, so moving from a marketing page to the app feels like the same place. Sign in even carries the app's Workforce preview.</p></section>
+<section class="wrap acw-sec acw-tight">
+ <figure class="acw-fig">${br("img/acb-logo.webp","The Sphere logo: mark, horizontal and stacked lockups, and app icons","Figma · Design system · Logo",1354,537)}<figcaption>Sphere, concept 11, chosen from the concept board. The mark sits on a cream disc on dark backgrounds.</figcaption></figure>
+ <div class="acw-ds"><div>
+  <div class="acw-sw">${[["Forest","#1F3B2C","Primary"],["Olive","#7B7D5C","Secondary"],["Cream","#ECE9E1","Surface"],["Stone","#F3F2EF","Page"]].map(([n,h,r])=>`<div><i style="background:${h}"></i><b>${n}</b><span>${h} · ${r}</span></div>`).join("")}</div>
+  <div class="acw-type"><b aria-hidden="true">Aa</b><p><strong>Inter</strong>, standing in for the brand's Clash Display until the licensed files are in. Bold display headings, regular body text.</p></div>
+  <ul class="acw-aa"><li>The four Atlas colours come from the original brand PDF. Everything else is a support colour for text, lines and status.</li><li>Two colours were added in QA so small text passes WCAG AA: ink 500 (#646B65, 4.9:1) and olive 700 (#5F6146, 6.4:1 with white).</li></ul>
+ </div>${br("img/acw-signin.webp","Sign in page: Continue with Google or sign in with email, beside the Workforce preview","agentcxworld.com/sign-in",1200,750)}</div>
+ <figure class="acw-fig" style="margin-top:32px">${br("img/acb-components.webp","Core components: pill buttons, status badges, filter chips, nav items with Kemi in the centre, and the proposed change card","Figma · Design system · Components",1548,645)}<figcaption>Pill buttons, quiet borders and one strong colour. The proposed change card is a component, so every “nothing happens until you say yes” moment looks the same.</figcaption></figure>
+</section>
+
+<section class="wrap acw-chap" id="acw-wrap" tabindex="-1"><span>Wrapping up</span><h2>The business, the proof and what's next</h2></section>
+<section class="wrap acw-sec acw-tight"><span class="acw-k">Business</span><h2>How AgentCX makes money</h2>
  <p class="acw-sub">Credits pay for what agents and workflows do. The free start removes the risk, and the consultation route sells custom work.</p>
  ${biz([["store","Standard","Free to start","£4 of free credit, then pay as you go. The full builder and every channel."],["bag","Premium","£30 / month","£20 of credits every month, plus 60% off custom solutions."],["cash","Enterprise","£1,000 / month","£1,000 of credits, unlimited agents and bespoke integrations."]])}
  <div class="acw-biz">${br("img/acw-pricing.webp","Pricing page plan cards: Standard free, Premium £30 a month, Enterprise £1,000 a month","agentcxworld.com/pricing",1200,752)}${ph("img/acw-m-pricing.webp","Pricing on mobile: the three plans stacked, with the button above each list",390,1468)}</div>
  <p class="note">Prices match the live site as of October 2026. Annual prices (save 40%) are still to confirm.</p>
 </section>
 
-<section class="wrap acw-sec"><span class="acw-k">05 · Design system</span><h2>The site and the app are one product</h2>
- <div class="acw-ds"><div>
-  <p class="acw-sub">The website uses the same Sphere logo, Atlas palette and components as the product. Sign in even carries the app's Workforce preview, so the jump from site to app feels like one place.</p>
-  <div class="acw-sw">${[["Forest","#1F3B2C","Primary"],["Olive","#7B7D5C","Secondary"],["Cream","#ECE9E1","Surface"],["Stone","#F3F2EF","Page"]].map(([n,h,r])=>`<div><i style="background:${h}"></i><b>${n}</b><span>${h} · ${r}</span></div>`).join("")}</div>
-  <div class="acw-type"><b aria-hidden="true">Aa</b><p><strong>Inter</strong>, standing in for the brand's Clash Display until the licensed files are in. Bold display headings, regular body text.</p></div>
-  <ul class="acw-aa"><li>Two colours added in QA so small text passes WCAG AA: ink 500 (#646B65, 4.9:1) for muted text and olive 700 (#5F6146, 6.4:1 with white).</li><li>The four brand colours stayed unchanged.</li></ul>
- </div>${br("img/acw-signin.webp","Sign in page: Continue with Google or sign in with email, beside the Workforce preview","agentcxworld.com/sign-in",1200,750)}</div>
-</section>
-
-<section class="wrap acw-sec"><span class="acw-k">06 · Quality and what's next</span><h2>Ready to build, and honest about what's left</h2>
- <div class="kpis"><div><b>19</b><span>pages and overlays designed</span></div><div><b>2</b><span>breakpoints for each: 1440 and 390</span></div><div><b>5</b><span>pages added that the PRD missed</span></div><div><b>AA</b><span>text contrast after the QA pass</span></div></div>
- <div class="acw-two"><div><span class="ct">What I'd measure first (proposed)</span><ul><li>Share of Home visitors who pick a route, and which one</li><li>Consultation form completion rate</li><li>Time from sign-up to the first agent going live</li><li>Upgrade rate from Standard to Premium</li></ul></div><div><span class="ct">What I learned</span><p>The hard part wasn't layout. It was writing a persuasive page while key facts were unconfirmed. Marking them openly kept the design moving without inventing claims. Cutting the Platform page also taught me that a PRD is a starting point, not a checklist.</p><p><a href="${AXDEMO}" target="_blank" rel="noopener">See my earlier AgentCX product prototype ↗</a></p></div></div>
+<section class="wrap acw-sec"><span class="acw-k">Quality and what's next</span><h2>Ready to build, and honest about what's left</h2>
+ <div class="kpis"><div><b>19</b><span>website pages and overlays</span></div><div><b>70+</b><span>product screens and states</span></div><div><b>2</b><span>breakpoints: 1440 and 390</span></div><div><b>AA</b><span>text contrast after the QA pass</span></div></div>
+ <div class="acw-two"><div><span class="ct">What I'd measure first (proposed)</span><ul><li>Share of Home visitors who pick a route, and which one</li><li>Share of chats agents resolve without a handover</li><li>Consultation form completion rate</li><li>Time from sign-up to the first agent going live</li><li>Upgrade rate from Standard to Premium</li></ul></div><div><span class="ct">What I learned</span><p>The hard part wasn't layout. It was earning trust: on the website, by not claiming what wasn't confirmed; in the app, by making every change wait for a yes. Cutting the Platform page also taught me that a PRD is a starting point, not a checklist.</p><p><a href="${AXDEMO}" target="_blank" rel="noopener">See my earlier AgentCX product prototype ↗</a></p></div></div>
  <p class="note">Example businesses (Klefi Foods, the Workforce data) are sample content in the designs, not real customers.</p>
 </section>
 <section class="wrap"><a class="next" href="#houseparty"><span class="eyebrow">Next case study</span><b>House Party →</b></a></section>
