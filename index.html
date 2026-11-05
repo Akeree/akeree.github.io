@@ -934,7 +934,7 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acw-bar em{font-style:normal;font-size:12px;color:var(--muted);margin-left:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .acw-br img{display:block;width:100%;height:auto;background:var(--st)}
 .acw-ph{margin:0 auto;width:100%;max-width:300px;background:#0B0C0E;border-radius:38px;padding:8px;box-shadow:var(--shadow)}
-.acw-scr{display:block;border-radius:30px;overflow:hidden auto;aspect-ratio:390/780;background:var(--st);overscroll-behavior:contain;scrollbar-width:none}
+.acw-scr{display:block;cursor:zoom-in;border-radius:30px;overflow:hidden auto;aspect-ratio:390/780;background:var(--st);overscroll-behavior:contain;scrollbar-width:none}
 .acw-scr::-webkit-scrollbar{display:none}
 .acw-scr:focus-visible{outline:2px solid var(--fo);outline-offset:3px}
 .acw-scr img{display:block;width:100%;height:auto}
@@ -952,7 +952,7 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acw-chap h2{font-size:clamp(34px,4.4vw,56px);line-height:1.05;letter-spacing:-.035em;margin:20px 0 16px;max-width:20ch}
 .acw-chap+.acw-sec{padding-top:24px}
 .acw-sec,[id^=acw-]{scroll-margin-top:80px}
-.acw-toc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:8px 0 0}
+.acw-toc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:8px 0 0}
 .acw-toc button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:16px 18px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font:inherit;min-height:44px;transition:border-color .2s,transform .2s}
 .acw-toc button:hover{border-color:var(--fo3);transform:translateY(-2px)}
 .acw-toc button:focus-visible{outline:2px solid var(--fo3);outline-offset:2px}
@@ -968,7 +968,7 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acw-fit h3,.acw-mob h3{font:600 clamp(22px,2.2vw,28px)/1.2 var(--head);margin:10px 0 12px}
 .acw-fit p,.acw-mob p{margin:0;color:var(--ink-2);font-size:16px;line-height:1.6}
 .acw-mob{display:grid;grid-template-columns:minmax(0,1fr) 240px 240px;gap:32px;align-items:center;padding-block:48px;border-top:1px solid var(--line)}
-@media (max-width:1023px){.acw-fit,.acw-fit.flip{grid-template-columns:minmax(0,1fr);gap:24px}.acw-fit.flip>div:first-child{order:0}.acw-mob{grid-template-columns:repeat(2,minmax(0,1fr))}.acw-mob>div:first-child{grid-column:1/-1}}
+@media (max-width:1023px){.acw-toc{grid-template-columns:repeat(2,minmax(0,1fr))}.acw-fit,.acw-fit.flip{grid-template-columns:minmax(0,1fr);gap:24px}.acw-fit.flip>div:first-child{order:0}.acw-mob{grid-template-columns:repeat(2,minmax(0,1fr))}.acw-mob>div:first-child{grid-column:1/-1}}
 @media (max-width:759px){.acw-toc{grid-template-columns:minmax(0,1fr)}.acw-pair.wp{grid-template-columns:minmax(0,1fr) 120px}.acw-chap{padding-block:88px 0}}
 @media (max-width:599px){.acw-mob{gap:16px}}
 .acw-duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.acw-duo .acw-ph{max-width:240px}
@@ -977,6 +977,63 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acw-chg ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
 .acw-chg li{padding:16px;border-radius:16px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:6px}
 .acw-chg li b{font:600 15px var(--head)}.acw-chg li span{font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.acw-dev{margin-left:auto;font:600 10.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);flex:none}
+.acw-bar em{flex:1;min-width:0}
+.acw-ph{position:relative}.acw-ph::after{content:"Mobile";position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);font:600 10.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.acw-ph{margin-bottom:30px}
+.acw-live{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font:600 15px var(--body);color:var(--ink);text-decoration:none;margin-top:8px}.acw-live:hover{border-color:var(--fo3)}.acw-live:focus-visible{outline:2px solid var(--fo3);outline-offset:2px}
+.acw-live i{width:8px;height:8px;border-radius:9px;background:#2F7A4B;box-shadow:0 0 0 4px color-mix(in srgb,#2F7A4B 25%,transparent)}
+.acw-seg{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:var(--soft);border:1px solid var(--line);margin-bottom:8px;position:sticky;top:76px;z-index:5}
+.acw-seg button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:0;background:transparent;color:var(--ink-2);font:600 15px var(--body);cursor:pointer}
+.acw-seg button svg{width:18px;height:18px}
+.acw-seg button small{font:600 12px var(--body);padding:2px 8px;border-radius:99px;background:var(--line);color:var(--ink-2)}
+.acw-seg button[aria-selected="true"]{background:var(--fo);color:var(--cr)}
+.acw-seg button[aria-selected="true"] small{background:rgba(236,233,225,.18);color:var(--cr)}
+:root[data-theme="dark"] .acw-seg button[aria-selected="true"]{background:var(--cr);color:var(--fo)}
+:root[data-theme="dark"] .acw-seg button[aria-selected="true"] small{background:rgba(31,59,44,.15);color:var(--fo)}
+.acw-seg button:focus-visible{outline:2px solid var(--fo3);outline-offset:2px}
+.acw-gg{padding-top:32px}
+.acw-gg h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font:600 22px var(--head);margin:0 0 16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.acw-gg h3 small{font:500 14px var(--body);color:var(--muted)}
+.acw-grid{list-style:none;margin:0;padding:0;display:grid;gap:24px 16px}
+.acw-grid.d{grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr))}
+.acw-grid.m{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:28px 16px}
+.acw-gi{display:flex;flex-direction:column;gap:10px;width:100%;padding:0;border:0;background:none;text-align:left;color:var(--ink);cursor:zoom-in;font:inherit}
+.acw-gf{display:block;position:relative;overflow:hidden;background:var(--st);transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+.acw-gi.d .acw-gf{border-radius:12px;border:1px solid var(--line)}
+.acw-gb{display:flex;gap:5px;align-items:center;height:20px;padding:0 10px;background:var(--surface);border-bottom:1px solid var(--line)}.acw-gb i{width:7px;height:7px;border-radius:9px;background:var(--line)}
+.acw-gi.d img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.acw-gi.m .acw-gf{border-radius:26px;padding:5px;background:#0B0C0E}
+.acw-gi.m img{display:block;width:100%;aspect-ratio:1/2;object-fit:cover;object-position:top;border-radius:21px;background:var(--st)}
+.acw-gi:hover .acw-gf{transform:translateY(-4px);box-shadow:var(--shadow)}
+.acw-gi:focus-visible{outline:none}.acw-gi:focus-visible .acw-gf{outline:2px solid var(--fo3);outline-offset:3px}
+.acw-gt{font:500 14.5px var(--body);line-height:1.35}
+.acw-gi.m .acw-gt{text-align:center}
+.acw-lb.m img{width:min(430px,calc(100vw - 32px))}
+@media (max-width:759px){.acw-lb.m img{width:calc(100vw - 32px);max-width:430px;margin:56px auto 32px}.acw-grid.m{grid-template-columns:repeat(2,minmax(0,1fr))}.acw-seg{top:68px}}
+@media (prefers-reduced-motion:reduce){.acw-gf{transition:none}}
+.acw-listen{display:inline-flex;align-items:center;gap:12px;margin-top:20px;padding:8px 18px 8px 8px;min-height:44px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 15px var(--body);cursor:pointer}
+.acw-listen:hover{border-color:var(--fo3)}.acw-listen:focus-visible{outline:2px solid var(--fo3);outline-offset:2px}
+.acw-listen i{width:32px;height:32px;border-radius:99px;background:var(--fo);color:var(--cr);display:grid;place-items:center;font-style:normal;font-size:12px}
+.acw-listen small{font:400 13.5px var(--body);color:var(--muted)}
+.acw-vo{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;width:min(720px,calc(100vw - 32px));background:#16291F;color:#ECE9E1;border-radius:20px;padding:14px 16px 16px;box-shadow:0 24px 60px -16px rgba(0,0,0,.55);border:1px solid rgba(236,233,225,.14)}
+.acw-vo[hidden]{display:none}
+.acw-vo-top{display:flex;align-items:center;gap:8px}
+.acw-vo-orb{width:28px;height:28px;border-radius:50%;flex:none;background:radial-gradient(circle at 34% 28%,#C9D6CD 0,#5E7A69 22%,#1F3B2C 58%,#0D1912 100%);box-shadow:0 0 0 3px rgba(159,215,176,.25)}
+.acw-vo-h{flex:1;min-width:0;display:flex;flex-direction:column}
+.acw-vo-t{font:600 15px var(--head);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acw-vo-note{font-size:12px;color:#A9B8AE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acw-vo-n{font:600 12.5px var(--body);color:#A9B8AE;font-variant-numeric:tabular-nums;margin-right:4px}
+.acw-vo button{width:44px;height:44px;flex:none;border-radius:99px;border:1px solid rgba(236,233,225,.25);background:transparent;color:#ECE9E1;font-size:15px;cursor:pointer}
+.acw-vo button[data-v="play"]{background:#ECE9E1;color:#16291F;border-color:#ECE9E1}
+.acw-vo button:focus-visible{outline:2px solid #9FD7B0;outline-offset:2px}
+.acw-vo-cap{margin:12px 2px 10px;font:400 15.5px/1.5 var(--body);color:#F3F2EF;min-height:3em}
+.acw-vo-prog{display:flex;gap:4px}.acw-vo-prog i{flex:1;height:3px;border-radius:3px;background:rgba(236,233,225,.2)}
+.acw-vo-prog i.done{background:#9FD7B0}.acw-vo-prog i.on{background:linear-gradient(90deg,#9FD7B0 50%,rgba(236,233,225,.2) 50%);background-size:200% 100%;animation:acwvo 6s linear forwards}
+@keyframes acwvo{from{background-position:100% 0}to{background-position:0 0}}
+.acw-vo-on{outline:3px solid #9FD7B0;outline-offset:8px;border-radius:16px;transition:outline-color .3s}
+@media (max-width:599px){.acw-vo{padding:12px 12px 14px;border-radius:16px}.acw-vo-cap{font-size:14.5px}.acw-vo button[data-v="prev"],.acw-vo button[data-v="next"]{width:40px;height:40px}}
+@media (prefers-reduced-motion:reduce){.acw-vo-prog i.on{animation:none;background:#9FD7B0}}
 /* Result */
 .acw-res{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px;align-items:end}
 /* Routes */
@@ -1283,18 +1340,29 @@ function paddy(){const p=P.paddy;return `<div style="--acc:${p.acc}">
 const AXDEMO="https://claude.ai/artifact/2qchWUK6NgxN6yvbU8xjAQ";
 const ACWI={chat:'<path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H9l-4 3V6a1 1 0 0 1 1-1z"/>',flow:'<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/><path d="M10 7h3a2 2 0 0 1 2 2v5"/>',send:'<path d="M20 4 10 14"/><path d="M20 4l-6 16-4-6-6-4z"/>'};
 const acwI=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ACWI[k]}</svg>`;
+const ACWG={d:[["Website","14 pages · 1440 wide · long pages scroll",[["acw-hero","img/acw-hero.webp","Home"],["w-selfbuild","","Self-build"],["w-solutions","","Solutions"],["w-solution","","Solution detail"],["w-connector","","Connector"],["w-pricing","","Pricing"],["w-specialists","","AI Adoption Specialists"],["acw-consult","img/acw-consult.webp","Book a consultation"],["w-about","","About"],["w-careers","","Careers"],["w-contact","","Contact"],["w-security","","Security and data"],["acw-signin","img/acw-signin.webp","Sign in"],["w-404","","404"]]],
+ ["Product app","17 screens · 1440 wide",[["acp-today","img/acp-today.webp","Today"],["a-workforce","","Workforce"],["acp-kemi","img/acp-kemi.webp","Ask Kemi"],["acp-build","img/acp-build.webp","Build store"],["acp-learned","img/acp-learned.webp","Setup: what Kemi learned"],["acp-sandbox","img/acp-sandbox.webp","Setup: try it as a customer"],["acp-handover","img/acp-handover.webp","Chats and live handover"],["a-insights","","Insights and teach"],["a-automations","","Automations"],["acp-outreach","img/acp-outreach.webp","Outreach"],["a-scraper","","Web Data Scraper"],["a-weekly","","Weekly report"],["acp-access","img/acp-access.webp","Members and access"],["acp-states","img/acp-states.webp","Kemi: every state"],["acp-glow","img/acp-glow.webp","Dashboard for a salon"],["a-theme","","Page and chat theme"],["acp-bq","img/acp-bq.webp","Customer page: BQ Cuisine"]]]],
+ m:[["Website","8 pages · 390 wide · long pages scroll",[["acw-m-hero","img/acw-m-hero.webp","Home"],["wm-menu","","Menu"],["wm-selfbuild","","Self-build"],["wm-solutions","","Solutions"],["wm-connector","","Connector"],["acw-m-pricing","img/acw-m-pricing.webp","Pricing"],["wm-consult","","Book a consultation"],["wm-signin","","Sign in"]]],
+ ["Product app","11 screens · 390 wide",[["acp-m-tip","img/acp-m-tip.webp","First-run tip"],["acp-m-first","img/acp-m-first.webp","Getting started"],["am-brief","","Morning brief"],["acp-m-today","img/acp-m-today.webp","Today"],["am-kemi","","Ask Kemi"],["am-workforce","","Workforce"],["acp-m-reply","img/acp-m-reply.webp","Handover reply"],["am-copilot","","Reply suggestions"],["am-outreach","","Message the waitlist"],["am-customer","","Customer: waiting for a person"],["acp-m-bq","img/acp-m-bq.webp","Customer page: BQ Cuisine"]]]]};
+const acwGal=()=>{const n=k=>ACWG[k].reduce((a,g)=>a+g[2].length,0);
+ const tile=(dv,[id,full,t])=>`<li><button type="button" class="acw-gi ${dv}" data-full="${full||`img/g/${id}.webp`}" data-dev="${dv}" aria-label="Open full size: ${esc(t)}, ${dv==="d"?"desktop":"mobile"}"><span class="acw-gf">${dv==="d"?'<span class="acw-gb" aria-hidden="true"><i></i><i></i><i></i></span>':""}<img src="img/g/t/${id}.webp" alt="" loading="lazy" decoding="async"></span><span class="acw-gt">${t}</span></button></li>`;
+ const panel=k=>ACWG[k].map(([h,s,items])=>`<div class="acw-gg"><h3>${h}<small>${s}</small></h3><ul class="acw-grid ${k}">${items.map(i=>tile(k,i)).join("")}</ul></div>`).join("");
+ const ic={d:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',m:'<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>'};
+ return `<div class="acw-seg" role="tablist" aria-label="Choose a device">${["d","m"].map((k,i)=>`<button type="button" role="tab" id="acw-gt-${k}" aria-controls="acw-gp-${k}" aria-selected="${i?"false":"true"}" tabindex="${i?-1:0}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ic[k]}</svg>${k==="d"?"Desktop":"Mobile"}<small>${n(k)}</small></button>`).join("")}</div>
+ ${["d","m"].map((k,i)=>`<div class="acw-gp" role="tabpanel" id="acw-gp-${k}" aria-labelledby="acw-gt-${k}"${i?" hidden":""}>${panel(k)}</div>`).join("")}`};
 function agentcx(){const p=P.agentcx;
- const br=(src,alt,url,w,h)=>`<figure class="acw-br"><span class="acw-bar" aria-hidden="true"><i></i><i></i><i></i><em>${url||"agentcxworld.com"}</em></span><img src="${src}" alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy" decoding="async"></figure>`;
+ const br=(src,alt,url,w,h)=>`<figure class="acw-br"><span class="acw-bar" aria-hidden="true"><i></i><i></i><i></i><em>${url||"agentcxworld.com"}</em><b class="acw-dev">${/^Figma/.test(url||"")?"Figma board":"Desktop"}</b></span><img src="${src}" alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy" decoding="async"></figure>`;
  const ph=(src,alt,w,h)=>`<figure class="acw-ph"><span class="acw-scr" tabindex="0" role="img" aria-label="${esc(alt)} (scrolls)"><img src="${src}" alt="" width="${w}" height="${h}" loading="lazy" decoding="async"></span></figure>`;
  const step=(n,h,what,call,fig,flip)=>`<article class="acw-dec${flip?" flip":""}"><div><span class="acw-dn">${String(n).padStart(2,"0")}</span><h3>${h}</h3><p>${what}</p><dl class="acw-dl"><div class="now"><dt>Design call</dt><dd>${call}</dd></div></dl></div>${fig}</article>`;
  const dec=(n,h,con,now,why,fig,flip)=>`<article class="acw-dec${flip?" flip":""}"><div><span class="acw-dn">${String(n).padStart(2,"0")}</span><h3>${h}</h3><dl class="acw-dl"><div><dt>Considered</dt><dd>${con}</dd></div><div class="now"><dt>Shipped</dt><dd>${now}</dd></div><div><dt>Why</dt><dd>${why}</dd></div></dl></div>${fig}</article>`;
  return `<div class="acw" style="--acc:${p.acc}">
 <section class="acw-hero"><div class="wrap acw-hero-in">
  <div><a class="back" href="#work">← All work</a>
-  <p class="eyebrow">Case study ${p.n} · AI SaaS · Website · 2026 · <span class="fmt">Format: product website, end to end</span></p>
+  <p class="eyebrow">Case study ${p.n} · AI SaaS · Website, app and brand · 2026 · <span class="fmt">Format: end to end, in four chapters</span></p>
   <h1>AgentCX World: an AI workforce, from first visit to first agent</h1>
   <p class="lead">${p.lede}</p>
-  <div class="acw-cta"><button type="button" class="btn" data-jump="acw-result">See the final screens <span class="ar">↓</span></button><button type="button" class="btn ghost" data-jump="acw-decs">Jump to the decisions</button></div>
+  <div class="acw-cta"><a class="btn" href="https://agentcxworld.com" target="_blank" rel="noopener">Visit the live site <span class="ar">↗</span></a><button type="button" class="btn ghost" data-jump="acw-ch4">See every screen <span class="ar">↓</span></button></div>
+  <button type="button" class="acw-listen" data-vo><i aria-hidden="true">▶</i><span>Listen to a guided tour <small>· about 2 min, with captions</small></span></button>
  </div>
  <div class="acw-demo" role="group" aria-label="Try it: the site's hero preview, rebuilt in code. Press Yes, send it.">
   <div class="acw-kemi" data-t="kemi"><span class="acw-orb" aria-hidden="true"></span><span><b>Kemi · your assistant</b><small class="acw-km">23 chats answered overnight. Outreach is ready for your yes.</small></span><span class="acw-rev" aria-hidden="true">Review</span></div>
@@ -1307,7 +1375,7 @@ function agentcx(){const p=P.agentcx;
   <div class="acw-prog" hidden><p><span class="acw-pt">Messaging 12 people on your waitlist</span><span class="acw-pn">0 of 12</span></p><i><b></b></i></div>
   <p class="acw-say" aria-live="polite"><em></em><span>Example: Outreach asks before it messages your waitlist. Press “Yes, send it”.</span></p>
  </div></div>
- <div class="wrap">${tldr([["The problem","Businesses want AI to answer customers and do routine jobs, but they won't hand it their business unless they can see it working and stay in control."],["My role","Product designer and BA. I planned from the PRDs, designed every page, screen and state, and ran the review rounds. The AgentCX team reviewed and signed off."],["What I shipped","The website (19 pages and overlays), the product app (70+ screens) and the brand system, at desktop and mobile, in Figma."],["Status","Ready for build, October 2026. Not live yet, so there are no launch numbers. Unconfirmed facts are flagged in the file."]])}<div class="acw-toc" role="navigation" aria-label="Chapters">${[["acw-ch1","Chapter 1","The website","Three ways to start"],["acw-ch2","Chapter 2","The product","Setup, chats, workflows, access"],["acw-ch3","Chapter 3","The brand","Logo, Atlas palette, components"]].map(([id,n,t,d])=>`<button type="button" data-jump="${id}"><small>${n}</small><b>${t}</b><span>${d}</span></button>`).join("")}</div></div>
+ <div class="wrap">${tldr([["The problem","Businesses want AI to answer customers and do routine jobs, but they won't hand it their business unless they can see it working and stay in control."],["My role","Product designer and BA. I planned from the PRDs, designed every page, screen and state, and ran the review rounds. The AgentCX team reviewed and signed off."],["What I shipped","The website (19 pages and overlays, now live), the product app (70+ screens) and the brand system, each at desktop and mobile."],["Status","Live. The new website is up at <a href=\"https://agentcxworld.com\" target=\"_blank\" rel=\"noopener\">agentcxworld.com</a>, and the app screens are signed off in Figma. It's too early for usage numbers."]])}<div class="acw-toc" role="navigation" aria-label="Chapters">${[["acw-ch1","Chapter 1","The website","Three ways to start"],["acw-ch2","Chapter 2","The product","Setup, chats, workflows, access"],["acw-ch3","Chapter 3","The brand","Logo, Atlas palette, components"],["acw-ch4","Chapter 4","Every screen","50 screens, desktop and mobile"]].map(([id,n,t,d])=>`<button type="button" data-jump="${id}"><small>${n}</small><b>${t}</b><span>${d}</span></button>`).join("")}</div></div>
 </section>
 
 <section class="wrap acw-chap" id="acw-ch1" tabindex="-1"><span>Chapter 1</span><h2>The website: one site, three ways to start</h2></section>
@@ -1371,6 +1439,9 @@ function agentcx(){const p=P.agentcx;
  <figure class="acw-fig" style="margin-top:32px">${br("img/acb-components.webp","Core components: pill buttons, status badges, filter chips, nav items with Kemi in the centre, and the proposed change card","Figma · Design system · Components",1548,645)}<figcaption>Pill buttons, quiet borders and one strong colour. The proposed change card is a component, so every “nothing happens until you say yes” moment looks the same.</figcaption></figure>
 </section>
 
+<section class="wrap acw-chap" id="acw-ch4" tabindex="-1"><span>Chapter 4</span><h2>Every screen, desktop and mobile</h2><p class="acw-sub">50 screens from the Figma file, split by device. Pick Desktop or Mobile, then tap any screen to see it full size. Long website pages scroll.</p><a class="acw-live" href="https://agentcxworld.com" target="_blank" rel="noopener"><i aria-hidden="true"></i>The website is live: visit agentcxworld.com ↗</a></section>
+<section class="wrap acw-sec acw-tight acw-gal">${acwGal()}</section>
+
 <section class="wrap acw-chap" id="acw-wrap" tabindex="-1"><span>Wrapping up</span><h2>The business, the proof and what's next</h2></section>
 <section class="wrap acw-sec acw-tight"><span class="acw-k">Business</span><h2>How AgentCX makes money</h2>
  <p class="acw-sub">Credits pay for what agents and workflows do. The free start removes the risk, and the consultation route sells custom work.</p>
@@ -1379,13 +1450,14 @@ function agentcx(){const p=P.agentcx;
  <p class="note">Prices match the live site as of October 2026. Annual prices (save 40%) are still to confirm.</p>
 </section>
 
-<section class="wrap acw-sec"><span class="acw-k">Quality and what's next</span><h2>Ready to build, and honest about what's left</h2>
- <div class="acw-chg"><h3>What changed because of this work</h3><p class="acw-sub" style="margin-bottom:16px">Nothing is live yet, so these are the decisions and fixes the work produced, not launch results.</p><ul>${[["Scope changed in review","The Platform page was parked, the nav slot went to Self-build, and voice was moved to v2."],["Gaps closed","5 pages the PRD missed are now designed: a solution template, Security and data, a 404, cookie consent and chat widget themes."],["Facts lined up","Website prices now match the live site, and every unconfirmed claim is flagged instead of guessed."],["Accessibility fixed","Two colours added so small text passes WCAG AA, with the four brand colours unchanged."],["Ready to build","Agreed screens sit in the Final lane in Figma, locked for build and handoff."]].map(([b,t])=>`<li><b>${b}</b><span>${t}</span></li>`).join("")}</ul></div>
+<section class="wrap acw-sec"><span class="acw-k">Quality and what's next</span><h2>Live, and honest about what's left</h2>
+ <div class="acw-chg"><h3>What changed because of this work</h3><p class="acw-sub" style="margin-bottom:16px">The website has just launched, so there are no usage numbers yet. These are the decisions and fixes the work produced.</p><ul>${[["Scope changed in review","The Platform page was parked, the nav slot went to Self-build, and voice was moved to v2."],["Gaps closed","5 pages the PRD missed are now designed: a solution template, Security and data, a 404, cookie consent and chat widget themes."],["Facts lined up","Website prices were matched to the live pricing, and every unconfirmed claim was flagged during design instead of guessed."],["Accessibility fixed","Two colours added so small text passes WCAG AA, with the four brand colours unchanged."],["Website launched","The redesign is live at agentcxworld.com. Agreed app screens sit in the Final lane in Figma, locked for build."]].map(([b,t])=>`<li><b>${b}</b><span>${t}</span></li>`).join("")}</ul></div>
  <div class="kpis"><div><b>19</b><span>website pages and overlays</span></div><div><b>70+</b><span>product screens and states</span></div><div><b>2</b><span>breakpoints: 1440 and 390</span></div><div><b>AA</b><span>text contrast after the QA pass</span></div></div>
- <div class="acw-two"><div><span class="ct">What I'd measure first (proposed)</span><ul><li>Share of Home visitors who pick a route, and which one</li><li>Share of chats agents resolve without a handover</li><li>Consultation form completion rate</li><li>Time from sign-up to the first agent going live</li><li>Upgrade rate from Standard to Premium</li></ul></div><div><span class="ct">What I learned</span><p>The hard part wasn't layout. It was earning trust: on the website, by not claiming what wasn't confirmed; in the app, by making every change wait for a yes. Cutting the Platform page also taught me that a PRD is a starting point, not a checklist.</p><p><b>Next, v2:</b> voice notes, and replies in Nigerian Pidgin, Yoruba, Hausa and Igbo. They're designed and parked by review for a later phase.</p><p><a href="${AXDEMO}" target="_blank" rel="noopener">See my earlier AgentCX product prototype ↗</a></p></div></div>
+ <div class="acw-two"><div><span class="ct">What I'll measure now it's live (proposed)</span><ul><li>Share of Home visitors who pick a route, and which one</li><li>Share of chats agents resolve without a handover</li><li>Consultation form completion rate</li><li>Time from sign-up to the first agent going live</li><li>Upgrade rate from Standard to Premium</li></ul></div><div><span class="ct">What I learned</span><p>The hard part wasn't layout. It was earning trust: on the website, by not claiming what wasn't confirmed; in the app, by making every change wait for a yes. Cutting the Platform page also taught me that a PRD is a starting point, not a checklist.</p><p><b>Next, v2:</b> voice notes, and replies in Nigerian Pidgin, Yoruba, Hausa and Igbo. They're designed and parked by review for a later phase.</p><p><a href="${AXDEMO}" target="_blank" rel="noopener">See my earlier AgentCX product prototype ↗</a></p></div></div>
  <p class="note">Example businesses (Klefi Foods, the Workforce data) are sample content in the designs, not real customers.</p>
 </section>
 <section class="wrap"><a class="next" href="#houseparty"><span class="eyebrow">Next case study</span><b>House Party →</b></a></section>
+<div class="acw-vo" role="region" aria-label="Voice-over tour" hidden><div class="acw-vo-top"><span class="acw-vo-orb" aria-hidden="true"></span><span class="acw-vo-h"><span class="acw-vo-t"></span><span class="acw-vo-note"></span></span><span class="acw-vo-n"></span><button type="button" data-v="prev" aria-label="Previous step">‹</button><button type="button" data-v="play" aria-label="Pause">❚❚</button><button type="button" data-v="next" aria-label="Next step">›</button><button type="button" data-v="close" aria-label="Close tour">✕</button></div><p class="acw-vo-cap"></p><div class="acw-vo-prog" aria-hidden="true">${"<i></i>".repeat(11)}</div></div>
 <dialog class="acw-lb" aria-label="Full-size screen"><button type="button" aria-label="Close full-size screen">✕</button><img alt=""></dialog>
 </div>`}
 function wireAcx(){const root=document.querySelector(".acw");if(!root)return;const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
@@ -1410,9 +1482,56 @@ function wireAcx(){const root=document.querySelector(".acw");if(!root)return;con
  yes.onclick=()=>{if(state==="done"){reset();yes.focus();return}send()};
  no.onclick=()=>{clear();tell("","Not now. Nothing was sent, and Outreach stays ready.")};
  const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){guide();io.disconnect()}},{threshold:.6});io.observe(d);
+ // Voice-over tour: the device's own speech engine, best natural voice first, captions always on.
+ const VO=[
+  [".acw-hero h1","Welcome","This is AgentCX World. Dayo designed the whole experience: the website, the app business owners use to run their AI agents, and the brand that ties them together. The new website is live now, at agentcx world dot com."],
+  [".acw-demo","The idea","Here's the idea in one picture. Kemi, the assistant, tells you what needs you. Nothing goes out until you say yes. You can press the button and try it yourself."],
+  ["#acw-result","Chapter 1 · The website","Chapter one is the website. The home page answers two questions quickly. What is this? And which way in is right for me?"],
+  [".acw-routes","Three ways to start","There are three ways to start. Build it yourself, work with the AgentCX team, or use AgentCX from Claude or ChatGPT. Some facts weren't confirmed yet, so Dayo flagged them, instead of guessing."],
+  ["#acw-decs","Decisions","These are six decisions that shaped the site. Each one shows what was considered, what shipped, and why. For example, a whole page from the brief was parked, so visitors choose their route first."],
+  ["#acw-ch2","Chapter 2 · The product","Chapter two is the product. Owners set up an agent, watch it work, and step in when a customer needs a person."],
+  ["#acw-ch2 + section .acw-dec:nth-child(5)","Setup","Setup checks every fact before the agent uses it, and shows where each one came from. Then the owner tests the agent as a customer, before anything reaches real people."],
+  ["#acw-ch2 + section .acw-dec:nth-child(6)","Handover","When a customer asks for a person, a person gets it. The owner can reply from their phone in seconds."],
+  ["#acw-ch3","Chapter 3 · The brand","Chapter three is the brand. The Sphere logo, the Atlas colours, and one set of components, shared by the website and the app."],
+  ["#acw-ch4","Chapter 4 · Every screen","Chapter four shows every screen, fifty in all. Switch between desktop and mobile, and tap any screen to see it full size."],
+  [".acw-chg","What changed","Finally, what changed because of this work. Scope was settled in review, gaps in the brief were closed, prices were lined up, accessibility was fixed, and the website launched. Thanks for listening."]];
+ const tb=root.querySelector(".acw-vo"),vc=tb.querySelector(".acw-vo-cap"),vt=tb.querySelector(".acw-vo-t"),vn=tb.querySelector(".acw-vo-n"),vp=tb.querySelector('[data-v="play"]'),vbars=[...tb.querySelectorAll(".acw-vo-prog i")],vnote=tb.querySelector(".acw-vo-note");
+ const syn="speechSynthesis" in window?speechSynthesis:null;let voice=null,vi=0,vs=0,playing=false,vtimer=null,vgen=0;
+ const vo_pick=()=>{if(!syn)return null;const list=syn.getVoices().filter(v=>/^en/i.test(v.lang));if(!list.length)return null;
+  const rank=v=>{const n=v.name;let s=0;if(/natural|neural|online/i.test(n))s+=50;if(/en-NG/i.test(v.lang))s+=30;if(/Google UK English Female|Google US English|Samantha|Serena|Karen|Moira|Daniel|Ava|Allison|Sonia|Libby|Aria|Jenny|Ezinne|Abeo/i.test(n))s+=25;if(/en-GB/i.test(v.lang))s+=6;if(/en-US/i.test(v.lang))s+=4;if(/compact|espeak|eloquence|fred|albert|zarvox|bad news|bells|boing|bubbles|cellos|jester|organ|superstar|trinoids|whisper|wobble|grandma|grandpa|rocko|shelley|reed|sandy|flo/i.test(n))s-=80;if(v.localService===false)s+=5;return s};
+  return list.sort((a,b)=>rank(b)-rank(a))[0]};
+ const vo_sents=t=>t.match(/[^.!?]+[.!?]+/g)||[t];
+ const vo_mark=on=>{root.querySelectorAll(".acw-vo-on").forEach(e=>e.classList.remove("acw-vo-on"));if(!on)return;const el=root.querySelector(VO[vi][0]);if(el){el.classList.add("acw-vo-on");el.scrollIntoView({behavior:reduce?"auto":"smooth",block:el.offsetHeight>innerHeight*.7?"start":"center"})}};
+ const vo_ui=()=>{vt.textContent=VO[vi][1];vn.textContent=`${vi+1} / ${VO.length}`;vc.textContent=VO[vi][2];vbars.forEach((b,j)=>{b.className=j<vi?"done":j===vi?"on":"";b.style.animationDuration=j===vi?`${Math.round(VO[vi][2].split(/\s+/).length*.42)}s`:"";b.style.animationPlayState=playing?"running":"paused"});vp.textContent=playing?"❚❚":"▶";vp.setAttribute("aria-label",playing?"Pause":"Play")};
+ const vo_halt=()=>{vgen++;clearTimeout(vtimer);if(syn)syn.cancel()};
+ const vo_say=()=>{vo_halt();const g=vgen,parts=vo_sents(VO[vi][2]);
+  const next=()=>{if(g!==vgen||!playing)return;if(vs>=parts.length){vs=0;if(vi<VO.length-1){vi++;vo_ui();vo_mark(1);vtimer=setTimeout(vo_say,reduce?150:700)}else{playing=false;vo_ui();vtimer=setTimeout(()=>vo_close(),1200)}return}
+   const txt=parts[vs].trim();
+   if(syn&&voice){const u=new SpeechSynthesisUtterance(txt);u.voice=voice;u.lang=voice.lang;u.rate=.96;u.pitch=1;u.onend=()=>{if(g===vgen){vs++;next()}};u.onerror=e=>{if(g===vgen&&e.error!=="interrupted"&&e.error!=="canceled"){vs++;vtimer=setTimeout(next,300)}};syn.speak(u)}
+   else vtimer=setTimeout(()=>{vs++;next()},Math.max(1600,txt.split(/\s+/).length*380))};
+  next()};
+ const vo_play=()=>{playing=true;vo_ui();vo_mark(1);vo_say()};
+ const vo_pause=()=>{playing=false;vo_halt();vo_ui()};
+ const vo_go=n=>{vi=Math.max(0,Math.min(VO.length-1,n));vs=0;vo_ui();vo_mark(1);if(playing)vo_say()};
+ const vo_close=()=>{vo_pause();vo_mark(0);tb.hidden=true;document.removeEventListener("keydown",esc2);opener2&&opener2.focus()};
+ let opener2=null;const esc2=e=>{if(e.key==="Escape"&&!root.querySelector(".acw-lb[open]"))vo_close()};
+ const vo_start=async b=>{opener2=b;tb.hidden=false;vi=0;vs=0;document.addEventListener("keydown",esc2);vt.textContent=VO[0][1];vc.textContent="Getting the voice ready…";
+  if(syn){voice=vo_pick();if(!voice){await new Promise(r=>{const t=setTimeout(r,1200);syn.addEventListener("voiceschanged",()=>{clearTimeout(t);r()},{once:true})});voice=vo_pick()}}
+  vnote.textContent=voice?`Voice: ${voice.name.replace(/\s*\(.*\)$/,"").replace(/^Microsoft\s+/,"").replace(/\s+Online$/,"")}`:"No voice on this device, so the tour plays with captions.";
+  tb.querySelector('[data-v="play"]').focus();vo_play()};
+ root.querySelectorAll("[data-vo]").forEach(b=>b.onclick=()=>vo_start(b));
+ tb.addEventListener("click",e=>{const a=e.target.closest("[data-v]")?.dataset.v;if(!a)return;if(a==="play")playing?vo_pause():vo_play();else if(a==="prev")vo_go(vi-1);else if(a==="next")vo_go(vi+1);else if(a==="close")vo_close()});
+ if(!window.__acwVoStop){window.__acwVoStop=1;addEventListener("hashchange",()=>{if("speechSynthesis" in window)speechSynthesis.cancel()})}
+ addEventListener("hashchange",function h(){vo_halt();playing=false;removeEventListener("hashchange",h)});
  // Tap a screen to see it full size.
  const lb=root.querySelector(".acw-lb"),li=lb.querySelector("img");let opener=null;
- root.querySelectorAll(".acw-br img").forEach(im=>{im.tabIndex=0;im.setAttribute("role","button");im.setAttribute("aria-label","Open full size: "+im.alt);const open=()=>{opener=im;li.src=im.src;li.alt=im.alt;lb.showModal();lb.scrollTo(0,0);lb.querySelector("button").focus()};im.onclick=open;im.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}}});
+ root.querySelectorAll(".acw-br img").forEach(im=>{im.tabIndex=0;im.setAttribute("role","button");im.setAttribute("aria-label","Open full size: "+im.alt);const open=()=>{opener=im;lb.classList.remove("m");li.src=im.src;li.alt=im.alt;lb.showModal();lb.scrollTo(0,0);lb.querySelector("button").focus()};im.onclick=open;im.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}}});
+ root.querySelectorAll(".acw-ph .acw-scr").forEach(sc=>{const im=sc.querySelector("img");sc.setAttribute("aria-label",sc.getAttribute("aria-label").replace(" (scrolls)",". Press Enter to see it full size."));const open=()=>{opener=sc;lb.classList.add("m");li.src=im.src;li.alt=sc.getAttribute("aria-label");lb.showModal();lb.scrollTo(0,0);lb.querySelector("button").focus()};let y0=0;sc.addEventListener("pointerdown",()=>y0=sc.scrollTop);sc.addEventListener("click",()=>{if(Math.abs(sc.scrollTop-y0)<4)open()});sc.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();open()}}});
+ root.querySelectorAll(".acw-gi").forEach(b=>b.onclick=()=>{opener=b;lb.classList.toggle("m",b.dataset.dev==="m");li.src=b.dataset.full;li.alt=b.getAttribute("aria-label").replace("Open full size: ","");lb.showModal();lb.scrollTo(0,0);lb.querySelector("button").focus()});
+ lb.addEventListener("close",()=>lb.classList.remove("m"));
+ // Gallery: desktop / mobile tabs.
+ const tabs=[...root.querySelectorAll(".acw-seg [role=tab]")];const sel=t=>{tabs.forEach(x=>{const on=x===t;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute("aria-controls")).hidden=!on});t.focus()};
+ tabs.forEach((t,i)=>{t.onclick=()=>sel(t);t.onkeydown=e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();sel(tabs[(i+(e.key==="ArrowRight"?1:tabs.length-1))%tabs.length])}}});
  lb.querySelector("button").onclick=()=>lb.close();lb.onclick=e=>{if(e.target===lb)lb.close()};lb.onclose=()=>{opener&&opener.focus()};
 }
 
