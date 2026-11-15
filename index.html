@@ -1243,13 +1243,13 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acx-hero h1 span{display:block;color:var(--fo)}
 :root[data-theme="dark"] .acx-hero h1 span{color:#A9C4B4}
 .acx-hero .lead{font-size:19px;line-height:1.6;color:var(--ink-2);max-width:56ch}
+.acx-lock{display:flex;align-items:center;gap:8px;margin-bottom:32px}.acx-lock img{width:40px;height:40px}.acx-lock span{display:flex;flex-direction:column;line-height:1}.acx-lock b{font:600 20px var(--head);letter-spacing:-.02em;color:var(--fo)}.acx-lock small{font:500 9px var(--body);letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+:root[data-theme="dark"] .acx-lock b{color:var(--ink)}
 .acx-cta{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px}
-.acx-sphere{position:relative;aspect-ratio:1;max-width:440px;width:100%;justify-self:center}
-.acx-sphere b{position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle at 34% 28%,#F3F2EF 0,#A9AA8D 18%,#4E6A5A 46%,#1F3B2C 72%,#16291F 100%);box-shadow:0 32px 64px -24px rgba(31,59,44,.55),inset -16px -24px 48px rgba(0,0,0,.25);animation:acxFloat 8s ease-in-out infinite}
+.acx-sphere{position:relative;aspect-ratio:1;max-width:400px;width:100%;justify-self:center}
+.acx-sphere img{position:absolute;inset:30%;width:40%;height:40%;object-fit:contain}
 .acx-sphere i{position:absolute;inset:4%;border-radius:50%;border:1px solid color-mix(in srgb,var(--fo) 22%,transparent)}
-@keyframes acxFloat{50%{transform:translateY(-8px)}}
 @keyframes acxSpin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.acx-sphere b{animation:none}}
 .acx-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:64px 0 0;border-top:1px solid var(--line)}
 .acx-meta div{padding:16px 16px 0 0}
 .acx-meta dt{font:600 11px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
@@ -1265,7 +1265,7 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acx-ic{display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:var(--st);color:var(--fo);margin-bottom:16px}
 :root[data-theme="dark"] .acx-ic{background:#1E2A23;color:#A9C4B4}
 .acx-ic svg{width:24px;height:24px}
-.acx-ic.orb,.acx-orb{background:radial-gradient(circle at 34% 28%,#F3F2EF 0,#A9AA8D 22%,#4E6A5A 52%,#1F3B2C 80%);border-radius:50%}
+.acx-ic.mark{background:none;padding:0}.acx-ic.mark img{width:48px;height:48px}
 /* the one idea */
 .acx-band{background:var(--fo);color:var(--cr);padding-block:96px;position:relative;z-index:1}
 .acx-band .acx-k{color:#A9C4B4}
@@ -1302,13 +1302,14 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acx-live{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
 .acx-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--soft)}
 .acx-bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
-.acx-bar em{font:500 13px var(--body);font-style:normal;color:var(--muted);margin-left:8px;padding:4px 16px;border-radius:999px;background:var(--surface);flex:1;max-width:360px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acx-bar em img{width:16px;height:16px}
+.acx-bar em{display:flex;align-items:center;gap:8px;font:500 13px var(--body);font-style:normal;color:var(--muted);margin-left:8px;padding:4px 16px;border-radius:999px;background:var(--surface);flex:1;max-width:360px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .acx-bar a{margin-left:auto;font:600 13px var(--body);text-decoration:none;color:var(--ink-2);white-space:nowrap}
 .acx-view{position:relative;height:min(78vh,760px);background:radial-gradient(60% 70% at 50% 40%,#E4EBE6,var(--st))}
 :root[data-theme="dark"] .acx-view{background:radial-gradient(60% 70% at 50% 40%,#1E2A23,var(--soft))}
 .acx-view iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
 .acx-poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:32px;z-index:1}
-.acx-poster .acx-orb{width:96px;height:96px;box-shadow:0 24px 48px -16px rgba(31,59,44,.5)}
+.acx-poster .acx-orb{width:96px;height:96px}
 .acx-poster p{font:600 22px/1.25 var(--head);letter-spacing:-.02em;max-width:24ch}
 .acx-poster small{color:var(--muted);font-size:13px}
 /* result */
@@ -1565,12 +1566,13 @@ function agentcx(){const p=P.agentcx;
  <a class="back" href="#work">← All work</a>
  <div class="acx-hero-in">
   <div>
+   <p class="acx-lock"><img src="img/acw-mark.webp" alt="" width="40" height="40" decoding="async"><span><b>AgentCX</b><small>World</small></span></p>
    <p class="eyebrow">Case study ${p.n} · AI SaaS · 2026</p>
    <h1>AgentCX World. <span>An AI workforce you say yes to.</span></h1>
    <p class="lead">AgentCX World lets a business hire AI agents that answer customers on WhatsApp and the web, and workflows that do routine jobs. I designed the website, the product and the brand around one promise: nothing happens until the owner says yes.</p>
    <div class="acx-cta"><a class="btn" href="https://agentcxworld.com" target="_blank" rel="noopener">Visit the live site <span class="ar">↗</span></a></div>
   </div>
-  <div class="acx-sphere" aria-hidden="true"><i class="r1"></i><b></b></div>
+  <div class="acx-sphere"><i class="r1" aria-hidden="true"></i><img src="img/acw-mark.webp" alt="AgentCX World" width="274" height="274" decoding="async"></div>
  </div>
  <dl class="acx-meta">${[["Role","Product designer and BA"],["Scope","Website, product app and brand"],["Platforms","Desktop and mobile"],["Status","Website live, app signed off"]].map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
 </section>
@@ -1581,7 +1583,7 @@ function agentcx(){const p=P.agentcx;
 </section>
 
 <section class="wrap acx-sec"><span class="acx-k">What it is</span><h2 class="acx-h2">A team of AI coworkers, and one assistant who manages them</h2>
- <div class="acx-three">${[["chat","Agents","Talk to customers on WhatsApp, a chat link and the web. They answer questions, take orders and hand over to a person when a customer asks for one."],["flow","Workflows","Do jobs on a schedule or a trigger, like checking a website every morning or messaging a waitlist when a sold-out dish is back."],["kemi","Kemi, the assistant","Sits in the centre of the app and sees every agent and workflow. Kemi notices what needs you and proposes a fix, but never acts alone."]].map(([i,h,t])=>`<article><span class="acx-ic${i==="kemi"?" orb":""}">${i==="kemi"?"":acwI(i)}</span><h3>${h}</h3><p>${t}</p></article>`).join("")}</div>
+ <div class="acx-three">${[["chat","Agents","Talk to customers on WhatsApp, a chat link and the web. They answer questions, take orders and hand over to a person when a customer asks for one."],["flow","Workflows","Do jobs on a schedule or a trigger, like checking a website every morning or messaging a waitlist when a sold-out dish is back."],["kemi","Kemi, the assistant","Sits in the centre of the app and sees every agent and workflow. Kemi notices what needs you and proposes a fix, but never acts alone."]].map(([i,h,t])=>`<article><span class="acx-ic${i==="kemi"?" mark":""}">${i==="kemi"?'<img src="img/acw-mark.webp" alt="" width="274" height="274" decoding="async">':acwI(i)}</span><h3>${h}</h3><p>${t}</p></article>`).join("")}</div>
 </section>
 
 <section class="acx-band"><div class="wrap">
@@ -1607,8 +1609,8 @@ function agentcx(){const p=P.agentcx;
 
 <section class="wrap acx-sec" id="acx-live" tabindex="-1"><span class="acx-k">See it live</span><h2 class="acx-h2">The website is live. Take a look around.</h2>
  <div class="acx-live">
-  <div class="acx-bar"><i></i><i></i><i></i><em>agentcxworld.com</em><a href="https://agentcxworld.com" target="_blank" rel="noopener">Open in a new tab ↗</a></div>
-  <div class="acx-view"><div class="acx-poster"><span class="acx-orb" aria-hidden="true"></span><p>Browse the real site here, without leaving the page.</p><button type="button" class="btn acx-load">Load the live site</button><small>Or <a href="https://agentcxworld.com" target="_blank" rel="noopener">open agentcxworld.com in a new tab</a>.</small></div></div>
+  <div class="acx-bar"><i></i><i></i><i></i><em><img src="img/acw-mark.webp" alt="" width="16" height="16" loading="lazy">agentcxworld.com</em><a href="https://agentcxworld.com" target="_blank" rel="noopener">Open in a new tab ↗</a></div>
+  <div class="acx-view"><div class="acx-poster"><img class="acx-orb" src="img/acw-mark.webp" alt="" width="274" height="274" loading="lazy" decoding="async"><p>Browse the real site here, without leaving the page.</p><button type="button" class="btn acx-load">Load the live site</button><small>Or <a href="https://agentcxworld.com" target="_blank" rel="noopener">open agentcxworld.com in a new tab</a>.</small></div></div>
  </div>
 </section>
 
