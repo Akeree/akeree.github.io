@@ -1246,8 +1246,8 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acx-lock{display:flex;align-items:center;gap:8px;margin-bottom:32px}.acx-lock img{width:40px;height:40px}.acx-lock span{display:flex;flex-direction:column;line-height:1}.acx-lock b{font:600 20px var(--head);letter-spacing:-.02em;color:var(--fo)}.acx-lock small{font:500 9px var(--body);letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-top:4px}
 :root[data-theme="dark"] .acx-lock b{color:var(--ink)}
 .acx-cta{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px}
-.acx-sphere{position:relative;aspect-ratio:1;max-width:400px;width:100%;justify-self:center}
-.acx-sphere img{position:absolute;inset:30%;width:40%;height:40%;object-fit:contain}
+.acx-sphere{position:relative;aspect-ratio:1;max-width:300px;width:100%;justify-self:center}
+.acx-sphere img{position:absolute;inset:16%;width:68%;height:68%;object-fit:contain}
 .acx-sphere i{position:absolute;inset:4%;border-radius:50%;border:1px solid color-mix(in srgb,var(--fo) 22%,transparent)}
 @keyframes acxSpin{to{transform:rotate(360deg)}}
 .acx-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:64px 0 0;border-top:1px solid var(--line)}
@@ -1274,16 +1274,26 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acx-answers{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px}
 .acx-answers span{padding:12px 24px;border-radius:999px;border:1px solid rgba(236,233,225,.4);font:600 15px var(--head)}
 .acx-answers span.y{background:var(--cr);color:var(--fo);border-color:var(--cr)}
-/* steps */
-.acx-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;counter-reset:s}
-.acx-step{display:flex;flex-direction:column;gap:8px}
-.acx-n{font:600 40px/1 var(--head);letter-spacing:-.04em;color:color-mix(in srgb,var(--fo) 30%,transparent)}
-:root[data-theme="dark"] .acx-n{color:#3A5246}
-.acx-step .acx-k{margin-top:16px}
-.acx-step p{color:var(--ink-2);font-size:16px}
-.acx-call{margin-top:8px!important;padding-top:16px;border-top:1px solid var(--line);font-size:14px!important;line-height:1.55}
-.acx-call b{display:block;font:600 11px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--fo3);margin-bottom:4px}
-:root[data-theme="dark"] .acx-call b{color:#A9C4B4}
+/* steps: one bordered row, like Cartesia and Clay on Mobbin */
+.acx-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface)}
+.acx-steps li{padding:32px;display:flex;flex-direction:column;gap:8px}
+.acx-steps li+li{border-left:1px solid var(--line)}
+.acx-n{font:500 13px var(--body);letter-spacing:.08em;color:var(--fo3);margin-bottom:16px}
+:root[data-theme="dark"] .acx-n{color:#A9C4B4}
+.acx-steps p{color:var(--ink-2);font-size:15px;line-height:1.6}
+.acx-dec{margin-top:64px}
+.acx-dec>div{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:16px}
+.acx-dec article{padding-top:16px;border-top:1px solid var(--line)}
+.acx-dec p{color:var(--ink-2);margin-top:8px}
+/* result: three big numbers in one row, like Legora and Mixpanel on Mobbin */
+.acx-nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;text-align:center;margin:32px 0 64px}
+.acx-nums b{display:block;font:600 clamp(40px,6vw,72px)/1 var(--head);letter-spacing:-.045em;color:var(--fo)}
+:root[data-theme="dark"] .acx-nums b{color:#A9C4B4}
+.acx-nums span{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
+.acx-q{margin:0 auto;max-width:820px;text-align:center}
+.acx-q p{font:500 clamp(22px,2.6vw,32px)/1.3 var(--head);letter-spacing:-.02em;text-wrap:balance}
+.acx-q cite{display:block;margin-top:16px;font:600 11px var(--body);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.acx-fine{text-align:center;max-width:64ch;margin:32px auto 0}
 /* list */
 .acx-list{list-style:none;margin:0;padding:0}
 .acx-list li{display:grid;gap:4px;padding:16px 0;border-bottom:1px solid var(--line)}
@@ -1297,7 +1307,6 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acx-plans span{font:600 11px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .acx-plans b{display:block;font:600 28px/1.15 var(--head);letter-spacing:-.03em;margin:8px 0 16px}
 .acx-plans p{color:var(--ink-2);font-size:15px}
-.acx-nums div{background:none;border:0;border-top:1px solid var(--line);border-radius:0;padding:16px 0 0}
 /* live site */
 .acx-live{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
 .acx-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--soft)}
@@ -1305,23 +1314,17 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 .acx-bar em img{width:16px;height:16px}
 .acx-bar em{display:flex;align-items:center;gap:8px;font:500 13px var(--body);font-style:normal;color:var(--muted);margin-left:8px;padding:4px 16px;border-radius:999px;background:var(--surface);flex:1;max-width:360px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .acx-bar a{margin-left:auto;font:600 13px var(--body);text-decoration:none;color:var(--ink-2);white-space:nowrap}
-.acx-view{position:relative;height:min(78vh,760px);background:radial-gradient(60% 70% at 50% 40%,#E4EBE6,var(--st))}
+.acx-view{position:relative;height:420px;transition:height .3s}.acx-view.on{height:min(78vh,760px)}
+.acx-view{background:radial-gradient(60% 70% at 50% 40%,#E4EBE6,var(--st))}
 :root[data-theme="dark"] .acx-view{background:radial-gradient(60% 70% at 50% 40%,#1E2A23,var(--soft))}
 .acx-view iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
 .acx-poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:32px;z-index:1}
 .acx-poster .acx-orb{width:96px;height:96px}
 .acx-poster p{font:600 22px/1.25 var(--head);letter-spacing:-.02em;max-width:24ch}
 .acx-poster small{color:var(--muted);font-size:13px}
-/* result */
-.acx-end{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;margin-top:64px}
-.acx-end blockquote{margin:0}
-.acx-end blockquote p{font:500 clamp(22px,2.4vw,30px)/1.3 var(--head);letter-spacing:-.02em}
-.acx-end cite{display:block;margin-top:16px;font:600 11px var(--body);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.acx-end ul{margin:16px 0;padding-left:20px;color:var(--ink-2)}
-.acx-end li+li{margin-top:8px}
-@media (max-width:1023px){.acx-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.acx-hero-in{grid-template-columns:1fr;gap:32px}.acx-sphere{max-width:320px}}
-@media (max-width:860px){.acx-split,.acx-end{grid-template-columns:1fr;gap:32px}.acx-three,.acx-plans{grid-template-columns:1fr}.acx-meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:599px){.acx-steps{grid-template-columns:1fr}.acx-sec{padding-block:48px}.acx-band{padding-block:64px}.acx-sphere{max-width:260px}.acx-view{height:70vh}.acx-bar a{display:none}}
+@media (max-width:1023px){.acx-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.acx-steps li+li{border-left:0}.acx-steps li:nth-child(even){border-left:1px solid var(--line)}.acx-steps li:nth-child(n+3){border-top:1px solid var(--line)}.acx-hero-in{grid-template-columns:1fr;gap:32px}.acx-sphere{max-width:320px}}
+@media (max-width:860px){.acx-dec>div{grid-template-columns:1fr}.acx-split{grid-template-columns:1fr;gap:32px}.acx-three,.acx-plans{grid-template-columns:1fr}.acx-meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:599px){.acx-steps{grid-template-columns:1fr}.acx-steps li:nth-child(n){border-left:0}.acx-steps li+li{border-top:1px solid var(--line)}.acx-nums{gap:16px}.acx-sec{padding-block:48px}.acx-band{padding-block:64px}.acx-sphere{max-width:260px}.acx-view{height:70vh}.acx-bar a{display:none}}
 </style>
 </head>
 <body>
@@ -1403,7 +1406,7 @@ html.splashing .lp .loop path,html.splashing .dot::after{animation-play-state:pa
 /* Content ------------------------------------------------------------- */
 const ME={name:"Abdulfatai Akere",full:"Abdulfatai Akere",email:"akeredayo@gmail.com",linkedin:"https://www.linkedin.com/in/abdulfatai-akere-702787198/"};
 const P={
- agentcx:{n:"01",title:"AgentCX World",short:"AgentCX",type:"AI SaaS · Website + product",year:"2026",acc:"#1F3B2C",cover:"img/acw-cover.webp",role:"Product designer + BA",tags:["Website","Product app","Brand system"],
+ agentcx:{n:"01",title:"AgentCX World",short:"AgentCX",type:"AI SaaS · Website + product",year:"2026",acc:"#1F3B2C",cover:"img/acw-cover-v2.webp",role:"Product designer + BA",tags:["Website","Product app","Brand system"],
   lede:"AgentCX lets businesses build AI agents and workflows. I designed the whole experience: a website with three ways to start, the app where owners run their agents, and the brand that ties them together."},
  paddy:{n:"03",title:"Student Paddy",short:"Student Paddy",type:"EdTech · Community + careers",year:"2021",acc:"#12785A",cover:"img/sp-cover.webp",role:"Product designer + BA",tags:["Audit","Design system","Careers"],
   lede:"A digital campus where students get unstuck: ask by course, get one trusted answer, and connect with verified employers."},
@@ -1560,8 +1563,7 @@ const acwGal=()=>{const n=k=>ACWG[k].reduce((a,g)=>a+g[2].length,0);
  return `<div class="acw-seg" role="tablist" aria-label="Choose a device">${["d","m"].map((k,i)=>`<button type="button" role="tab" id="acw-gt-${k}" aria-controls="acw-gp-${k}" aria-selected="${i?"false":"true"}" tabindex="${i?-1:0}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ic[k]}</svg>${k==="d"?"Desktop":"Mobile"}<small>${n(k)}</small></button>`).join("")}</div>
  ${["d","m"].map((k,i)=>`<div class="acw-gp" role="tabpanel" id="acw-gp-${k}" aria-labelledby="acw-gt-${k}"${i?" hidden":""}>${panel(k)}</div>`).join("")}`};
 function agentcx(){const p=P.agentcx;
- const step=(n,k,h,b,call)=>`<li class="acx-step"><span class="acx-n">${n}</span><span class="acx-k">${k}</span><h3>${h}</h3><p>${b}</p><p class="acx-call"><b>Design call</b>${call}</p></li>`;
- return `<div class="acx" style="--acc:${p.acc}">
+  return `<div class="acx" style="--acc:${p.acc}">
 <section class="wrap acx-hero">
  <a class="back" href="#work">← All work</a>
  <div class="acx-hero-in">
@@ -1593,13 +1595,9 @@ function agentcx(){const p=P.agentcx;
  <div class="acx-answers" aria-label="The three answers"><span class="y">Yes, do it</span><span>Not now</span><span>Edit first</span></div>
 </div></section>
 
-<section class="wrap acx-sec"><span class="acx-k">How it works</span><h2 class="acx-h2">From first visit to a working agent, in four moments</h2>
- <ol class="acx-steps">
-  ${step("01","Start","Pick a way in","The website offers three routes: build it yourself, work with the AgentCX team, or use AgentCX from Claude and ChatGPT. Each page has one main action.","I parked the Platform page the PRD asked for. Visitors first need to know which route is theirs; a feature tour can wait.")}
-  ${step("02","Set up","Kemi shows its homework","Kemi reads the business's website and builds the agent with the owner in six steps. Every fact it learns shows its source, and the agent is tested in a sandbox before any customer sees it.","Conflicts are flagged, never guessed: “Two sources disagree”.")}
-  ${step("03","Run","A person is always one message away","When a customer asks for a person, the chat jumps to the top of the list and the right person is told. On a phone, the alert opens straight into the reply.","Handover rules are written in plain words and can be tested before they go live, so they don't fire too often or never.")}
-  ${step("04","Stay in charge","Kemi proposes. You decide.","Ask Kemi in plain words. It explains what it found, then proposes a change you can accept, park or edit. Messages to customers follow written rules: only people who said yes, never between 9pm and 8am Lagos time.","The proposal is one component, so every “say yes” moment looks the same in the app, on the website and in the Connector.")}
- </ol>
+<section class="wrap acx-sec"><span class="acx-k">How it works</span><h2 class="acx-h2">From first visit to a working agent</h2>
+ <ol class="acx-steps">${[["Start","Pick one of three ways in: build it yourself, work with the team, or use it from Claude and ChatGPT."],["Set up","Kemi reads your website and builds the agent with you. Every fact shows its source."],["Run","The agent answers customers. When someone asks for a person, a person gets it."],["Stay in charge","Kemi proposes changes. Nothing happens until you say yes."]].map(([h,t],i)=>`<li><span class="acx-n">0${i+1}</span><h3>${h}</h3><p>${t}</p></li>`).join("")}</ol>
+ <div class="acx-dec"><span class="acx-k">What I decided</span><div>${[["I parked the Platform page the PRD asked for","Visitors first need to know which way in is theirs. The nav slot went to Self-build instead."],["Every “yes” moment is one component","The same proposal card is used in the app, on the website and in the Connector, so trust is learned once."]].map(([h,t])=>`<article><h3>${h}</h3><p>${t}</p></article>`).join("")}</div></div>
 </section>
 
 <section class="wrap acx-sec"><span class="acx-k">The business</span><h2 class="acx-h2">How AgentCX makes money</h2><p class="acx-sub">Credits pay for what agents and workflows do. A free start removes the risk, and the consultation route sells custom work.</p>
@@ -1614,12 +1612,10 @@ function agentcx(){const p=P.agentcx;
  </div>
 </section>
 
-<section class="wrap acx-sec"><span class="acx-k">The result</span><h2 class="acx-h2">Live, and honest about what's left</h2>
- <div class="kpis acx-nums"><div><b>19</b><span>website pages and overlays, now live</span></div><div><b>70+</b><span>product screens and states, signed off</span></div><div><b>2</b><span>breakpoints for every screen: 1440 and 390</span></div><div><b>AA</b><span>text contrast after the QA pass</span></div></div>
- <div class="acx-end">
-  <blockquote><p>The hard part wasn't layout. It was earning trust: on the website, by not claiming what wasn't confirmed, and in the app, by making every change wait for a yes.</p><cite>What I learned</cite></blockquote>
-  <div><span class="acx-k">What's next</span><ul><li>Measure the share of chats agents solve without a handover, and the time from sign-up to the first live agent.</li><li>Voice notes, and replies in Pidgin, Yoruba, Hausa and Igbo. They're designed and parked for v2.</li></ul><p class="note">The website just launched, so there are no usage numbers yet. Example businesses in the designs are sample content.</p></div>
- </div>
+<section class="wrap acx-sec acx-res"><span class="acx-k">The result</span>
+ <div class="acx-nums"><div><b>19</b><span>website pages, live</span></div><div><b>70+</b><span>product screens, signed off</span></div><div><b>AA</b><span>text contrast</span></div></div>
+ <blockquote class="acx-q"><p>The hard part wasn't layout. It was earning trust, by never claiming what wasn't confirmed and by making every change wait for a yes.</p><cite>What I learned</cite></blockquote>
+ <p class="note acx-fine">Next: measure chats solved without a handover, and ship voice notes in Pidgin, Yoruba, Hausa and Igbo (designed, parked for v2). The site just launched, so there are no usage numbers yet. Example businesses are sample content.</p>
 </section>
 <section class="wrap"><a class="next" href="#houseparty"><span class="eyebrow">Next case study</span><b>House Party →</b></a></section>
 </div>`}
